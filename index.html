@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raízes Negras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #5c0000;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .hero {
+            background-color: #ffb400;
+            color: #5c0000;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        .hero p {
+            margin: 20px 0 0;
+            font-size: 1.2em;
+        }
+
+        .map {
+            margin: 20px auto;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .project-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .project-section .text {
+            flex: 1;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        .project-section .image {
+            flex: 1;
+            max-width: 300px;
+            padding: 20px;
+        }
+
+        .project-section .image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .cultural-section {
+            padding: 40px 20px;
+            background-color: #fff;
+        }
+
+        .cultural-section h2 {
+            color: #ffb400;
+            text-align: center;
+            font-size: 2em;
+        }
+
+        .cultural-section p {
+            text-align: center;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 300px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            scroll-snap-align: start;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        footer {
+            background-color: #5c0000;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+        }
+
+        .institutional {
+            text-align: center;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 40px;
+        }
+
+        .logos img {
+            height: 50px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <h1>Raízes Negras</h1>
+    </div>
+    <nav>
+        <a href="#">Início</a>
+        <a href="#">Sobre</a>
+        <a href="#">Conteúdo</a>
+        <a href="#">FAQ & Contato</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Raízes Negras</h1>
+    <p>Um acervo cultural dedicado à preservação da herança afrodescendente no Maranhão.</p>
+    <img class="map" src="map-placeholder.png" alt="Mapa do Maranhão" />
+</section>
+
+<section class="project-section">
+    <div class="text">
+        <h2>O Projeto</h2>
+        <p>
+            O projeto Raízes Negras tem como objetivo valorizar e preservar a memória cultural afrodescendente no Maranhão. Apesar de sua relevância histórica, muitos aspectos dessa cultura permanecem não documentados, dificultando sua valorização. A criação de uma plataforma digital interativa reunirá entrevistas com líderes comunitários, documentos históricos e materiais audiovisuais, servindo como um recurso educacional para estudantes e pesquisadores e promovendo a educação
+        </p>
+    </div>
+    <div class="image">
+        <img src="project-placeholder.jpg" alt="Foto do projeto Raízes Negras" />
+    </div>
+</section>
+
+<section class="cultural-section">
+    <h2>Teia Cultural</h2>
+    <p>Confira abaixo uma seleção de conteúdos sobre a cultura afro-maranhense.</p>
+    <h3>Últimos Artigos Adicionados</h3>
+    <div class="carousel">
+        <div class="carousel-item">
+            <img src="article1-placeholder.jpg" alt="Artigo 1">
+            <p>Reflexões sobre a ancestralidade africana do Tambor de Mina do Maranhão.</p>
+            <a href="#">acesse o artigo aqui</a>
+        </div>
+        <div class="carousel-item">
+            <img src="article2-placeholder.jpg" alt="Artigo 2">
+            <p>A CASA DAS MINAS DE SÃO LUÍS DO MARANHÃO e a saga de NA AGONTIMÉ...</p>
+            <a href="#">acesse o artigo aqui</a>
+        </div>
+        <div class="carousel-item">
+            <img src="article3-placeholder.jpg" alt="Artigo 3">
+            <p>Economia e demografia da escravidão no Maranhão...</p>
+            <a href="#">acesse o artigo aqui</a>
+        </div>
+        <div class="carousel-item">
+            <img src="article4-placeholder.jpg" alt="Artigo 4">
+            <p>Famílias e alunos de origem africana no Maranhão do século XIX...</p>
+            <a href="#">acesse o artigo aqui</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    &copy; 2025 Raízes Negras. Todos os direitos reservados.
+    <div class="institutional">
+        Realização: Jorge Miguel Viana Torres | Murilo Gabriel Mourão<br>
+        Orientação: Erick MacGregor
+    </div>
+    <div class="logos">
+        <img src="iema-logo-placeholder.png" alt="IEMA">
+        <img src="governo-maranhao-logo-placeholder.png" alt="Governo do Maranhão">
+        <img src="seduc-logo-placeholder.png" alt="SEDUC">
+    </div>
+</footer>
+
+</body>
+</html>
