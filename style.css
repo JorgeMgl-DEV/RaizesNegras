@@ -24,7 +24,7 @@ header nav a {
 }
 
 .hero {
-    background-color: #ffb400;
+    background-color: #F39C13;
     color: #5c0000;
     display: flex;
     flex-direction: row;
@@ -86,7 +86,7 @@ header nav a {
 }
 
 .cultural-section h2 {
-    color: #ffb400;
+    color: #F39C13;
     text-align: center;
     font-size: 2em;
 }
