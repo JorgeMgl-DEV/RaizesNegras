@@ -4,26 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raízes Negras</title>
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
-    <div class="header-logo">
-        <a href="#"><img src="assets/raizes negras claro transparente p.png" alt=""></a>
-    </div>
-    <nav>
-        <a href="#">Início</a>
-        <a href="#">Sobre</a>
-        <a href="#">Conteúdo</a>
-        <a href="#">FAQ & Contato</a>
+    <nav class="navbar">
+        <div class="navbar__logo">
+            <a href="#"><img src="assets/raizes negras claro transparente p.png" alt=""></a>
+        </div>
+        <div class="navbar__menu">
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Conteúdo</a></li>
+                <li><a href="#">FAQ & Contato</a></li>
+            </ul>
+        </div>
+        <div class="navbar__search">
+            <input type="text">
+            <button></button>
+        </div>
     </nav>
 </header>
-<section class="hero">
-    <div class="text-section">
-        <a href="#"><img src="assets/raizes negras escuro transparente p.png" alt=""></a>
+<section class="section-top">
+    <a href="#" class="section-top__logo">
+        <img src="assets/raizes negras escuro transparente p.png" alt="">
+    </a>
+    <div class="section-top__text">
         <p>Um acervo cultural dedicado à preservação da herança <br> afrodescendente no Maranhão.</p>
     </div>
-    <img class="map" src="assets/Mapa MA.png" alt="Mapa do Maranhão" />
+    <a href="#" class="section-top__map">
+        <img src="assets/Mapa MA.png" alt="Mapa do Maranhão" />
+    </a>
 </section>
 
 <section class="project-section">
@@ -73,9 +86,8 @@
         Orientação: Erick MacGregor
     </div>
     <div class="footer">
-        <img src="iema-logo-placeholder.png" alt="IEMA">
-        <img src="governo-maranhao-logo-placeholder.png" alt="Governo do Maranhão">
-        <img src="seduc-logo-placeholder.png" alt="SEDUC">
+        <img src="assets/logo_iema.png" alt="IEMA">
+        <img src="assets/LOGO_GOV_MA_2023_MAIOR.png" alt="Governo do Maranhão">
     </div>
 </footer>
 </body>
