@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+
+body {
+    background-color:var(--bg-background-color);
+    font-family:var(--font-instrument-sans);
+}
+
+.navbar {
+    display: flex;
+    padding: 15px;
+    background-color: var(--bg-cor-id-1);
+}
+
+.navbar__logo {
+    align-items: center;
+    justify-items: center;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.navbar__logo img {
+    max-width: 8vw;
+}
+
+.navbar__direita {
+    display: flex;
+    justify-content: flex-end;
+}
