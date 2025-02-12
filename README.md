@@ -1,4 +1,5 @@
 ﻿# Raízes Negras
+ ![Image](https://github.com/user-attachments/assets/f1e90b12-0373-4cd8-a3dc-6b78136e8c00)
 
 Bem-vindo ao projeto **Raízes Negras**, uma plataforma digital interativa dedicada à preservação e valorização da herança cultural afrodescendente no Maranhão.
 
