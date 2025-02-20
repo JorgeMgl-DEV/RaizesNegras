@@ -41,9 +41,9 @@
     display: inline-block;
     transform: rotate(45deg);
     
-    position: absolute;
+    position: relative;
+    margin-top: 100px; /* Ajuste esse valor conforme necessário */
     left: 50%;
-    bottom: 20px;
     transform: translateX(-50%) rotate(45deg);
 
     animation: bounce 1s infinite alternate ease-in-out;

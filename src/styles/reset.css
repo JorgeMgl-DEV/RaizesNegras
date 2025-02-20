@@ -1,13 +1,10 @@
-/* RESET CSS - Completo e Moderno */
 
-/* 1. Remove margens e paddings padrão */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* 2. Ajusta fontes para melhorar legibilidade */
 html {
     font-size: 16px;
     line-height: 1.5;
@@ -16,7 +13,6 @@ html {
     scroll-behavior: smooth;
 }
 
-/* 3. Remove decoração padrão de links */
 a {
     text-decoration: none;
     color: inherit;

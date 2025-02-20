@@ -1,0 +1,43 @@
+.cultural-section {
+    align-items: center;
+}
+
+.cultural-section__text {
+    text-align: justify;
+    margin: 0px;
+    margin-left: 85px;
+    max-width: 600px;
+}
+
+.cultural-section__text .title {
+    color: var(--bg-cor-id-2);
+    font-weight: bolder;
+    font-size: 27px;
+}
+
+.cultural-section__text .text {
+    font-weight: bold;
+    font-size: 20px;
+}   
+
+.cultural-section__text .subtitle {
+    color: var(--bg-cor-id-2);
+    font-size: 20px;
+    align-items: center;
+    margin-top: 45px;
+}
+
+.cultural-section__carrossel {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.cultural-section__carrossel__item {
+    margin: 0px 10px;
+    width: 300px;
+    height: 300px;
+    border-radius: 5%;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
