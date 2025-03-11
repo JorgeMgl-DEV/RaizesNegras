@@ -1,0 +1,32 @@
+[
+    {
+        "code": "1",
+        "name": "Norte Maranhense",
+        "descricao": "A cultura afro no Norte Maranhense é marcada por ritmos e danças, como o tambor de crioula e o reggae. Essas tradições fortalecem a identidade afrodescendente e mantêm viva a herança cultural da região.s",
+        "link": "youtube.com"
+    },
+    {
+        "code":"2",
+        "name": "Sul Maranhense",
+        "descricao": "A cultura afro no Sul Maranhense se expressa em festas e celebrações, como o cacuriá e o reisado. Essas manifestações ressaltam a influência africana e mantêm vivas as raízes culturais locais.",
+        "link": "#"
+    },
+    {
+        "code":"3",
+        "name": "Leste Maranhense",
+        "descricao": "A cultura afro no Leste Maranhense é rica e diversificada, destacando-se por manifestações como o candomblé e o bumba-meu-boi. Essas expressões preservam a identidade afro-brasileira e celebram a ancestralidade na região..",
+        "link": "#"
+    },
+    {
+        "code":"4",
+        "name": "Oeste Maranhense",
+        "descricao": "A cultura afro no Oeste Maranhense é preservada em rituais e festejos, como a festa do Divino e o tambor de mina. Essas expressões reforçam os laços comunitários e a valorização da ancestralidade.",
+        "link": "#"
+    },
+    {
+        "code":"5",
+        "name": "Centro Maranhense",
+        "descricao": "A cultura afro no Centro Maranhense se destaca por eventos e tradições, como a capoeira e os terreiros de matriz africana. Essas práticas reafirmam a identidade cultural e a resistência histórica do povo.",
+        "link": "#"
+    }
+]

@@ -1,14 +1,15 @@
 .project-section {
     margin: auto;
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     height: 800px;
 }
+
 .project-section__text {
     max-width: 800px;
     text-align: justify;
-    margin: 0px;
+    margin: 0;
     margin-left: 165px;
 }
 

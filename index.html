@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- Meta tags para configuração de conjunto de caracteres e viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Título da página -->
     <title>Raízes Negras</title>
-    
-    <!-- Link para folhas de estilo CSS -->
     <link rel="stylesheet" href="src/styles/reset.css">
     <link rel="stylesheet" href="src/styles/vars.css">
     <link rel="stylesheet" href="src/styles/style.css">
     <link rel="stylesheet" href="src/styles/navbar.css">
+    <link rel="stylesheet" href="src/styles/svg.css">
     <link rel="stylesheet" href="src/styles/section-top.css">
     <link rel="stylesheet" href="src/styles/project-section.css">
     <link rel="stylesheet" href="src/styles/cultural-section.css">
     <link rel="stylesheet" href="src/styles/footer.css">
-    
-    <!-- Link para FontAwesome para ícones -->
+
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/solid.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css"/>
+
 </head>
 <body>
 <header>
-    <!-- Barra de navegação -->
     <nav class="navbar">
         <div class="navbar__logo">
-            <!-- Link do logo -->
-            <a href="#"><img src="src/assets/logo/raizes negras claro transparente p.png" alt="Logo"></a>
+            <a href="#"><img src="src/assets/logo/raizes negras claro transparente p.png" alt="Logo Raízes Negras"></a>
         </div>
         <div class="navbar__direita">
             <div class="navbar__menu">
-                <!-- Menu de navegação -->
                 <ul>
                     <li><a href="#">Início</a></li>
                     <li><a href="#">Sobre</a></li>
@@ -41,25 +35,29 @@
                 </ul>
             </div>
             <div class="navbar__search">
-                <!-- Barra de pesquisa -->
-                <input type="text" placeholder="">
-                <button class="fa fa-search"></button>
+                <input type="text" placeholder="Buscar...">
+                <button class="fa fa-search" aria-label="Buscar"></button>
             </div>
         </div>
     </nav>
 </header>
 <section class="section-top">
-    <!-- Seção superior com imagens e texto -->
     <div class="section-top__images">
         <a href="#" class="section-top__logo">
-            <img src="src/assets/logo/raizes negras escuro transparente p.png" alt="Logo">
+            <img src="src/assets/logo/raizes negras escuro transparente p.png" alt="Logo Raízes Negras">
         </a>
+        
+        <div class="section-top__map container">
+            <img src="Mapa-MA.svg" onload="fetchSvg(this)" alt="Mapa do Maranhão">
+            <div id="popup"></div>
+        </div>
+        <!--
         <a href="#" class="section-top__map">
-            <img src="src/assets/logo/Mapa MA.png" alt="Mapa do Maranhão">
+            <img src="src/assets/logo/Mapa MA.png" alt="Mapa do Maranhãos" />
         </a>
+        -->
     </div>
     <div class="section-top__text">
-        <!-- Texto descritivo -->
         <p>Um acervo cultural dedicado à preservação da herança <br> afrodescendente no Maranhão.</p>
     </div>
     <div class="arrow-down"></div>
@@ -67,48 +65,51 @@
 
 <div class="bottom-section">
     <section class="project-section">
-        <!-- Seção do projeto com texto e imagem -->
         <div class="project-section__text">
-            <h1 class="project-section__text title">O Projeto</h1>
+            <h1 class="project-section__text title">
+                O Projeto
+            </h1>
             <span class="project-section__text text">
                 O projeto Raízes Negras tem como objetivo valorizar e preservar a memória cultural afrodescendente no Maranhão. Apesar de sua relevância histórica, muitos aspectos dessa cultura permanecem não documentados, dificultando sua valorização. A criação de uma plataforma digital interativa reunirá entrevistas com líderes comunitários, documentos históricos e materiais audiovisuais, servindo como um recurso educacional para estudantes e pesquisadores e promovendo a educação.
             </span>
         </div>
         <div class="project-section__img">
-            <img src="src/assets/imagens/section project.png" alt="Foto do projeto Raízes Negras">
-            <span class="subtitle">Alcântara é o município brasileiro com maior número de comunidades quilombolas, segundo lideranças locais Foto: CONAQ</span>
+            <img src="src/assets/imagens/section project.png" alt="Foto do projeto Raízes Negras" />
+            <span class="subtitle">Alcântara é o município brasileiro com maior número de comunidades quilombolas, segundo lideranças locais Foto: CONAQ </span>
         </div>
     </section>
     
     <section class="cultural-section">
-        <!-- Seção cultural com texto e carrossel -->
         <div class="cultural-section__text">
-            <h1 class="cultural-section__text title">Teia Cultural</h1>
-            <h1 class="cultural-section__text text">Confira abaixo uma seleção de conteúdos sobre a cultura afro-maranhense.</h1>
+            <h1 class="cultural-section__text title">
+                Teia Cultural
+            </h1>
+            <h1 class="cultural-section__text text">
+                Confira abaixo uma seleção de conteúdos sobre a cultura afro-maranhense.
+            </h1>
             <h3 class="cultural-section__text subtitle">Últimos Artigos Adicionados</h3>
         </div>
         
         <div class="cultural-section__carrossel">
-            <!-- Itens do carrossel -->
             <div class="cultural-section__carrossel__item">
                 <img src="src/assets/imagens/tamborDeMina.png" alt="Artigo 1">
                 <p>Reflexões sobre a ancestralidade africana do Tambor de Mina do Maranhão.</p>
-                <a href="#">acesse o artigo aqui</a>
+                <a href="#">Acesse o artigo aqui</a>
             </div>
             <div class="cultural-section__carrossel__item">
                 <img src="src/assets/imagens/cadaDeMinas.png" alt="Artigo 2">
                 <p>A CASA DAS MINAS DE SÃO LUÍS DO MARANHÃO e a saga de NA AGONTIMÉ...</p>
-                <a href="#">acesse o artigo aqui</a>
+                <a href="#">Acesse o artigo aqui</a>
             </div>
             <div class="cultural-section__carrossel__item">
                 <img src="src/assets/imagens/maranhao.png" alt="Artigo 3">
                 <p>Economia e demografia da escravidão no Maranhão...</p>
-                <a href="#">acesse o artigo aqui</a>
+                <a href="#">Acesse o artigo aqui</a>
             </div>
             <div class="cultural-section__carrossel__item">
                 <img src="src/assets/imagens/crianças.png" alt="Artigo 4">
                 <p>Famílias e alunos de origem africana no Maranhão do século XIX...</p>
-                <a href="#">acesse o artigo aqui</a>
+                <a href="#">Acesse o artigo aqui</a>
             </div>
         </div>
     </section>
@@ -116,7 +117,6 @@
 <hr class="linha">
 
 <footer class="footer">
-    <!-- Seção do rodapé -->
     <span class="footer">&copy; 2025 Raízes Negras. Todos os direitos reservados.</span>
     <div class="institutional">
         <span>Realização: Jorge Miguel Viana Torres | Murilo Gabriel Mourão<br>
@@ -128,5 +128,6 @@
         <img src="src/assets/logo/LOGO_GOV_MA_2023_MAIOR.png" alt="Governo do Maranhão">
     </div>
 </footer>
+<script src="svg.js"></script>
 </body>
 </html>
