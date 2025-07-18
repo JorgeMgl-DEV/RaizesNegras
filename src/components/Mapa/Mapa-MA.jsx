@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const InteractiveMap = () => {
+const MapaMA = () => {
     // Estado para rastrear qual região está com hover
     const [hoveredRegion, setHoveredRegion] = useState(null);
 
@@ -10,7 +10,7 @@ const InteractiveMap = () => {
     };
 
     const handleMouseLeave = () => {
-        setHoveredRegion(null);
+        setHoveredRegion(null);Circle
     };
 
     // Cores padrão e de hover
@@ -84,4 +84,4 @@ const InteractiveMap = () => {
     );
 };
 
-export default InteractiveMap;
+export default MapaMA;

@@ -1,10 +1,10 @@
 import Navbar from "../components/Navbar/Navbar"
-import InteractiveCircle from '../components/Navbar/Circle';
+import MapaMA from '../components/Mapa/Mapa-MA';
 function Home(){
     return(
         <>
-        <Navbar></Navbar>
-        <InteractiveCircle />
+        <Navbar/>
+        <MapaMA/>
         </>
     )
 }
