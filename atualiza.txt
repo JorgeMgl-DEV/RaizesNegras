@@ -1,0 +1,3 @@
+Fiz o componente Navbar e a page home
+falta a logo do raizes negras no Navbar
+feito o global css

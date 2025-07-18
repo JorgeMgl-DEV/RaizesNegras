@@ -1,0 +1,80 @@
+/* IMPORT DE FONTE */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+
+/* RESET GERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Instrument Sans", serif;
+    color: #333;
+    background-color: var(--bg-background-color);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+button, input, textarea, select {
+    font: inherit;
+    font-family: inherit;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+article, aside, footer, header, nav, section {
+    display: block;
+}
+
+textarea {
+    resize: vertical;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+button {
+    touch-action: manipulation;
+}
+
+/* VARIÁVEIS ROOT */
+:root {
+    --font-instrument-sans: "Instrument Sans", serif;
+    --font-dm-sans: "DM Sans", sans-serif;
+
+    --bg-background-color: #F3F3F3;
+    --bg-cor-id-1: #460E06;
+    --bg-cor-id-2: #F39C13;
+}
