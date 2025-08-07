@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import paths from './path.json';
 
 const regions = [
@@ -8,6 +8,8 @@ const regions = [
   { name: 'centro', code: '5' },
   { name: 'sul', code: '2' },
 ];
+
+const defaultStroke = '#F8BB5C';
 
 const MapaMASVG = ({ hoveredRegion, handleMouseEnter, handleMouseLeave, defaultFill, hoverFill }) => (
     <svg
@@ -21,22 +23,25 @@ const MapaMASVG = ({ hoveredRegion, handleMouseEnter, handleMouseLeave, defaultF
     >
         <g
             transform="translate(0.000000,1701.000000) scale(0.100000,-0.100000)"
-            stroke="#F8BB5C"
-            strokeWidth="155"
             strokeLinecap="round"
             strokeLinejoin="round"
         >
-            {regions.map(({ name, code }) => (
-                <a className="regiao" name={name} code={code} key={name}>
-                    <path
-                        d={paths[name]}
-                        fill={hoveredRegion === name ? hoverFill : defaultFill}
-                        onMouseEnter={() => handleMouseEnter(name)}
-                        onMouseLeave={handleMouseLeave}
-                        style={{ transition: 'fill 0.3s ease' }}
-                    />
-                </a>
-            ))}
+            {regions.map(({ name, code }) => {
+                const isHovered = hoveredRegion === name;
+                return (
+                    <a className="regiao" name={name} code={code} key={name}>
+                        <path
+                            d={paths[name]}
+                            fill={isHovered ? defaultStroke : defaultFill}
+                            stroke={isHovered ? hoverFill : defaultStroke}
+                            strokeWidth={155}
+                            onMouseEnter={() => handleMouseEnter(name)}
+                            onMouseLeave={handleMouseLeave}
+                            style={{ transition: 'fill 0.3s, stroke 0.3s' }}
+                        />
+                    </a>
+                );
+            })}
         </g>
     </svg>
 );

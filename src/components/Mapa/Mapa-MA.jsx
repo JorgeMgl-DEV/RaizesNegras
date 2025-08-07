@@ -13,7 +13,7 @@ const MapaMA = () => {
     };
 
     const defaultFill = '#460E06';
-    const hoverFill = '#FF0000';
+    const hoverFill = '#460E06';
 
     return (
         <div>
