@@ -11,7 +11,7 @@ const regions = [
 
 const defaultStroke = '#F8BB5C';
 
-const MapaMASVG = ({ hoveredRegion, handleMouseEnter, handleMouseLeave, defaultFill, hoverFill }) => (
+const MapaMASVG = ({ hoveredRegion, handleMouseEnter, handleMouseLeave, handleRegionClick, defaultFill, hoverFill }) => (
     <svg
         className="svg-map"
         version="1.0"
@@ -36,6 +36,7 @@ const MapaMASVG = ({ hoveredRegion, handleMouseEnter, handleMouseLeave, defaultF
                             strokeWidth={155}
                             onMouseEnter={() => handleMouseEnter(name)}
                             onMouseLeave={handleMouseLeave}
+                            onClick={(e) => handleRegionClick(e, code)}
                             style={{ transition: 'fill 0.3s, stroke 0.3s' }}
                         />
                     </a>
