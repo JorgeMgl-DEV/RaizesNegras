@@ -1,23 +1,22 @@
- import React from 'react';
 import paths from './path.json';
+import './MapaMASVG.css';
 
 const regions = [
-  { name: 'oeste', code: '4' },
-  { name: 'norte', code: '1' },
-  { name: 'leste', code: '3' },
-  { name: 'centro', code: '5' },
-  { name: 'sul', code: '2' },
+    { name: 'oeste', code: '4' },
+    { name: 'norte', code: '1' },
+    { name: 'leste', code: '3' },
+    { name: 'centro', code: '5' },
+    { name: 'sul', code: '2' },
 ];
 
 const defaultStroke = '#F8BB5C';
 
 const MapaMASVG = ({ hoveredRegion, handleMouseEnter, handleMouseLeave, defaultFill, hoverFill }) => (
     <svg
+        className="svg-map"
         version="1.0"
         id="svg-map"
         xmlns="http://www.w3.org/2000/svg"
-        width="700px"
-        height="1000px"
         viewBox="0 0 1272 1701"
         preserveAspectRatio="xMidYMid meet"
     >

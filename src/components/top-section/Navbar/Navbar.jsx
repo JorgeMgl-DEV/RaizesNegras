@@ -1,5 +1,5 @@
 import './Navbar.css';
-import logoRclaro from '../../assets/logoRclaro.png';
+import logoRclaro from '../../../assets/logoRclaro.png';
 
 function Navbar(){
     return(

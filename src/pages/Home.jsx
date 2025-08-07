@@ -1,5 +1,7 @@
-import Navbar from "../components/Navbar/Navbar"
-import MapaMA from '../components/Mapa/Mapa-MA';
+import Navbar from "../components/top-section/Navbar/Navbar"
+import MapaMA from '../components/top-section/Mapa/Mapa-MA';
+import './home.css';
+
 function Home(){
     return(
         <>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import MapaMASVG from './MapaMASVG';
+import './MapaMASVG.css';
 
 const MapaMA = () => {
     const [hoveredRegion, setHoveredRegion] = useState(null);
@@ -16,7 +17,7 @@ const MapaMA = () => {
     const hoverFill = '#460E06';
 
     return (
-        <div>
+        <div className="mapa-container">
             <MapaMASVG
                 hoveredRegion={hoveredRegion}
                 handleMouseEnter={handleMouseEnter}
