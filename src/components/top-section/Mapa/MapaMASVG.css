@@ -1,16 +1,18 @@
 .svg-map {
-  max-height: 600px;
-  height: 100%;
+  max-height: 900px;
+  min-height: 700px;
+  height: auto;
   width: auto;
   display: block;
-  margin: 40px 150px 0 40px;
+  margin: 30px auto;
 }
 
 .mapa-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   width: 100%;
+  min-height: 800px;
 }
 
 .svg-map .regiao path {
@@ -29,4 +31,24 @@
 .popup-wrapper {
   position: fixed;
   z-index: 1000;
+}
+
+/* Responsividade para tablets */
+@media (max-width: 1024px) {
+  .svg-map {
+    max-height: 700px;
+    min-height: 500px;
+    margin: 20px auto;
+  }
+  
+  .mapa-container {
+    min-height: 600px;
+  }
+}
+
+/* Responsividade para mobile - mapa desaparece */
+@media (max-width: 768px) {
+  .mapa-container {
+    display: none;
+  }
 }
