@@ -1,12 +1,10 @@
-import Navbar from "../components/top-section/Navbar/Navbar"
-import MapaMA from '../components/top-section/Mapa/Mapa-MA';
+import TopSection from "../components/top-section/TopSection";
 import './home.css';
 
 function Home(){
     return(
         <>
-        <Navbar/>
-        <MapaMA/>
+        <TopSection />
         </>
     )
 }
