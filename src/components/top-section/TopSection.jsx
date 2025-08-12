@@ -1,4 +1,3 @@
-import React from 'react';
 import Navbar from './Navbar/Navbar';
 import MapaMA from './Mapa/Mapa-MA';
 import logoRdark from '../../assets/logoRdark.png';
