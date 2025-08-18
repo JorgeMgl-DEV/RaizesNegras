@@ -1,0 +1,24 @@
+.footer {
+    border-top: 2px solid #ccc;
+    /* substitui o hr */ 
+    padding: 20px;
+    background: #fff;
+}
+
+.footer__content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer__logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.footer__logos img {
+    height: 50px;
+    max-width: 100%;
+}
