@@ -1,51 +1,183 @@
+/* ===== BASE ===== */
 .navbar {
     background-color: var(--bg-cor-id-1);
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    position: relative;
 }
 
 .navbar__logo img {
     max-width: 100px;
     margin: auto;
-    padding: 15px;
+    padding: 15px 0;
+    display: block;
 }
 
+/* Grupo da direita = links + busca + hamburguer */
 .navbar__direita {
-    font-size: 20px;
+    display: flex;
     align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+    gap: 16px;
     color: var(--bg-cor-id-2);
-    display: flex;
-    margin-left: auto;
-    margin-right: 20px;
+    font-size: 20px;
+    position: relative;
 }
 
-.navbar__menu ul {
-    display: flex;
+/* ===== HAMBÚRGUER ===== */
+.navbar__hamburger {
+    display: none;
+    background: transparent;
+    border: 0;
+    padding: 10px;
+    cursor: pointer;
 }
 
-.navbar__menu li {
-    padding: 5px 10px 5px 5px;
-    font-weight: bold;
+.navbar__hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--bg-cor-id-2);
+    margin: 5px 0;
 }
 
-.navbar__direita .navbar__search {
+/* ===== BUSCA (desktop padrão) ===== */
+.navbar__search {
     background-color: var(--bg-cor-id-2);
     padding: 5px;
     border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
-.navbar__direita .navbar__search input::placeholder{
-    padding-left: 0;
-    font-weight: 600;
+.navbar__search .navbar__search-btn {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding-left: 10px;
     color: var(--bg-cor-id-1);
+    /* ícone marrom */
+    transform: scaleX(-1);
 }
-.navbar__direita .navbar__search input {
+
+.navbar__search input {
     padding-left: 8px;
     font-weight: 600;
     color: var(--bg-cor-id-1);
+    background: transparent;
+    border: none;
+    outline: none;
 }
 
-.navbar__search .fa-search {
-    padding-left: 10px;
+.navbar__search input::placeholder {
+    font-weight: 600;
     color: var(--bg-cor-id-1);
-    transform: scaleX(-1);
+}
+
+/* ===== MENU (DESKTOP) ===== */
+.navbar__menu ul {
+    display: flex;
+    gap: 16px;
+}
+
+.navbar__menu li {
+    font-weight: bold;
+}
+
+.navbar__menu a {
+    color: var(--bg-cor-id-2);
+    text-decoration: none;
+}
+
+.navbar__menu a:hover,
+.navbar__menu a:focus {
+    text-decoration: underline;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 915px) {
+    .navbar {
+        padding: 0 8px;
+    }
+
+    .navbar__direita {
+        position: static;
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Menu vira dropdown, escondido inicialmente */
+    .navbar__menu {
+        display: none !important;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-cor-id-1);
+        border: none;
+        border-radius: 0;
+        padding: 32px 16px;
+        z-index: 20;
+        text-align: center;
+    }
+
+    .navbar__menu.is-open {
+        display: block !important;
+    }
+
+    .navbar__menu ul {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .navbar__menu li {
+        padding: 10px 0;
+        border: none;
+    }
+
+    /* Busca no mobile: ícone amarelo “nu” */
+    .navbar__search {
+        background: transparent;
+        padding: 0;
+        gap: 0;
+    }
+
+    .navbar__search .navbar__search-btn {
+        padding: 8px;
+        color: var(--bg-cor-id-2);
+        /* ícone amarelo */
+    }
+
+    .navbar__search input {
+        display: none;
+        min-width: 0;
+    }
+
+    .navbar__search.is-open {
+        background: var(--bg-cor-id-2);
+        padding: 6px;
+        gap: 6px;
+        border-radius: 50px;
+    }
+
+    .navbar__search.is-open .navbar__search-btn {
+        color: var(--bg-cor-id-1);
+        /* ícone marrom */
+    }
+
+    .navbar__search.is-open input {
+        display: inline-block;
+        width: 160px;
+    }
+
+    .navbar__hamburger {
+        display: inline-block;
+    }
 }
