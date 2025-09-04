@@ -1,12 +1,12 @@
-import Home from "./pages/HOME/Home";
-import './App.css'
-function App() {
+import { Routes, Route } from "react-router-dom"
+import Home from "./pages/HOME/Home.jsx"
+import RegionPage from "./pages/REGIAO/RegionPage.jsx"
 
+export default function App() {
   return (
-    <>
-    <Home></Home>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/regiao/:slug" element={<RegionPage />} />
+    </Routes>
   )
 }
-
-export default App
