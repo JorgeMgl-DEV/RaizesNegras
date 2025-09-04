@@ -40,7 +40,7 @@
 }
 
 .region-badge {
-    background: #F8BB5C;
+    background: var(--bg-cor-id-2);
     color: #460E06;
     border-radius: 999px;
     padding: 4px 10px;
@@ -79,6 +79,6 @@
 }
 
 .region-cta:hover {
-    background: #F8BB5C;
+    background: var(--bg-cor-id-2);
     color: #460E06;
 }

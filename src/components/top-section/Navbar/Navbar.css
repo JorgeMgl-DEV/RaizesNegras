@@ -11,7 +11,8 @@
 .navbar__logo img {
     max-width: 100px;
     margin: auto;
-    padding: 15px 0;
+    padding: 15px 0 ;
+    padding-left: 30px;
     display: block;
 }
 
@@ -33,6 +34,7 @@
     background: transparent;
     border: 0;
     padding: 10px;
+    padding-right: 30px;
     cursor: pointer;
 }
 
@@ -48,6 +50,7 @@
 .navbar__search {
     background-color: var(--bg-cor-id-2);
     padding: 5px;
+    padding-right: 30px;
     border-radius: 50px;
     display: inline-flex;
     align-items: center;

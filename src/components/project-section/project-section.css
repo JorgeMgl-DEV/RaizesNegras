@@ -2,12 +2,17 @@ html {
     scroll-behavior: smooth;
 }
 
+/* ===== Desktop / padrão ===== */
 .project-section {
     margin: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 800px;
+    gap: clamp(24px, 5vw, 80px);
+    min-height: 720px;
+    height: clamp(640px, 80vh, 860px);
+    max-width: min(1600px, 92vw);
+    padding: 0 clamp(16px, 4vw, 48px);
 }
 
 .project-section__text {
@@ -15,32 +20,45 @@ html {
     text-align: justify;
     margin: 0;
     margin-left: 165px;
+    flex: 1 1 50%;
 }
 
 .project-section__text .title {
     color: var(--bg-cor-id-2);
     font-weight: bolder;
-    font-size: 50px;
-    margin-left: 0;
+    font-size: clamp(28px, 3.2vw, 50px);
+    margin: 0 0 12px 0;
 }
 
 .project-section__text .text {
     font-weight: bold;
-    font-size: 25px;
+    font-size: clamp(16px, 1.6vw, 25px);
+    line-height: 1.35;
 }
 
 .project-section__img {
     max-width: 600px;
     margin: 120px;
     margin-bottom: 0;
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.project-section__img img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .project-section__img .subtitle {
     font-size: 15px;
     padding: 10px;
-    align-items: center;
+    text-align: center;
 }
 
+/* ===== Seta ===== */
 .scroll-arrow {
     font-size: 3rem;
     color: #460E06;
@@ -50,6 +68,12 @@ html {
     animation: bounce 2s infinite;
 }
 
+@media (prefers-reduced-motion:reduce) {
+    .scroll-arrow {
+        animation: none
+    }
+}
+
 @keyframes bounce {
 
     0%,
@@ -57,14 +81,80 @@ html {
     50%,
     80%,
     100% {
-        transform: translateY(0);
+        transform: translateY(0)
     }
 
     40% {
-        transform: translateY(-15px);
+        transform: translateY(-15px)
     }
 
     60% {
-        transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
+}
+
+/* ===== Quebra para uma coluna (texto em cima, imagem embaixo) ===== */
+@media (max-width:1024px) {
+    .project-section {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height: auto;
+        min-height: unset;
+        padding: clamp(12px, 4vw, 28px);
+    }
+
+    .project-section__text {
+        order: 1;
+        /* texto em cima */
+        margin: 0;
+        /* remove offset lateral */
+        max-width: 65ch;
+    }
+
+    .project-section__img {
+        order: 2;
+        /* imagem embaixo */
+        margin: 0;
+        max-width: min(88vw, 720px);
+        width: 100%;
+    }
+
+    .project-section__text .title {
+        font-size: clamp(26px, 6vw, 38px);
+    }
+
+    .project-section__text .text {
+        font-size: clamp(15px, 3.8vw, 18px);
+    }
+}
+
+/* ===== Mobile médio ===== */
+@media (max-width:768px) {
+    .project-section {
+        gap: clamp(20px, 6vw, 40px);
+    }
+
+    .project-section__img {
+        max-width: 92vw;
+    }
+
+    .scroll-arrow {
+        display: none;
+    }
+
+    /* opcional: esconde seta no mobile */
+}
+
+/* ===== Mobile pequeno ===== */
+@media (max-width:420px) {
+    .project-section {
+        padding: 12px;
+        gap: 24px;
+    }
+
+    .project-section__text .title {
+        margin-bottom: 8px;
     }
 }

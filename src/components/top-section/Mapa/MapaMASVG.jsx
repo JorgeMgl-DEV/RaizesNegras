@@ -19,6 +19,7 @@ const MapaMASVG = ({ hoveredRegion, handleMouseEnter, handleMouseLeave, handleRe
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1272 1701"
         preserveAspectRatio="xMidYMid meet"
+        style={{ width: "100%", height: "auto", display: "block" }}
     >
         <g
             transform="translate(0.000000,1701.000000) scale(0.100000,-0.100000)"
