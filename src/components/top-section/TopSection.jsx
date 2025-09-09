@@ -12,7 +12,7 @@ const TopSection = () => {
         <div className="project-info">
           <img src={logoRdark} alt="Logo Raízes Negras" className="project-logo" />
           <div className="project-description">
-            <p>Raízes Negras é um acervo cultural...</p>
+            <p>O Raízes Negras é um acervo digital que reúne e valoriza a cultura afro-maranhense por meio de artigos, notícias e indicações de filmes e documentários. </p>
           </div>
         </div>
         <MapaMA />

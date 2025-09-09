@@ -28,15 +28,15 @@ const MapaMASVG = ({ hoveredRegion, handleMouseEnter, handleMouseLeave, handleRe
         >
             {regions.map(({ name, code }) => {
                 const isHovered = hoveredRegion === name;
-                const defaultFill = '#1E1E1E';
-                const hoverFill = '#2A2A2A';
+                const defaultFill = '#460E06 ';
+                const hoverFill = '#F8BB5C';
                 return (
                     <a key={code} href="#" onClick={(e) => e.preventDefault()}>
                         <path
                             className="regiao"
                             d={paths[name]}
                             fill={isHovered ? hoverFill : defaultFill}
-                            stroke={isHovered ? '#ffffff' : defaultStroke}
+                            stroke={isHovered ? '#460E06' : defaultStroke}
                             strokeWidth={155}
                             onMouseEnter={() => handleMouseEnter(name)}
                             onMouseLeave={handleMouseLeave}
