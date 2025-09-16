@@ -1,0 +1,12 @@
+.region-page {
+    padding: 72px 20px 32px;
+}
+
+.region-title {
+    font-size: clamp(24px, 3vw, 40px);
+}
+
+.region-description {
+    max-width: 800px;
+    line-height: 1.5;
+}
