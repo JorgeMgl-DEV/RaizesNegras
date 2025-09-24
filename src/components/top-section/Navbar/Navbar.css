@@ -48,6 +48,60 @@
 
 /* ===== BUSCA (desktop padrão) ===== */
 .navbar__search {
+    position: relative;
+}
+
+.navbar__search-container {
+    position: relative;
+}
+
+.navbar__search-results {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: var(--bg-cor-id-1);
+    border: 1px solid var(--bg-cor-id-2);
+    border-radius: 4px;
+    margin-top: 8px;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar__search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    color: var(--bg-cor-id-2);
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.navbar__search-result-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar__search-result-item i {
+    font-size: 16px;
+}
+
+.navbar__search-loading {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--bg-cor-id-1);
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-top: 8px;
+    color: var(--bg-cor-id-2);
+    font-size: 14px;
+}
+
+/* Original search styles */
+.navbar__search {
     background-color: var(--bg-cor-id-2);
     padding: 5px;
     padding-right: 30px;
