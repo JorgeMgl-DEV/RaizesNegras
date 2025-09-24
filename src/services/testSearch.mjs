@@ -4,7 +4,7 @@ dotenv.config();
 
 async function testSearch() {
   try {
-    console.log('Iniciando teste de conexão com Google Drive...');
+    console.log('Iniciando teste de conexão com Google rive...');
     console.log('Pasta Raiz ID:', process.env.VITE_GOOGLE_DRIVE_FOLDER_ID);
     console.log('Subpasta ID:', process.env.VITE_GOOGLE_DRIVE_SUBFOLDER_ID);
     
