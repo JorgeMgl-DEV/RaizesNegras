@@ -1,0 +1,72 @@
+.sobre__main {
+  padding: 2rem 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.sobre__section {
+  margin-bottom: 2rem;
+}
+
+.sobre__title {
+  margin-bottom: 0.5rem;
+  color: var(--bg-cor-id-1);
+}
+
+.sobre__subtitle {
+  margin-bottom: 1rem;
+  color: var(--bg-cor-id-1);
+}
+
+.sobre__text {
+  line-height: 1.7;
+}
+
+.sobre__text--spaced {
+  margin-top: 0.75rem;
+}
+
+.sobre__list {
+  padding-left: 1.25rem;
+  line-height: 1.7;
+}
+
+.sobre__card {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: start;
+}
+
+.sobre__card--last {
+  margin-bottom: 0.5rem;
+}
+
+.sobre__photo {
+  width: 96px;
+  height: 96px;
+  background: var(--bg-cor-id-2);
+  border: 1px solid var(--bg-cor-id-1);
+  border-radius: 8px;
+}
+
+.sobre__name {
+  margin: 0;
+  color: var(--bg-cor-id-1);
+}
+
+.sobre__role {
+  margin: 0.25rem 0 0.5rem;
+}
+
+.sobre__actions {
+  margin-top: 0.5rem;
+}
+
+.sobre__link {
+  color: var(--bg-cor-id-2);
+  font-weight: 700;
+}
+
+

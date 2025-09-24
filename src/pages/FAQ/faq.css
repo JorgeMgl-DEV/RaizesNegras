@@ -1,0 +1,139 @@
+.faq__main {
+  padding: 2rem 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.faq__title {
+  margin-bottom: 0.5rem;
+  color: var(--bg-cor-id-1);
+}
+
+.faq__text {
+  line-height: 1.7;
+}
+
+.faq__link {
+  color: var(--bg-cor-id-2);
+  font-weight: 700;
+}
+
+.faq__section {
+  margin-top: 1.5rem;
+}
+
+.faq__subtitle {
+  margin: 0 0 0.75rem;
+  color: var(--bg-cor-id-1);
+}
+
+.faq__form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.faq__contacts {
+  display: grid;
+  gap: 1rem;
+}
+
+.faq__card {
+  border: 1px solid var(--bg-cor-id-1);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.faq__card-header {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.faq__name {
+  margin: 0;
+  color: var(--bg-cor-id-1);
+}
+
+.faq__role {
+  color: #3a2a23;
+}
+
+.faq__card-actions {
+  margin-top: 0.25rem;
+}
+
+.faq__btn {
+  background: var(--bg-cor-id-2);
+  color: #1a1a1a;
+  border: 1px solid var(--bg-cor-id-1);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.faq__note {
+  margin-top: 0.5rem;
+  color: #8a6d3b;
+}
+
+.faq__field {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.faq__field label {
+  font-weight: 600;
+  color: var(--bg-cor-id-1);
+}
+
+.faq__field input,
+.faq__field textarea {
+  border: 1px solid var(--bg-cor-id-1);
+  border-radius: 6px;
+  padding: 0.5rem 0.625rem;
+  outline: none;
+}
+
+.faq__field input:focus,
+.faq__field textarea:focus {
+  border-color: var(--bg-cor-id-2);
+  box-shadow: 0 0 0 2px rgba(243, 156, 19, 0.15);
+}
+
+.faq__submit {
+  background: var(--bg-cor-id-2);
+  color: #1a1a1a;
+  border: 1px solid var(--bg-cor-id-1);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.faq__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.faq__feedback {
+  margin-top: 0.5rem;
+}
+
+.faq__feedback--ok {
+  color: #146c2e;
+}
+
+.faq__feedback--error {
+  color: #8b0000;
+}
+
+.faq__notice {
+  margin-top: 0.5rem;
+  color: #8a6d3b;
+}
+
+

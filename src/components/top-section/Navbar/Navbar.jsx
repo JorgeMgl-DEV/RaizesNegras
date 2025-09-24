@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logoRclaro from '../../../assets/logos/logoRclaro.png';
 
@@ -10,20 +11,49 @@ function Navbar() {
     const [isSearching, setIsSearching] = useState(false);
 
     const searchFiles = useCallback(async (query) => {
-        const folderId = import.meta.env.VITE_GOOGLE_DRIVE_SUBFOLDER_ID;
         const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
-        
+        const folders = [
+            import.meta.env.VITE_GOOGLE_DRIVE_FOLDER_GENERAL,
+            import.meta.env.VITE_GOOGLE_DRIVE_FOLDER_CENTRO,
+            import.meta.env.VITE_GOOGLE_DRIVE_FOLDER_LESTE,
+            import.meta.env.VITE_GOOGLE_DRIVE_FOLDER_NORTE,
+            import.meta.env.VITE_GOOGLE_DRIVE_FOLDER_OESTE,
+            import.meta.env.VITE_GOOGLE_DRIVE_FOLDER_SUL,
+            import.meta.env.VITE_GOOGLE_DRIVE_SUBFOLDER_ID,
+        ].filter(Boolean);
+
+        if (!apiKey || folders.length === 0) return [];
+
         try {
-            const response = await fetch(
-                `https://www.googleapis.com/drive/v3/files?q=name contains '${query}' and '${folderId}' in parents and mimeType='application/pdf'&key=${apiKey}&fields=files(id,name,webViewLink)&orderBy=name&pageSize=10`
-            );
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            return data.files || [];
+            const requests = folders.map(async (folder) => {
+                const params = new URLSearchParams({
+                    q: `mimeType='application/pdf' and ('${folder}' in parents) and name contains '${query.replace(/'/g, "\\'")}'`,
+                    key: apiKey,
+                    fields: 'files(id,name,webViewLink)',
+                    orderBy: 'name',
+                    pageSize: '10',
+                    supportsAllDrives: 'true',
+                    includeItemsFromAllDrives: 'true',
+                });
+                const url = `https://www.googleapis.com/drive/v3/files?${params.toString()}`;
+                const response = await fetch(url);
+                if (!response.ok) return { files: [] };
+                return response.json();
+            });
+
+            const results = await Promise.all(requests);
+            const seen = new Set();
+            const merged = [];
+            results.forEach((r) => {
+                (r.files || []).forEach((f) => {
+                    if (!seen.has(f.id)) {
+                        seen.add(f.id);
+                        merged.push(f);
+                    }
+                });
+            });
+            merged.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
+            return merged;
         } catch (error) {
             console.error('Erro na busca:', error);
             return [];
@@ -61,9 +91,9 @@ function Navbar() {
     return (
         <nav className="navbar">
             <div className="navbar__logo">
-                <a href="#">
+                <Link to="/">
                     <img src={logoRclaro} alt="Logo Raízes Negras" />
-                </a>
+                </Link>
             </div>
 
             <div className="navbar__direita">
@@ -74,10 +104,10 @@ function Navbar() {
                     role="navigation"
                 >
                     <ul>
-                        <li><a href="#">Início</a></li>
-                        <li><a href="#">Sobre</a></li>
-                        <li><a href="#">Conteúdo</a></li>
-                        <li><a href="#">FAQ & Contato</a></li>
+                        <li><Link to="/">Início</Link></li>
+                        <li><Link to="/sobre">Sobre</Link></li>
+                        <li><Link to="/conteudo">Conteúdo</Link></li>
+                        <li><Link to="/faq">FAQ & Contato</Link></li>
                     </ul>
                 </div>
 
