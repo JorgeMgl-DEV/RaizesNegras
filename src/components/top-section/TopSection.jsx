@@ -1,7 +1,7 @@
 import Navbar from './Navbar/Navbar';
 import MapaMA from './Mapa/Mapa-MA';
 import RegionList from './Mapa/RegionList';
-import logoRdark from '../../assets/logoRdark.png';
+import logoRdark from '../../assets/logos/logoRdark.png';
 import './TopSection.css';
 
 const TopSection = () => {
