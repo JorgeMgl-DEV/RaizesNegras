@@ -107,7 +107,7 @@ export default function RegionPage() {
                 const params = new URLSearchParams({
                     q: `mimeType='application/pdf' and ${qParents}${q ? ` and name contains '${q.replace(/'/g, "\\'")}'` : ''}`,
                     key: apiKey,
-                    fields: "files(id,name,webViewLink,modifiedTime)",
+                    fields: "files(id,name,mimeType,modifiedTime,webViewLink,thumbnailLink)",
                     orderBy: sortKey === 'recent' ? "modifiedTime desc" : (sortKey === 'oldest' ? "modifiedTime" : "name"),
                     pageSize: "12",
                     supportsAllDrives: "true",
@@ -284,11 +284,7 @@ export default function RegionPage() {
                                                 {files.map((f) => (
                                                     <a 
                                                         key={f.id} 
-                                                        href={f.webViewLink} 
-                                                        target="_blank" 
-                                                        rel="noreferrer" 
-                                                        className="region-content__item"
-                                                    >
+                                                        href={`/artigo/${f.id}` }>
                                                         <i className="fa fa-file-pdf-o" />
                                                         <span className="region-content__name">{f.name}</span>
                                                         <span className="region-content__meta">

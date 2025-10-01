@@ -4,6 +4,7 @@ import RegionPage from "./pages/REGIAO/RegionPage.jsx"
 import Sobre from "./pages/SOBRE/Sobre.jsx"
 import Conteudo from "./pages/CONTEUDO/Conteudo.jsx"
 import Faq from "./pages/FAQ/Faq.jsx"
+import Article from "./pages/ARTIGO/Article.jsx"
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       <Route path="/regiao/:slug" element={<RegionPage />} />
       <Route path="/sobre" element={<Sobre />} />
       <Route path="/conteudo" element={<Conteudo />} />
+      <Route path="/artigo/:id" element={<Article />} />
       <Route path="/faq" element={<Faq />} />
     </Routes>
   )

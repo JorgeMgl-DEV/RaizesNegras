@@ -65,7 +65,7 @@ function Conteudo() {
                     const params = new URLSearchParams({
                         q: `mimeType='application/pdf' and ${qParents}${q ? ` and name contains '${q.replace(/'/g, "\\'")}'` : ''}`,
                         key: apiKey,
-                        fields: "files(id,name,webViewLink,modifiedTime)",
+                        fields: "nextPageToken, files(id,name,mimeType,modifiedTime,webViewLink,thumbnailLink)",
                         orderBy: sortKey === 'recent' ? "modifiedTime desc" : (sortKey === 'oldest' ? "modifiedTime" : "name"),
                         pageSize: "12",
                         supportsAllDrives: "true",
@@ -209,7 +209,7 @@ function Conteudo() {
 
                         <div className="conteudo__grid">
                             {files.map((f) => (
-                                <a key={f.id} href={f.webViewLink} target="_blank" rel="noreferrer" className="conteudo__item">
+                                <a key={f.id} href={`/artigo/${f.id}` }>
                                     <i className="fa fa-file-pdf-o" />
                                     <span className="conteudo__name">{f.name}</span>
                                     <span className="conteudo__meta">Atualizado: {formatDate(f.modifiedTime)}</span>

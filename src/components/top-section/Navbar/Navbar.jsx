@@ -29,7 +29,7 @@ function Navbar() {
                 const params = new URLSearchParams({
                     q: `mimeType='application/pdf' and ('${folder}' in parents) and name contains '${query.replace(/'/g, "\\'")}'`,
                     key: apiKey,
-                    fields: 'files(id,name,webViewLink)',
+                    fields: 'files(id,name,mimeType,webViewLink)',
                     orderBy: 'name',
                     pageSize: '10',
                     supportsAllDrives: 'true',
@@ -131,16 +131,14 @@ function Navbar() {
                         {searchResults.length > 0 && (
                             <div className="navbar__search-results">
                                 {searchResults.map((result) => (
-                                    <a
+                                    <Link
                                         key={result.id}
-                                        href={result.webViewLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                                        to={`/artigo/${result.id}`}
                                         className="navbar__search-result-item"
                                     >
                                         <i className="fa fa-file-pdf-o" />
                                         {result.name}
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                         )}
