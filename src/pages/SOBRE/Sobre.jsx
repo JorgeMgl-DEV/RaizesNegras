@@ -69,8 +69,7 @@ function Sobre() {
                             <h3 className="sobre__name">Murilo Gabriel Mourão</h3>
                             <div className="sobre__role">Colaborador</div>
                             <p className="sobre__text">
-                                Texto temporário a ser substituído. Sugestão: descreva papel no projeto, principais
-                                entregas/áreas (ex.: curadoria, design, conteúdo, dados) e interesses.
+                                Murilo Gabriel da Silva Mourão, nascido em 2007 em Coelho Neto-MA, é estudante do 3º ano do IEMA e apaixonado por informática. Participa de projetos de robótica e feiras científicas, com prêmios conquistados. Sonha cursar Ciências da Computação. No Raízes Negras, pesquisou artigos sobre cultura afro-maranhense.
                             </p>
                             <div className="sobre__actions">
                                 <a className="sobre__link" href="" target="_blank" rel="noreferrer">
