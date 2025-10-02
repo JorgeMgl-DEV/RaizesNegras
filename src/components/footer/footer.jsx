@@ -16,7 +16,7 @@ const Footer = () => {
                 <div className="footer__contact">
                     <strong>Contato</strong>
                     <div>E-mail: acervo.raizesnegras@gmail.com</div>
-                    <div>Instagram: @raizesnegras</div>
+                    {/*<div>Instagram: @raizesnegras</div>*/}
                     <div>Telefone/WhatsApp: (98) 98624-9925</div>
                 </div>
                 <div className="footer__logos">
