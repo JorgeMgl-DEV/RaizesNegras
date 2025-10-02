@@ -1,6 +1,8 @@
 import Navbar from "../../components/top-section/Navbar/Navbar.jsx";
 import Footer from "../../components/footer/footer";
 import "./sobre.css";
+import fotoMurilo from "./foto murilo.png";
+import fotoJorge from "./FotoJorge.jpeg";
 
 function Sobre() {
     return (
@@ -31,7 +33,9 @@ function Sobre() {
                     <h2 className="sobre__subtitle">Equipe</h2>
 
                     <article className="sobre__card">
-                        <div className="sobre__photo" aria-label="placeholder foto Jorge" />
+                        <div className="sobre__photo" aria-label="foto Jorge">
+                            <img src={fotoJorge} alt="Foto de Jorge Miguel Viana Torres" className="sobre__img" />
+                        </div>
                         <div>
                             <h3 className="sobre__name">Jorge Miguel Viana Torres</h3>
                             <div className="sobre__role">Criador e Desenvolvedor</div>
@@ -64,7 +68,9 @@ function Sobre() {
                     </article>
 
                     <article className="sobre__card sobre__card--last">
-                        <div className="sobre__photo" aria-label="placeholder foto Murilo" />
+                        <div className="sobre__photo" aria-label="foto Murilo">
+                            <img src={fotoMurilo} alt="Foto de Murilo Gabriel Mourão" className="sobre__img" />
+                        </div>
                         <div>
                             <h3 className="sobre__name">Murilo Gabriel Mourão</h3>
                             <div className="sobre__role">Colaborador</div>
@@ -86,5 +92,3 @@ function Sobre() {
 }
 
 export default Sobre;
-
-
