@@ -1,22 +1,20 @@
+# 📖 README Técnico – Raízes Negras
 
-📌 Visão Geral
-
-O Raízes Negras é uma aplicação web desenvolvida em React.js, com integração à Google Drive API para organização e exibição de conteúdos multimídia relacionados à memória e cultura afro-maranhense.
+## 📌 Visão Geral
+O **Raízes Negras** é uma aplicação web desenvolvida em **React.js**, com integração à **Google Drive API** para organização e exibição de conteúdos multimídia relacionados à memória e cultura afro-maranhense.  
 
 O sistema permite:
+- Upload e consulta de arquivos organizados por região do Maranhão.  
+- Visualização de artigos, imagens e PDFs diretamente na interface.  
+- Navegação por filtros e busca.  
+- Exibição de conteúdos em carrosséis e seções dinâmicas.  
 
-Upload e consulta de arquivos organizados por região do Maranhão.
+---
 
-Visualização de artigos, imagens e PDFs diretamente na interface.
-
-Navegação por filtros e busca.
-
-Exibição de conteúdos em carrosséis e seções dinâmicas.
-
-🏗️ Estrutura do Projeto
-
+## 🏗️ Estrutura do Projeto
 A estrutura de diretórios segue o padrão de aplicações React:
 
+```
 RaizesNegras/
 │-- public/               # Arquivos estáticos
 │-- src/
@@ -29,35 +27,39 @@ RaizesNegras/
 │-- .env                  # Variáveis de ambiente (NÃO VERSIONAR!)
 │-- package.json          # Dependências e scripts do projeto
 │-- vite.config.js        # Configuração do Vite
+```
 
-⚙️ Tecnologias Utilizadas
+---
 
-Frontend: React.js + Vite
+## ⚙️ Tecnologias Utilizadas
+- **Frontend:** React.js + Vite  
+- **Estilos:** CSS puro (com possibilidade de Tailwind ou styled-components em expansões futuras)  
+- **APIs:** Google Drive API  
+- **Deploy:** Vercel  
 
-Estilos: CSS puro (com possibilidade de Tailwind ou styled-components em expansões futuras)
+---
 
-APIs: Google Drive API
+## 🚀 Instalação e Execução
 
-Deploy: Vercel
+### 1. Pré-requisitos
+- **Node.js** versão 18+  
+- **npm** ou **yarn**  
 
-🚀 Instalação e Execução
-1. Pré-requisitos
-
-Node.js versão 18+
-
-npm ou yarn
-
-2. Clonar o repositório
+### 2. Clonar o repositório
+```bash
 git clone https://github.com/SEU-USUARIO/RaizesNegras.git
 cd RaizesNegras
+```
 
-3. Instalar dependências
+### 3. Instalar dependências
+```bash
 npm install
+```
 
-4. Configurar variáveis de ambiente
+### 4. Configurar variáveis de ambiente
+Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
 
-Crie um arquivo .env na raiz do projeto com o seguinte conteúdo:
-
+```env
 VITE_GOOGLE_API_KEY= SUA_CHAVE_API_AQUI
 VITE_GOOGLE_DRIVE_FOLDER_GENERAL= ID_PASTA_GERAL
 VITE_GOOGLE_DRIVE_FOLDER_CENTRO= ID_PASTA_CENTRO
@@ -65,46 +67,47 @@ VITE_GOOGLE_DRIVE_FOLDER_LESTE= ID_PASTA_LESTE
 VITE_GOOGLE_DRIVE_FOLDER_SUL= ID_PASTA_SUL
 VITE_GOOGLE_DRIVE_FOLDER_NORTE= ID_PASTA_NORTE
 VITE_GOOGLE_DRIVE_FOLDER_OESTE= ID_PASTA_OESTE
+```
 
+⚠️ **Atenção:**  
+- Nunca compartilhe o `.env` no GitHub.  
+- Adicione `.env` no `.gitignore` (já configurado).  
+- As **chaves da API** e os **IDs de pastas** são sensíveis e não podem ser públicos.  
 
-⚠️ Atenção:
-
-Nunca compartilhe o .env no GitHub.
-
-Adicione .env no .gitignore (já configurado).
-
-As chaves da API e os IDs de pastas são sensíveis e não podem ser públicos.
-
-5. Rodar em ambiente de desenvolvimento
+### 5. Rodar em ambiente de desenvolvimento
+```bash
 npm run dev
+```
 
-6. Gerar versão de produção
+### 6. Gerar versão de produção
+```bash
 npm run build
+```
 
-7. Servir build localmente
+### 7. Servir build localmente
+```bash
 npm run preview
+```
 
-🌐 Deploy na Vercel
+---
 
-O projeto está preparado para deploy na Vercel:
+## 🌐 Deploy na Vercel
+O projeto está preparado para **deploy na Vercel**:  
+1. Conectar o repositório ao painel da Vercel.  
+2. Configurar as variáveis de ambiente no painel (`.env`).  
+3. A Vercel cuidará do build e deploy automático.  
 
-Conectar o repositório ao painel da Vercel.
+---
 
-Configurar as variáveis de ambiente no painel (.env).
+## 📂 Principais Funcionalidades
+- **Página inicial:** lista de artigos por região.  
+- **Carrossel dinâmico:** exibe arquivos aleatórios das pastas do Google Drive.  
+- **Página de conteúdo:** visualização inline de PDFs, imagens e textos.  
+- **Busca:** pesquisa de arquivos por título ou região.  
 
-A Vercel cuidará do build e deploy automático.
+---
 
-📂 Principais Funcionalidades
+## 📜 Licença
+Este projeto está sob a licença **MIT**. Consulte o arquivo [LICENSE](LICENSE) para mais informações.  
 
-Página inicial: lista de artigos por região.
-
-Carrossel dinâmico: exibe arquivos aleatórios das pastas do Google Drive.
-
-Página de conteúdo: visualização inline de PDFs, imagens e textos.
-
-Busca: pesquisa de arquivos por título ou região.
-
-📜 Licença
-
-Este projeto está sob a licença MIT. Consulte o arquivo LICENSE
- para mais informações.
+---
