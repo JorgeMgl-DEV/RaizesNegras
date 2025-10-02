@@ -3,6 +3,7 @@ import Footer from "../../components/footer/footer";
 import "./sobre.css";
 import fotoMurilo from "./foto murilo.png";
 import fotoJorge from "./FotoJorge.jpeg";
+import fotoErick from "./FotoErick.jpeg";
 
 function Sobre() {
     return (
@@ -40,7 +41,7 @@ function Sobre() {
                             <h3 className="sobre__name">Jorge Miguel Viana Torres</h3>
                             <div className="sobre__role">Criador e Desenvolvedor</div>
                             <p className="sobre__text">
-                            Estudante de Informática no IEMA, apaixonado por tecnologia e cultura. Como criador e principal programador do Raízes Negras, uni minha formação técnica e meu interesse pela preservação da memória afro-maranhense em uma plataforma digital. Esse projeto expressa meu jeito de aprender na prática e transformar ideias em algo concreto.
+                            Nordestino, nascido em Coelho Neto, cidade do interior do Maranhão, sou estudante de Informática no IEMA e apaixonado por tecnologia e cultura. Bolsista CNPq, ganhador do FECULEMA 2024 e destaque em eventos científicos e tecnológicos. Como criador e principal desenvolvedor do Raízes Negras, uni minha formação técnica e o interesse pela preservação da memória afro-maranhense em uma plataforma digital, mostrando como a tecnologia pode fortalecer a cultura e identidade do Maranhão.
                             </p>
                             <div className="sobre__actions">
                                 <a className="sobre__link" href="https://www.linkedin.com/in/jorge-creativo-tech" target="_blank" rel="noreferrer">
@@ -51,13 +52,14 @@ function Sobre() {
                     </article>
 
                     <article className="sobre__card">
-                        <div className="sobre__photo" aria-label="placeholder foto Erick" />
+                        <div className="sobre__photo" aria-label="foto Erick">
+                            <img src={fotoErick} alt="Foto de Erick MacGregor" className="sobre__img" />
+                        </div>
                         <div>
                             <h3 className="sobre__name">Erick MacGregor</h3>
                             <div className="sobre__role">Orientador</div>
                             <p className="sobre__text">
-                                Bio a ser preenchida. Sugestão: inclua área de pesquisa/atuação, atividades de
-                                orientação, temas de interesse e contribuições para o projeto (2–4 linhas).
+                                Professor do IEMA e mestrando em Ciência da Computação pela UFPI, atua nas áreas de Inteligência Artificial, Ciência de Dados e Educação Tecnológica. Como orientador do Raízes Negras, contribuiu na concepção metodológica, no acompanhamento técnico e na articulação acadêmica, garantindo rigor científico e relevância cultural ao projeto.
                             </p>
                             <div className="sobre__actions">
                                 <a className="sobre__link" href="https://www.linkedin.com/in/erickmacgregor/" target="_blank" rel="noreferrer">
