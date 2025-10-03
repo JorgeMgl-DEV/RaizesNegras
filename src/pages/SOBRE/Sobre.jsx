@@ -16,7 +16,7 @@ function Sobre() {
                         Raízes Negras é um acervo digital dedicado a reunir e dar visibilidade a referências,
                         artigos e registros sobre a cultura negra, com navegação por regiões e conteúdos
                         temáticos. O projeto busca facilitar o acesso ao conhecimento, apoiar pesquisas e
-                        iniciativas educacionais, e fortalecer a valorização da memória e produção cultural.
+                        iniciativas educacionais, e fortalecer a valorização da memória e da produção cultural.
                     </p>
                     <ul className="sobre__list">
                         <li>Mapear e organizar conteúdos por região e tema.</li>
@@ -41,7 +41,7 @@ function Sobre() {
                             <h3 className="sobre__name">Jorge Miguel Viana Torres</h3>
                             <div className="sobre__role">Criador e Desenvolvedor</div>
                             <p className="sobre__text">
-                            Nordestino, nascido em Coelho Neto, cidade do interior do Maranhão, sou estudante de Informática no IEMA e apaixonado por tecnologia e cultura. Bolsista CNPq, ganhador do FECULEMA 2024 e destaque em eventos científicos e tecnológicos. Como criador e principal desenvolvedor do Raízes Negras, uni minha formação técnica e o interesse pela preservação da memória afro-maranhense em uma plataforma digital, mostrando como a tecnologia pode fortalecer a cultura e identidade do Maranhão.
+                            Nordestino, nascido em Coelho Neto, cidade do interior do Maranhão, sou estudante de Informática no IEMA e apaixonado por tecnologia e cultura. Bolsista do CNPq, ganhador do FECULEMA 2024 e destaque em eventos científicos e tecnológicos. Como criador e principal desenvolvedor do Raízes Negras, uni minha formação técnica e o interesse pela preservação da memória afro-maranhense em uma plataforma digital, mostrando como a tecnologia pode fortalecer a cultura e a identidade do Maranhão.
                             </p>
                             <div className="sobre__actions">
                                 <a className="sobre__link" href="https://www.linkedin.com/in/jorge-creativo-tech" target="_blank" rel="noreferrer">
@@ -77,10 +77,10 @@ function Sobre() {
                             <h3 className="sobre__name">Murilo Gabriel Mourão</h3>
                             <div className="sobre__role">Colaborador</div>
                             <p className="sobre__text">
-                                Murilo Gabriel da Silva Mourão, nascido em 2007 em Coelho Neto-MA, é estudante do 3º ano do IEMA e apaixonado por informática. Participa de projetos de robótica e feiras científicas, com prêmios conquistados. Sonha cursar Ciências da Computação. No Raízes Negras, pesquisou artigos sobre cultura afro-maranhense.
+                                Murilo Gabriel da Silva Mourão, nascido em 2007 em Coelho Neto-MA, é estudante do 3º ano do IEMA e apaixonado por informática. Participa de projetos de robótica e feiras científicas, com prêmios conquistados. Sonha cursar Ciências da Computação. No Raízes Negras, pesquisou artigos sobre a cultura afro-maranhense.
                             </p>
                             <div className="sobre__actions">
-                                <a className="sobre__link" href="" target="_blank" rel="noreferrer">
+                                <a className="sobre__link" href="https://www.linkedin.com/in/murilo-undefined-90b629388?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noreferrer">
                                     Perfil no LinkedIn
                                 </a>
                             </div>
