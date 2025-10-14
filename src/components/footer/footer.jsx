@@ -1,5 +1,6 @@
 import React from "react";
 import "./footer.css";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -16,8 +17,12 @@ const Footer = () => {
                 <div className="footer__contact">
                     <strong>Contato</strong>
                     <div>E-mail: acervo.raizesnegras@gmail.com</div>
-                    {/*<div>Instagram: @raizesnegras</div>*/}
                     <div>Telefone/WhatsApp: (98) 98624-9925</div>
+                    <div className="footer__legal-links">
+                        <Link to="/privacidade">Privacidade</Link> |{' '}
+                        <Link to="/termos">Termos de Uso</Link> |{' '}
+                        <Link to="/contato">Contato</Link>
+                    </div>
                 </div>
                 <div className="footer__logos">
                     <img src="https://iema.ma.gov.br/wp-content/uploads/2024/03/SEQUENCIA-LOGOS-GOV-SEDUC-IEMA-UNESCO.png" alt="Governo do Maranhão" />

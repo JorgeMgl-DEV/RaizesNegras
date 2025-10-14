@@ -107,7 +107,10 @@ function Navbar() {
                         <li><Link to="/">Início</Link></li>
                         <li><Link to="/sobre">Sobre</Link></li>
                         <li><Link to="/conteudo">Conteúdo</Link></li>
-                        <li><Link to="/faq">FAQ & Contato</Link></li>
+                        <li><Link to="/faq">FAQ</Link></li>
+                        <li><Link to="/privacidade">Privacidade</Link></li>
+                        <li><Link to="/termos">Termos de Uso</Link></li>
+                        <li><Link to="/contato">Contato</Link></li>
                     </ul>
                 </div>
 
