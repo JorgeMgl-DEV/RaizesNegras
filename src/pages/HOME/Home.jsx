@@ -2,30 +2,8 @@ import TopSection from "../../components/top-section/TopSection";
 import ProjectSection from "../../components/project-section/project-section";
 import Footer from "../../components/footer/footer";
 import "./home.css";
-import { useEffect, useState } from "react";
 
 function Home() {
-    const [adsReady, setAdsReady] = useState(false);
-
-    useEffect(() => {
-        if (localStorage.getItem("cookieConsent") === "true") {
-            setAdsReady(true);
-            // Adiciona o script do AdSense se não existir
-            if (!document.getElementById("adsbygoogle-js")) {
-                const script = document.createElement("script");
-                script.id = "adsbygoogle-js";
-                script.async = true;
-                script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9866884710668386";
-                script.crossOrigin = "anonymous";
-                document.body.appendChild(script);
-                script.onload = () => {
-                    if (window.adsbygoogle) window.adsbygoogle.push({});
-                };
-            } else {
-                if (window.adsbygoogle) window.adsbygoogle.push({});
-            }
-        }
-    }, []);
 
     return (
         <>
@@ -45,16 +23,6 @@ function Home() {
                 </div>
             </section>
             <ProjectSection />
-            {adsReady && (
-                <div className="ad-container">
-                    <ins className="adsbygoogle"
-                        style={{ display: "block", textAlign: "center", margin: "2rem auto", maxWidth: "100%" }}
-                        data-ad-client="ca-pub-9866884710668386"
-                        data-ad-slot="1234567890"
-                        data-ad-format="auto"
-                        data-full-width-responsive="true"></ins>
-                </div>
-            )}
             <Footer />
         </>
     );

@@ -9,7 +9,7 @@ export default defineConfig({
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET',
-      'Content-Security-Policy': "default-src 'self' https://www.googleapis.com https://*.google.com; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:",
+      'Content-Security-Policy': "default-src 'self' https://www.googleapis.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:",
       'Referrer-Policy': 'strict-origin-when-cross-origin',
       'X-Frame-Options': 'SAMEORIGIN'
     }
