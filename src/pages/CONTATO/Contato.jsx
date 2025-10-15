@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./legal.css";
+import "../PRIVACIDADE/legal.css";
 
 const Contato = () => {
   const [form, setForm] = useState({ nome: "", email: "", mensagem: "" });

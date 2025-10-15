@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../pages/PRIVACIDADE/legal.css";
+import "../pages/PRIVACIDADE/legal.css";
 
 const ADSENSE_SCRIPT = {
   src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js",

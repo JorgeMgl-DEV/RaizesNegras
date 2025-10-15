@@ -31,19 +31,18 @@ const MapaMASVG = ({ hoveredRegion, handleMouseEnter, handleMouseLeave, handleRe
                 const defaultFill = '#460E06 ';
                 const hoverFill = '#F8BB5C';
                 return (
-                    <a key={code} href="#" onClick={(e) => e.preventDefault()}>
-                        <path
-                            className="regiao"
-                            d={paths[name]}
-                            fill={isHovered ? hoverFill : defaultFill}
-                            stroke={isHovered ? '#460E06' : defaultStroke}
-                            strokeWidth={155}
-                            onMouseEnter={() => handleMouseEnter(name)}
-                            onMouseLeave={handleMouseLeave}
-                            onClick={(e) => handleRegionClick(e, code)}
-                            style={{ transition: 'fill 0.3s, stroke 0.3s' }}
-                        />
-                    </a>
+                    <path
+                        key={code}
+                        className="regiao"
+                        d={paths[name]}
+                        fill={isHovered ? hoverFill : defaultFill}
+                        stroke={isHovered ? '#460E06' : defaultStroke}
+                        strokeWidth={155}
+                        onMouseEnter={() => handleMouseEnter(name)}
+                        onMouseLeave={handleMouseLeave}
+                        onClick={(e) => handleRegionClick(e, code)}
+                        style={{ transition: 'fill 0.3s, stroke 0.3s' }}
+                    />
                 );
             })}
         </g>

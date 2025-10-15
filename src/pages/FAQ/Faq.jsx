@@ -37,7 +37,7 @@ function Faq() {
                                 <span className="faq__role">Artigos e mídias do site</span>
                             </div>
                             <div className="faq__card-actions">
-                                <a className="faq__btn" href="#" target="_blank" rel="noreferrer">Enviar mensagem</a>
+                                <a className="faq__btn" href="mailto:acervo.raizesnegras@gmail.com" target="_blank" rel="noreferrer">Enviar mensagem</a>
                             </div>
                         </article>
 
@@ -47,7 +47,7 @@ function Faq() {
                                 <span className="faq__role">Contato institucional/Orientação</span>
                             </div>
                             <div className="faq__card-actions">
-                                <a className="faq__btn" href="#" target="_blank" rel="noreferrer">Enviar mensagem</a>
+                                <a className="faq__btn" href="mailto:acervo.raizesnegras@gmail.com" target="_blank" rel="noreferrer">Enviar mensagem</a>
                             </div>
                         </article>
                     </div>

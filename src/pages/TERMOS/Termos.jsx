@@ -1,5 +1,5 @@
 import React from "react";
-import "./legal.css";
+import "../PRIVACIDADE/legal.css";
 
 const Termos = () => (
   <div className="legal-page">
