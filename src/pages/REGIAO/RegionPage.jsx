@@ -27,18 +27,51 @@ const slugify = (s) =>
         .replace(/ç/g, "c")
         .replace(/\s+/g, "-")
 
+const regionDescriptions = {
+    norte: "A região Norte do Maranhão é berço de importantes manifestações culturais afro-brasileiras, incluindo o Tambor de Crioula e o Bumba Meu Boi. Esta área preserva tradições centenárias e uma forte conexão com as raízes africanas.",
+    sul: "O Sul maranhense guarda histórias de resistência e quilombos, com comunidades que mantêm vivas as tradições ancestrais. A região é conhecida por seus rituais, danças e pela preservação da medicina tradicional.",
+    leste: "Na região Leste, encontramos um rico patrimônio cultural materializado em festas religiosas, artesanato e culinária típica. As comunidades locais são guardiãs de saberes tradicionais únicos.",
+    oeste: "O Oeste do Maranhão se destaca pela forte presença de comunidades quilombolas e pela preservação de ritmos e danças tradicionais. A região mantém viva a memória dos ancestrais através de suas manifestações culturais.",
+    centro: "A região Central representa um ponto de convergência cultural, onde diferentes tradições se encontram e se renovam. É um território de intensas trocas culturais e preservação da identidade afro-maranhense."
+};
+
 export default function RegionPage() {
-    const { slug } = useParams()
+    const { slug } = useParams();
+    const [pageTitle, setPageTitle] = useState("");
+    const [regionDescription, setRegionDescription] = useState("");
 
     // Estados para o sistema de conteúdos
-    const [query, setQuery] = useState("")
-    const [files, setFiles] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState("")
-    const [nextPageToken, setNextPageToken] = useState("")
-    const [prevTokens, setPrevTokens] = useState([])
-    const [sort, setSort] = useState("recent")
-    const debounceRef = useRef(null)
+    const [query, setQuery] = useState("");
+    const [files, setFiles] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [nextPageToken, setNextPageToken] = useState("");
+    const [prevTokens, setPrevTokens] = useState([]);
+    const [sort, setSort] = useState("recent");
+    const debounceRef = useRef(null);
+
+    // Efeito para configurar título e descrição da página
+    useEffect(() => {
+        if (region) {
+            const title = `${region.name} - Raízes Negras`;
+            setPageTitle(title);
+            document.title = title;
+
+            const description = regionDescriptions[slugify(region.name)];
+            setRegionDescription(description);
+
+            // Adiciona meta description dinâmica
+            const metaDescription = document.querySelector('meta[name="description"]');
+            if (metaDescription) {
+                metaDescription.setAttribute('content', description);
+            } else {
+                const meta = document.createElement('meta');
+                meta.name = 'description';
+                meta.content = description;
+                document.head.appendChild(meta);
+            }
+        }
+    }, [region]);
 
     // 1) tenta por slug; 2) tenta por code (slug pode ser '1', por ex.)
     const region = regioes.find((r) => r.slug === slug || r.code === slug || slugify(r.name) === slug)
@@ -178,35 +211,61 @@ export default function RegionPage() {
         return d.toLocaleDateString("pt-BR", { year: "numeric", month: "short", day: "2-digit" })
     }
 
+    if (!region) {
+        return (
+            <>
+                <Navbar />
+                <main className="region-page" id="conteudo" role="main">
+                    <div className="region-error">
+                        <h1>Região não encontrada</h1>
+                        <p>Não encontramos a região <strong>{slug}</strong>.</p>
+                        <Link to="/" className="region-backlink">
+                            Voltar à página inicial
+                        </Link>
+                    </div>
+                </main>
+                <Footer />
+            </>
+        );
+    }
+
     return (
         <>
             <Navbar />
-            <main className="region-page" id="conteudo" role="main" aria-labelledby="region-title">
-                <div className="region-page__header">
-                    <div className="region-page__info">
-                        <img
-                            src={logoSrc || "/placeholder.svg"}
-                            alt={region ? `Marca da região ${region.name}` : "Marca de região"}
-                            className="region-page__logo"
-                            loading="lazy"
-                            width={180}
-                            height={100}
-                        />
+            <main className="region-page" id="conteudo" role="main">
+                <article className="region-article">
+                    <header className="region-page__header">
+                        <div className="region-page__info">
+                            <h1 id="region-title" className="region-title">
+                                {region.name}
+                            </h1>
+                            
+                            <img
+                                src={logoSrc}
+                                alt={`Símbolo representativo da região ${region.name}`}
+                                className="region-page__logo"
+                                loading="lazy"
+                                width={180}
+                                height={100}
+                            />
 
-                        <p className="region-description">
-                            {region ? (
-                                region.descricao
-                            ) : (
-                                <>
-                                    Não encontramos a região <strong>{slug}</strong>.{" "}
-                                    <Link to="/" className="region-backlink">
-                                        Voltar à página inicial
-                                    </Link>
-                                    .
-                                </>
-                            )}
-                        </p>
-                    </div>
+                            <div className="region-description">
+                                <p>{regionDescription}</p>
+                                <p>{region.descricao}</p>
+                            </div>
+                        </div>
+                        
+                        <div className="region-page__map">
+                            <img
+                                src={mapSrc}
+                                alt={`Mapa ilustrativo da região ${region.name}`}
+                                className="region-page__map-image"
+                                loading="lazy"
+                                width={600}
+                                height={300}
+                            />
+                        </div>
+                    </header>
 
                     <img
                         src={mapSrc || "/placeholder.svg"}
