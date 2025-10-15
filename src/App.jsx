@@ -11,7 +11,7 @@ import CookieConsent from "./components/CookieConsent.jsx";
 export default function App() {
   return (
     <>
-      <CookieConsent />
+  <CookieConsent />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/regiao/:slug" element={<RegionPage />} />
@@ -19,10 +19,10 @@ export default function App() {
         <Route path="/conteudo" element={<Conteudo />} />
         <Route path="/artigo/:id" element={<Article />} />
         <Route path="/faq" element={<Faq />} />
-        <Route path="/privacidade" element={<Privacidade />} />
-        <Route path="/termos" element={<Termos />} />
-        <Route path="/contato" element={<Contato />} />
-      </Routes>
+    <Route path="/privacidade" element={<Privacidade />} />
+    <Route path="/termos" element={<Termos />} />
+    <Route path="/contato" element={<Contato />} />
+  </Routes>
     </>
   );
 }
