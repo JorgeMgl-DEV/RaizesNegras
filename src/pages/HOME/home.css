@@ -1,25 +1,72 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .home-intro {
-    padding: 4rem 0;
+    padding: clamp(3rem, 8vw, 6rem) 0;
     background: var(--background-alt);
+    position: relative;
+    overflow: hidden;
+}
+
+.home-intro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-color) 0%, var(--accent-color-light) 100%);
 }
 
 .home-intro .container {
-    max-width: 900px;
+    max-width: min(90%, 900px);
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 clamp(1rem, 5vw, 2rem);
 }
 
-.home-intro h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
+.home-intro .main-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
     color: var(--text-primary);
     text-align: center;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 .home-intro p {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
     line-height: 1.6;
     color: var(--text-secondary);
-    margin-bottom: 1.5rem;
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
     text-align: justify;
+    max-width: 70ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .home-intro p {
+        text-align: left;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .home-intro {
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
