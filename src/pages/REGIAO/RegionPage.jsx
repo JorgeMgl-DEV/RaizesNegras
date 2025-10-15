@@ -267,18 +267,7 @@ export default function RegionPage() {
                         </div>
                     </header>
 
-                    <img
-                        src={mapSrc || "/placeholder.svg"}
-                        alt={region ? `Mapa ilustrativo da região ${region.name}` : "Mapa de região"}
-                        className="region-page__map-placeholder"
-                        loading="lazy"
-                        width={600}
-                        height={300}
-                    />
-                </div>
-
-                {/* Sistema de conteúdos da região */}
-                {region && (
+                    {/* Sistema de conteúdos da região */}
                     <section className="region-page__content" aria-label={`Conteúdos da região ${region.name}`}>
                         <div className="region-content">
                             <h2 className="region-content__title">Conteúdos da região {region.name}</h2>
@@ -355,7 +344,7 @@ export default function RegionPage() {
                             )}
                         </div>
                     </section>
-                )}
+                </article>
             </main>
             <Footer />
         </>
