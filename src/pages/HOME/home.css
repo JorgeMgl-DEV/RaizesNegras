@@ -1,0 +1,38 @@
+.home-intro {
+    padding: 4rem 0;
+    background: var(--background-alt);
+}
+
+.home-intro .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.home-intro h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.home-intro p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+.ad-container {
+    padding: 2rem 0;
+    background: var(--background);
+}
+
+.ad-container ins.adsbygoogle {
+    display: block;
+    margin: 0 auto;
+    background: transparent;
+    min-height: 90px;
+    max-width: 728px;
+}
