@@ -235,11 +235,7 @@ export default function RegionPage() {
             <main className="region-page" id="conteudo" role="main">
                 <article className="region-article">
                     <header className="region-page__header">
-                            <div className="region-page__info">
-                                <h1 className="region-title">
-                                    {region.name}
-                                </h1>
-                                
+                            <div className="region-page__info">                              
                                 <img
                                     src={logoSrc}
                                     alt={`Símbolo representativo da região ${region.name}`}
