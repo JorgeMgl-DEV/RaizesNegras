@@ -50,6 +50,9 @@ export default function RegionPage() {
     const [sort, setSort] = useState("recent");
     const debounceRef = useRef(null);
 
+    // 1) tenta por slug; 2) tenta por code (slug pode ser '1', por ex.)
+    const region = regioes.find((r) => r.slug === slug || r.code === slug || slugify(r.name) === slug)
+
     // Efeito para configurar título e descrição da página
     useEffect(() => {
         if (region) {
@@ -72,9 +75,6 @@ export default function RegionPage() {
             }
         }
     }, [region]);
-
-    // 1) tenta por slug; 2) tenta por code (slug pode ser '1', por ex.)
-    const region = regioes.find((r) => r.slug === slug || r.code === slug || slugify(r.name) === slug)
 
     // Mapeia as imagens de acordo com o código da região
     const logos = {
