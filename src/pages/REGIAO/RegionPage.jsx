@@ -236,10 +236,6 @@ export default function RegionPage() {
                 <article className="region-article">
                     <header className="region-page__header">
                         <div className="region-page__info">
-                            <h1 id="region-title" className="region-title">
-                                {region.name}
-                            </h1>
-                            
                             <img
                                 src={logoSrc}
                                 alt={`Símbolo representativo da região ${region.name}`}
