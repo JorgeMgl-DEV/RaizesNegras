@@ -235,30 +235,39 @@ export default function RegionPage() {
             <main className="region-page" id="conteudo" role="main">
                 <article className="region-article">
                     <header className="region-page__header">
-                        <div className="region-page__info">
-                            <img
-                                src={logoSrc}
-                                alt={`Símbolo representativo da região ${region.name}`}
-                                className="region-page__logo"
-                                loading="lazy"
-                                width={180}
-                                height={100}
-                            />
-
-                            <div className="region-description">
-                                <p>{regionDescription}</p>
-                                <p>{region.descricao}</p>
+                        <div className="region-header-container">
+                            <div className="region-header-content">
+                                <div className="region-title-wrapper">
+                                    <h1 className="region-page__title">{region.name}</h1>
+                                    <div className="region-title-divider"></div>
+                                </div>
+                                
+                                <img
+                                    src={logoSrc}
+                                    alt={`Símbolo representativo da região ${region.name}`}
+                                    className="region-page__logo"
+                                    loading="lazy"
+                                    width={200}
+                                    height={150}
+                                />
+                            </div>
+                            
+                            <div className="region-description-wrapper">
+                                <div className="region-description-content">
+                                    <p className="region-description__primary">{regionDescription}</p>
+                                    <p className="region-description__secondary">{region.descricao}</p>
+                                </div>
                             </div>
                         </div>
                         
-                        <div className="region-page__map">
+                        <div className="region-page__map-wrapper">
                             <img
                                 src={mapSrc}
                                 alt={`Mapa ilustrativo da região ${region.name}`}
                                 className="region-page__map-image"
                                 loading="lazy"
                                 width={600}
-                                height={300}
+                                height={400}
                             />
                         </div>
                     </header>
@@ -321,11 +330,14 @@ export default function RegionPage() {
                                             <div className="region-content__grid">
                                                 {files.map((f) => (
                                                     <a key={f.id} href={`/artigo/${f.id}`} className="article-card">
+                                                        <div className="article-card__icon">
+                                                            <i className="fa fa-file-pdf-o" aria-hidden="true" />
+                                                        </div>
                                                         <div className="article-card__content">
                                                             <h3 className="article-card__title">{f.name}</h3>
                                                             <p className="article-card__meta">
-                                                                <i className="fa fa-clock-o" aria-hidden="true" />
-                                                                Atualizado: {formatDate(f.modifiedTime)}
+                                                                <i className="fa fa-calendar" aria-hidden="true" />
+                                                                {formatDate(f.modifiedTime)}
                                                             </p>
                                                         </div>
                                                         <div className="article-card__arrow">
