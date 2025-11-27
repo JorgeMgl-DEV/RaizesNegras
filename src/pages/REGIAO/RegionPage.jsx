@@ -235,12 +235,10 @@ export default function RegionPage() {
             <main className="region-page" id="conteudo" role="main">
                 <article className="region-article">
                     <header className="region-page__header">
-                        <div className="region-header-container">
-                            <div className="region-header-content">
-                                <div className="region-title-wrapper">
-                                    <h1 className="region-page__title">{region.name}</h1>
-                                    <div className="region-title-divider"></div>
-                                </div>
+                            <div className="region-page__info">
+                                <h1 className="region-title">
+                                    {region.name}
+                                </h1>
                                 
                                 <img
                                     src={logoSrc}
@@ -250,24 +248,21 @@ export default function RegionPage() {
                                     width={200}
                                     height={150}
                                 />
-                            </div>
-                            
-                            <div className="region-description-wrapper">
-                                <div className="region-description-content">
-                                    <p className="region-description__primary">{regionDescription}</p>
-                                    <p className="region-description__secondary">{region.descricao}</p>
+
+                                <div className="region-description">
+                                    <p>{regionDescription}</p>
+                                    <p>{region.descricao}</p>
                                 </div>
-                            </div>
                         </div>
                         
-                        <div className="region-page__map-wrapper">
+                            <div className="region-page__map">
                             <img
                                 src={mapSrc}
                                 alt={`Mapa ilustrativo da região ${region.name}`}
                                 className="region-page__map-image"
                                 loading="lazy"
                                 width={600}
-                                height={400}
+                                    height={300}
                             />
                         </div>
                     </header>
