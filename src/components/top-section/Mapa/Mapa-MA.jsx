@@ -1,89 +1,61 @@
-import React, { useState } from 'react';
-import MapaMASVG from './MapaMASVG';
-import Popup from './pop/popup';
-import './MapaMASVG.css';
+"use client";
 
-const MapaMA = () => {
-    const [hoveredRegion, setHoveredRegion] = useState(null);
-    const [showPopup, setShowPopup] = useState(false);
-    const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
-    const [selectedRegion, setSelectedRegion] = useState(null);
+import { useState } from "react";
+import MapaMASVG from "./MapaMASVG";
+import Popup from "./pop/popup";
 
-    const handleMouseEnter = (region) => {
-        setHoveredRegion(region);
-    };
+export default function MapaMA() {
+  const [hoveredRegion, setHoveredRegion] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
+  const [selectedRegion, setSelectedRegion] = useState(null);
 
-    const handleMouseLeave = () => {
-        setHoveredRegion(null);
-    };
+  const handleRegionClick = (event, regionCode) => {
+    const x = event.clientX;
+    const y = event.clientY;
+    const popupWidth = 350;
+    const popupHeight = 200;
 
-    const handleRegionClick = (event, regionCode) => {
-        const rect = event.currentTarget.getBoundingClientRect();
-        const x = event.clientX;
-        const y = event.clientY;
-        
-        // Dimensões do popup (estimativas)
-        const popupWidth = 350;
-        const popupHeight = 200;
-        
-        // Calcular posição ajustada para não sair da tela
-        let adjustedX = x;
-        let adjustedY = y;
-        
-        // Ajustar horizontalmente
-        if (x + popupWidth > window.innerWidth) {
-            adjustedX = x - popupWidth;
-        }
-        
-        // Ajustar verticalmente
-        if (y + popupHeight > window.innerHeight) {
-            adjustedY = y - popupHeight;
-        }
-        
-        setPopupPosition({ x: adjustedX, y: adjustedY });
-        setSelectedRegion(regionCode);
-        setShowPopup(true);
-    };
+    let adjustedX = x;
+    let adjustedY = y;
 
-    const handleClosePopup = () => {
-        setShowPopup(false);
-        setSelectedRegion(null);
-    };
+    if (x + popupWidth > window.innerWidth) adjustedX = x - popupWidth;
+    if (y + popupHeight > window.innerHeight) adjustedY = y - popupHeight;
 
-    const defaultFill = '#460E06';
-    const hoverFill = '#460E06';
+    setPopupPosition({ x: adjustedX, y: adjustedY });
+    setSelectedRegion(regionCode);
+    setShowPopup(true);
+  };
 
-    return (
-        <div className="mapa-container">
-            <MapaMASVG
-                hoveredRegion={hoveredRegion}
-                handleMouseEnter={handleMouseEnter}
-                handleMouseLeave={handleMouseLeave}
-                handleRegionClick={handleRegionClick}
-                defaultFill={defaultFill}
-                hoverFill={hoverFill}
-            />
-            {showPopup && selectedRegion && (
-                <div 
-                    className="popup-overlay"
-                    onClick={handleClosePopup}
-                >
-                    <div 
-                        className="popup-wrapper"
-                        style={{
-                            position: 'fixed',
-                            left: popupPosition.x,
-                            top: popupPosition.y,
-                            zIndex: 1000
-                        }}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <Popup codigo={selectedRegion} />
-                    </div>
-                </div>
-            )}
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setSelectedRegion(null);
+  };
+
+  return (
+    <div className="mapa-container">
+      <MapaMASVG
+        hoveredRegion={hoveredRegion}
+        handleMouseEnter={setHoveredRegion}
+        handleMouseLeave={() => setHoveredRegion(null)}
+        handleRegionClick={handleRegionClick}
+      />
+      {showPopup && selectedRegion && (
+        <div className="popup-overlay" onClick={handleClosePopup}>
+          <div
+            className="popup-wrapper"
+            style={{
+              position: "fixed",
+              left: popupPosition.x,
+              top: popupPosition.y,
+              zIndex: 1000,
+            }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <Popup codigo={selectedRegion} />
+          </div>
         </div>
-    );
-};
-
-export default MapaMA;
+      )}
+    </div>
+  );
+}

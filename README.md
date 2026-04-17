@@ -1,113 +1,80 @@
-# 📖 README Técnico – Raízes Negras
+# Raízes Negras
 
-## 📌 Visão Geral
-O **Raízes Negras** é uma aplicação web desenvolvida em **React.js**, com integração à **Google Drive API** para organização e exibição de conteúdos multimídia relacionados à memória e cultura afro-maranhense.  
+Portal sobre memória e cultura afro-maranhense, migrado para **Next.js** e integrado à **Google Drive API** para listar e visualizar PDFs por região.
 
-O sistema permite:
-- Upload e consulta de arquivos organizados por região do Maranhão.  
-- Visualização de artigos, imagens e PDFs diretamente na interface.  
-- Navegação por filtros e busca.  
-- Exibição de conteúdos em carrosséis e seções dinâmicas.  
+## Estrutura
 
----
-
-## 🏗️ Estrutura do Projeto
-A estrutura de diretórios segue o padrão de aplicações React:
-
-```
+```text
 RaizesNegras/
-│-- public/               # Arquivos estáticos
-│-- src/
-│   │-- api/              # Serviços de integração (Google Drive API)
-│   │-- components/       # Componentes reutilizáveis
-│   │-- pages/            # Páginas principais do site
-│   │-- assets/           # Imagens, ícones e estilos
-│   │-- App.jsx           # Componente raiz
-│   │-- index.jsx         # Ponto de entrada da aplicação
-│-- .env                  # Variáveis de ambiente (NÃO VERSIONAR!)
-│-- package.json          # Dependências e scripts do projeto
-│-- vite.config.js        # Configuração do Vite
+|-- app/                  # Rotas do Next.js App Router
+|-- public/               # Arquivos estáticos
+|-- src/
+|   |-- assets/           # Imagens e logos
+|   |-- components/       # Componentes reutilizáveis
+|   |-- data/             # Metadados e descrições das regiões
+|   |-- utils/            # Helpers de ambiente e Google Drive
+|   |-- views/            # Implementação visual das páginas
+|-- .env.example          # Exemplo de variáveis públicas
+|-- next.config.mjs       # Configuração do Next.js
+|-- package.json
 ```
 
----
+## Stack
 
-## ⚙️ Tecnologias Utilizadas
-- **Frontend:** React.js + Vite  
-- **Estilos:** CSS puro (com possibilidade de Tailwind ou styled-components em expansões futuras)  
-- **APIs:** Google Drive API  
-- **Deploy:** Vercel  
+- Next.js 15
+- React 19
+- CSS puro
+- Google Drive API
+- Vercel
 
----
+## Desenvolvimento
 
-## 🚀 Instalação e Execução
+### 1. Instalar dependências
 
-### 1. Pré-requisitos
-- **Node.js** versão 18+  
-- **npm** ou **yarn**  
-
-### 2. Clonar o repositório
-```bash
-git clone https://github.com/SEU-USUARIO/RaizesNegras.git
-cd RaizesNegras
-```
-
-### 3. Instalar dependências
 ```bash
 npm install
 ```
 
-### 4. Configurar variáveis de ambiente
-Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
+### 2. Configurar ambiente
+
+Crie um `.env` na raiz usando o `.env.example` como base:
 
 ```env
-VITE_GOOGLE_API_KEY= SUA_CHAVE_API_AQUI
-VITE_GOOGLE_DRIVE_FOLDER_GENERAL= ID_PASTA_GERAL
-VITE_GOOGLE_DRIVE_FOLDER_CENTRO= ID_PASTA_CENTRO
-VITE_GOOGLE_DRIVE_FOLDER_LESTE= ID_PASTA_LESTE
-VITE_GOOGLE_DRIVE_FOLDER_SUL= ID_PASTA_SUL
-VITE_GOOGLE_DRIVE_FOLDER_NORTE= ID_PASTA_NORTE
-VITE_GOOGLE_DRIVE_FOLDER_OESTE= ID_PASTA_OESTE
+NEXT_PUBLIC_GOOGLE_API_KEY= SUA_CHAVE_API_AQUI
+NEXT_PUBLIC_GOOGLE_DRIVE_ID= ID_SHARED_DRIVE_OPCIONAL
+NEXT_PUBLIC_GOOGLE_DRIVE_FOLDER_GENERAL= ID_PASTA_GERAL
+NEXT_PUBLIC_GOOGLE_DRIVE_FOLDER_CENTRO= ID_PASTA_CENTRO
+NEXT_PUBLIC_GOOGLE_DRIVE_FOLDER_LESTE= ID_PASTA_LESTE
+NEXT_PUBLIC_GOOGLE_DRIVE_FOLDER_NORTE= ID_PASTA_NORTE
+NEXT_PUBLIC_GOOGLE_DRIVE_FOLDER_OESTE= ID_PASTA_OESTE
+NEXT_PUBLIC_GOOGLE_DRIVE_FOLDER_SUL= ID_PASTA_SUL
+NEXT_PUBLIC_GOOGLE_DRIVE_SUBFOLDER_ID= ID_SUBPASTA_OPCIONAL
 ```
 
-⚠️ **Atenção:**  
-- Nunca compartilhe o `.env` no GitHub.  
-- Adicione `.env` no `.gitignore` (já configurado).  
-- As **chaves da API** e os **IDs de pastas** são sensíveis e não podem ser públicos.  
+### 3. Rodar em desenvolvimento
 
-### 5. Rodar em ambiente de desenvolvimento
 ```bash
 npm run dev
 ```
 
-### 6. Gerar versão de produção
+### 4. Build de produção
+
 ```bash
 npm run build
 ```
 
-### 7. Servir build localmente
+### 5. Subir localmente em modo produção
+
 ```bash
-npm run preview
+npm run start
 ```
 
----
+## Deploy na Vercel
 
-## 🌐 Deploy na Vercel
-O projeto está preparado para **deploy na Vercel**:  
-1. Conectar o repositório ao painel da Vercel.  
-2. Configurar as variáveis de ambiente no painel (`.env`).  
-3. A Vercel cuidará do build e deploy automático.  
+O projeto agora está alinhado com o fluxo padrão da Vercel para Next.js:
 
----
+1. Conecte o repositório na Vercel.
+2. Configure as variáveis `NEXT_PUBLIC_*` no painel.
+3. Deixe o framework como `Next.js` em autodetect.
 
-## 📂 Principais Funcionalidades
-- **Página inicial:** lista de artigos por região.  
-- **Carrossel dinâmico:** exibe arquivos aleatórios das pastas do Google Drive.  
-- **Página de conteúdo:** visualização inline de PDFs, imagens e textos.  
-- **Busca:** pesquisa de arquivos por título ou região.  
-
----
-
-## 📜 Licença
-Este projeto está sob a licença **MIT**. Consulte o arquivo [LICENSE](LICENSE) para mais informações.  
-
----
+Não use mais o rewrite antigo de SPA do Vite.

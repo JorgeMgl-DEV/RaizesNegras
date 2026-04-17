@@ -1,0 +1,17 @@
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+@import "../src/index.css";
+@import "../src/views/HOME/home.css";
+@import "../src/views/REGIAO/RegionPage.css";
+@import "../src/views/REGIAO/RegionPageCustom.css";
+@import "../src/views/CONTEUDO/conteudo.css";
+@import "../src/views/ARTIGO/article.css";
+@import "../src/views/PRIVACIDADE/legal.css";
+@import "../src/views/SOBRE/sobre.css";
+@import "../src/views/FAQ/faq.css";
+@import "../src/components/project-section/project-section.css";
+@import "../src/components/footer/footer.css";
+@import "../src/components/top-section/TopSection.css";
+@import "../src/components/top-section/Navbar/Navbar.css";
+@import "../src/components/top-section/Mapa/MapaMASVG.css";
+@import "../src/components/top-section/Mapa/region-list.css";
+@import "../src/components/top-section/Mapa/pop/popup.css";
