@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Footer from "../../components/footer/footer";
@@ -16,22 +17,36 @@ const regionLabelMap = {
   sul: "Sul",
 };
 
+const folderEntries = [
+  { id: env.googleDriveFolderGeneral, regionKey: "geral" },
+  { id: env.googleDriveSubfolderId, regionKey: "geral" },
+  { id: env.googleDriveFolderCentro, regionKey: "centro" },
+  { id: env.googleDriveFolderLeste, regionKey: "leste" },
+  { id: env.googleDriveFolderNorte, regionKey: "norte" },
+  { id: env.googleDriveFolderOeste, regionKey: "oeste" },
+  { id: env.googleDriveFolderSul, regionKey: "sul" },
+].filter(({ id }) => Boolean(id));
+
 const foldersByRegion = {
-  all: [
-    env.googleDriveFolderGeneral,
-    env.googleDriveFolderCentro,
-    env.googleDriveFolderLeste,
-    env.googleDriveFolderNorte,
-    env.googleDriveFolderOeste,
-    env.googleDriveFolderSul,
-    env.googleDriveSubfolderId,
-  ],
-  centro: [env.googleDriveFolderCentro],
-  leste: [env.googleDriveFolderLeste],
-  norte: [env.googleDriveFolderNorte],
-  oeste: [env.googleDriveFolderOeste],
-  sul: [env.googleDriveFolderSul],
-  geral: [env.googleDriveFolderGeneral],
+  all: folderEntries.map(({ id }) => id),
+  centro: folderEntries.filter(({ regionKey }) => regionKey === "centro").map(({ id }) => id),
+  leste: folderEntries.filter(({ regionKey }) => regionKey === "leste").map(({ id }) => id),
+  norte: folderEntries.filter(({ regionKey }) => regionKey === "norte").map(({ id }) => id),
+  oeste: folderEntries.filter(({ regionKey }) => regionKey === "oeste").map(({ id }) => id),
+  sul: folderEntries.filter(({ regionKey }) => regionKey === "sul").map(({ id }) => id),
+  geral: folderEntries.filter(({ regionKey }) => regionKey === "geral").map(({ id }) => id),
+};
+
+const formatDocumentTitle = (name = "") =>
+  name
+    .replace(/\.pdf$/i, "")
+    .replace(/_/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const enhanceThumbnail = (thumbnailLink = "") => {
+  if (!thumbnailLink) return "";
+  return thumbnailLink.replace(/=s\d+/, "=s1200");
 };
 
 export default function Conteudo() {
@@ -40,24 +55,25 @@ export default function Conteudo() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [nextPageToken, setNextPageToken] = useState("");
+  const [currentPageToken, setCurrentPageToken] = useState("");
   const [prevTokens, setPrevTokens] = useState([]);
   const [region, setRegion] = useState("all");
   const [sort, setSort] = useState("recent");
   const debounceRef = useRef(null);
+  const queryRef = useRef("");
 
   const apiKey = env.googleApiKey;
-  const folderGeneral = env.googleDriveFolderGeneral;
-  const isConfigured = Boolean(apiKey && (folderGeneral || foldersByRegion.all.some(Boolean)));
+  const isConfigured = Boolean(apiKey && folderEntries.length > 0);
 
   const buildQuery = (value, regionKey) => {
     const contains = value ? ` and name contains '${value.replace(/'/g, "\\'")}'` : "";
     const folders = (foldersByRegion[regionKey] || []).filter(Boolean);
     const parents = folders.length > 0 ? `(${folders.map((id) => `('${id}' in parents)`).join(" or ")})` : "";
-    return `mimeType='application/pdf'${parents ? ` and ${parents}` : ""}${contains}`;
+    return `mimeType='application/pdf' and trashed=false${parents ? ` and ${parents}` : ""}${contains}`;
   };
 
   const fetchFiles = useCallback(
-    async ({ q = query, pageToken = "", regionKey = region, sortKey = sort } = {}) => {
+    async ({ q = "", pageToken = "", regionKey = "all", sortKey = "recent" } = {}) => {
       if (!isConfigured) return;
 
       setLoading(true);
@@ -65,10 +81,9 @@ export default function Conteudo() {
 
       try {
         if (regionKey === "all") {
-          const folders = (foldersByRegion.all || []).filter(Boolean);
-          const requests = folders.map(async (folder) => {
+          const requests = folderEntries.map(async ({ id: folderId, regionKey: folderRegionKey }) => {
             const params = new URLSearchParams({
-              q: `mimeType='application/pdf' and ('${folder}' in parents)${q ? ` and name contains '${q.replace(/'/g, "\\'")}'` : ""}`,
+              q: `mimeType='application/pdf' and trashed=false and ('${folderId}' in parents)${q ? ` and name contains '${q.replace(/'/g, "\\'")}'` : ""}`,
               key: apiKey,
               fields: "nextPageToken, files(id,name,mimeType,modifiedTime,webViewLink,thumbnailLink)",
               orderBy: sortKey === "recent" ? "modifiedTime desc" : sortKey === "oldest" ? "modifiedTime" : "name",
@@ -78,8 +93,9 @@ export default function Conteudo() {
             });
 
             const response = await fetch(`https://www.googleapis.com/drive/v3/files?${params.toString()}`);
-            if (!response.ok) return { files: [] };
-            return response.json();
+            if (!response.ok) return { files: [], regionKey: folderRegionKey };
+            const data = await response.json();
+            return { ...data, regionKey: folderRegionKey };
           });
 
           const results = await Promise.all(requests);
@@ -90,7 +106,7 @@ export default function Conteudo() {
             (result.files || []).forEach((file) => {
               if (seen.has(file.id)) return;
               seen.add(file.id);
-              merged.push(file);
+              merged.push({ ...file, regionKey: result.regionKey });
             });
           });
 
@@ -103,12 +119,13 @@ export default function Conteudo() {
           }
 
           setFiles(merged);
+          setCurrentPageToken("");
           setNextPageToken("");
         } else {
           const params = new URLSearchParams({
             q: buildQuery(q, regionKey),
             key: apiKey,
-            fields: "nextPageToken, files(id,name,webViewLink,modifiedTime)",
+            fields: "nextPageToken, files(id,name,mimeType,modifiedTime,webViewLink,thumbnailLink)",
             orderBy: sortKey === "recent" ? "modifiedTime desc" : sortKey === "oldest" ? "modifiedTime" : "name",
             pageSize: "12",
             supportsAllDrives: "true",
@@ -121,7 +138,8 @@ export default function Conteudo() {
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
           const data = await response.json();
-          setFiles(data.files || []);
+          setFiles((data.files || []).map((file) => ({ ...file, regionKey })));
+          setCurrentPageToken(pageToken);
           setNextPageToken(data.nextPageToken || "");
         }
       } catch {
@@ -130,12 +148,23 @@ export default function Conteudo() {
         setLoading(false);
       }
     },
-    [apiKey, isConfigured, query, region, sort],
+    [apiKey, isConfigured],
   );
 
   useEffect(() => {
-    fetchFiles({ q: "", regionKey: region, sortKey: sort });
+    queryRef.current = query;
+  }, [query]);
+
+  useEffect(() => {
+    if (!isConfigured) return;
+    setPrevTokens([]);
+    setCurrentPageToken("");
+    fetchFiles({ q: queryRef.current, pageToken: "", regionKey: region, sortKey: sort });
   }, [fetchFiles, isConfigured, region, sort]);
+
+  useEffect(() => () => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+  }, []);
 
   const onChangeQuery = (event) => {
     const value = event.target.value;
@@ -145,20 +174,21 @@ export default function Conteudo() {
 
     debounceRef.current = setTimeout(() => {
       setPrevTokens([]);
+      setCurrentPageToken("");
       fetchFiles({ q: value, pageToken: "", regionKey: region, sortKey: sort });
     }, 400);
   };
 
   const onNext = () => {
     if (!nextPageToken) return;
-    setPrevTokens((tokens) => [...tokens, nextPageToken]);
+    setPrevTokens((tokens) => [...tokens, currentPageToken]);
     fetchFiles({ q: query, pageToken: nextPageToken, regionKey: region, sortKey: sort });
   };
 
   const onPrev = () => {
     if (prevTokens.length === 0) return;
     const newTokens = [...prevTokens];
-    const previous = newTokens.pop();
+    const previous = newTokens.pop() ?? "";
     setPrevTokens(newTokens);
     fetchFiles({ q: query, pageToken: previous, regionKey: region, sortKey: sort });
   };
@@ -210,7 +240,9 @@ export default function Conteudo() {
                 className="conteudo__select"
                 value={region}
                 onChange={(event) => {
+                  if (debounceRef.current) clearTimeout(debounceRef.current);
                   setPrevTokens([]);
+                  setCurrentPageToken("");
                   setRegion(event.target.value);
                 }}
                 aria-label="Filtrar por região"
@@ -232,7 +264,9 @@ export default function Conteudo() {
                 className="conteudo__select"
                 value={sort}
                 onChange={(event) => {
+                  if (debounceRef.current) clearTimeout(debounceRef.current);
                   setPrevTokens([]);
+                  setCurrentPageToken("");
                   setSort(event.target.value);
                 }}
                 aria-label="Ordenar resultados"
@@ -255,33 +289,56 @@ export default function Conteudo() {
             </div>
 
             <div className="conteudo__grid">
-              {files.map((file) => (
-                <Link key={file.id} href={`/artigo/${file.id}`} className="article-card">
-                  <div className="article-card__icon">
-                    <i className="fa-solid fa-file-pdf" aria-hidden="true" />
-                  </div>
-                  <div className="article-card__content">
-                    <h3 className="article-card__title">{file.name}</h3>
-                    <p className="article-card__meta">
-                      <i className="fa-solid fa-clock" aria-hidden="true" />
-                      Atualizado: {formatDate(file.modifiedTime)}
-                    </p>
-                  </div>
-                  <div className="article-card__arrow">
-                    <i className="fa-solid fa-arrow-right" aria-hidden="true" />
-                  </div>
-                </Link>
-              ))}
+              {files.map((file) => {
+                const title = formatDocumentTitle(file.name);
+                const regionLabel = regionLabelMap[file.regionKey] || regionLabelMap[region] || "Acervo";
+                const thumbnail = enhanceThumbnail(file.thumbnailLink);
+                const modifiedAt = formatDate(file.modifiedTime);
+
+                return (
+                  <Link key={file.id} href={`/artigo/${file.id}`} className="article-card">
+                    <div className="article-card__media" aria-hidden="true">
+                      {thumbnail ? (
+                        <Image src={thumbnail} alt="" fill sizes="(max-width: 860px) 100vw, 33vw" />
+                      ) : (
+                        <div className="article-card__media-fallback">
+                          <i className="fa-solid fa-file-pdf" aria-hidden="true" />
+                          <span>PDF</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="article-card__content">
+                      <div className="article-card__tags">
+                        <span className="article-card__badge">{regionLabel}</span>
+                        <span className="article-card__filetype">PDF</span>
+                      </div>
+                      <h3 className="article-card__title">{title}</h3>
+                      <p className="article-card__meta">
+                        <i className="fa-solid fa-clock" aria-hidden="true" />
+                        {modifiedAt ? `Atualizado em ${modifiedAt}` : "Documento do acervo"}
+                      </p>
+                    </div>
+                    <div className="article-card__footer">
+                      <span className="article-card__cta">Abrir documento</span>
+                      <span className="article-card__arrow">
+                        <i className="fa-solid fa-arrow-right" aria-hidden="true" />
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
 
-            <div className="conteudo__pager">
-              <button className="conteudo__btn" type="button" onClick={onPrev} disabled={prevTokens.length === 0 || loading}>
-                Anterior
-              </button>
-              <button className="conteudo__btn" type="button" onClick={onNext} disabled={!nextPageToken || loading}>
-                Próxima
-              </button>
-            </div>
+            {region !== "all" && (
+              <div className="conteudo__pager">
+                <button className="conteudo__btn" type="button" onClick={onPrev} disabled={prevTokens.length === 0 || loading}>
+                  Anterior
+                </button>
+                <button className="conteudo__btn" type="button" onClick={onNext} disabled={!nextPageToken || loading}>
+                  Próxima
+                </button>
+              </div>
+            )}
           </>
         )}
       </main>

@@ -50,6 +50,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "agenciabrasil.ebc.com.br",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
     ],
   },
   async headers() {
