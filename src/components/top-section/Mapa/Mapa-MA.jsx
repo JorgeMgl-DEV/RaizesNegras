@@ -13,14 +13,14 @@ export default function MapaMA() {
   const handleRegionClick = (event, regionCode) => {
     const x = event.clientX;
     const y = event.clientY;
-    const popupWidth = 350;
-    const popupHeight = 200;
+    const popupWidth = Math.min(360, window.innerWidth - 32);
+    const popupHeight = 240;
 
-    let adjustedX = x;
-    let adjustedY = y;
+    let adjustedX = Math.min(x + 18, window.innerWidth - popupWidth - 16);
+    let adjustedY = Math.min(y + 18, window.innerHeight - popupHeight - 16);
 
-    if (x + popupWidth > window.innerWidth) adjustedX = x - popupWidth;
-    if (y + popupHeight > window.innerHeight) adjustedY = y - popupHeight;
+    adjustedX = Math.max(16, adjustedX);
+    adjustedY = Math.max(16, adjustedY);
 
     setPopupPosition({ x: adjustedX, y: adjustedY });
     setSelectedRegion(regionCode);
@@ -49,6 +49,7 @@ export default function MapaMA() {
               left: popupPosition.x,
               top: popupPosition.y,
               zIndex: 1000,
+              width: "min(360px, calc(100vw - 32px))",
             }}
             onClick={(event) => event.stopPropagation()}
           >

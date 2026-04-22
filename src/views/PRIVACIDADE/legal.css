@@ -1,51 +1,209 @@
-.legal-page {
-  max-width: 700px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  font-size: 1.1rem;
-  color: #222;
+.legal-shell {
+  width: var(--content-width);
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3.5rem) 0 4rem;
 }
-.legal-page h1 {
-  font-size: 2rem;
+
+.legal-page__hero,
+.legal-page,
+.legal-aside {
+  border-radius: var(--radius-lg);
+  background: rgba(255, 251, 245, 0.92);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(12px);
+}
+
+.legal-page__hero {
+  padding: clamp(1.6rem, 3vw, 2.2rem);
   margin-bottom: 1rem;
 }
-.legal-page h2 {
-  font-size: 1.3rem;
-  margin-top: 2rem;
+
+.legal-page__hero p {
+  max-width: 62ch;
+  margin-top: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
 }
+
+.legal-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 1rem;
+  align-items: start;
+}
+
+.legal-page {
+  width: auto;
+  margin: 0;
+  padding: clamp(1.5rem, 2.4vw, 2rem);
+  color: var(--text-secondary);
+}
+
+.legal-page__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  margin-bottom: 1rem;
+  padding: 0 0.95rem;
+  border-radius: 999px;
+  background: rgba(243, 156, 19, 0.16);
+  color: var(--bg-cor-id-1);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.legal-page__hero h1,
+.legal-page h1 {
+  color: var(--bg-cor-id-1);
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.legal-page h2 {
+  margin-top: 1.8rem;
+  margin-bottom: 0.7rem;
+  color: var(--bg-cor-id-1);
+  font-size: 1.35rem;
+}
+
+.legal-page p {
+  line-height: 1.8;
+}
+
+.legal-page p + p {
+  margin-top: 1rem;
+}
+
+.legal-aside {
+  position: sticky;
+  top: 5.8rem;
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.35rem;
+}
+
+.legal-aside strong {
+  color: var(--bg-cor-id-1);
+  font-size: 1rem;
+}
+
+.legal-aside__stack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.legal-aside__card {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(70, 14, 6, 0.08);
+}
+
+.legal-aside__card span {
+  color: var(--bg-cor-id-1);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.legal-aside__card p,
+.legal-aside__card a {
+  color: var(--text-secondary);
+}
+
+.legal-aside__card a {
+  width: fit-content;
+}
+
+.legal-aside__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 46px;
+  padding: 0 1rem;
+  border-radius: 999px;
+  background: var(--bg-cor-id-1);
+  color: #fff1dc;
+  font-weight: 700;
+}
+
 .contato-form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 1rem;
   margin-top: 1.5rem;
+  padding: 1.15rem;
+  border-radius: 22px;
+  background: var(--surface-soft);
 }
+
+.contato-form label {
+  display: grid;
+  gap: 0.5rem;
+  color: var(--bg-cor-id-1);
+  font-weight: 700;
+}
+
 .contato-form input,
 .contato-form textarea {
   width: 100%;
-  padding: 0.7rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+  background: var(--surface-strong);
+  color: var(--text-primary);
 }
+
 .contato-form button {
   width: fit-content;
-  padding: 0.7rem 1.5rem;
-  background: #222;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+  min-height: 46px;
+  padding: 0 1.25rem;
+  border-radius: 999px;
+  background: var(--bg-cor-id-1);
+  color: #fff1dc;
+  font-weight: 700;
   cursor: pointer;
 }
+
 .enviado-msg {
-  color: green;
   margin-top: 1rem;
+  padding: 0.95rem 1rem;
+  border-radius: 16px;
+  background: rgba(35, 97, 61, 0.08);
+  color: #23613d;
+  font-weight: 700;
 }
-@media (max-width: 600px) {
-  .legal-page {
-    padding: 1rem;
-    font-size: 1rem;
+
+@media (max-width: 900px) {
+  .legal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .legal-aside {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .legal-shell {
+    padding: 1.5rem 0 3rem;
+  }
+
+  .legal-page__hero,
+  .legal-page,
+  .legal-aside {
+    padding: 1.2rem;
+  }
+
+  .contato-form {
+    padding: 0;
+    background: transparent;
   }
 }

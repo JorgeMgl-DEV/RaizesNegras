@@ -1,24 +1,58 @@
-import Image from "next/image";
-import Navbar from "./Navbar/Navbar";
-import MapaMA from "./Mapa/Mapa-MA";
+import Link from "next/link";
 import RegionList from "./Mapa/RegionList";
-import logoRdark from "../../assets/logos/logoRdark.png";
+import MapaMA from "./Mapa/Mapa-MA";
+import Navbar from "./Navbar/Navbar";
 
 export default function TopSection() {
   return (
-    <div className="top-section">
+    <section className="top-section">
       <Navbar />
       <div className="content-section">
         <div className="project-info">
-          <Image src={logoRdark} alt="Logo Raízes Negras" className="project-logo" priority />
-          <div className="project-description">
-            <p>O Raízes Negras é um acervo digital que reúne e valoriza a cultura afro-maranhense por meio de artigos, notícias e indicações de filmes e documentários.</p>
+          <span className="hero-kicker">Acervo Digital Afro-Maranhense</span>
+          <div className="hero-brand">
+            <div className="project-description">
+              <h1>Memória, território e circulação de saberes negros no Maranhão.</h1>
+              <p>
+                O Raízes Negras reúne documentos, artigos, registros culturais e materiais de pesquisa em uma
+                navegação que conecta regiões, histórias e permanências.
+              </p>
+              <div className="hero-actions">
+                <Link className="hero-action hero-action--primary" href="/conteudo">
+                  Explorar o acervo
+                </Link>
+                <Link className="hero-action hero-action--secondary" href="/sobre">
+                  Conhecer o projeto
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="hero-meta" aria-label="Destaques do acervo">
+            <article className="hero-meta-card">
+              <strong>Mapa interativo</strong>
+              <span>Entrada principal para explorar cada território do Maranhão.</span>
+            </article>
+            <article className="hero-meta-card">
+              <strong>Acervo em PDF</strong>
+              <span>Documentos e materiais organizados para leitura pública.</span>
+            </article>
+            <article className="hero-meta-card">
+              <strong>Navegação regional</strong>
+              <span>Conteúdos associados a contextos locais, narrativas e referências.</span>
+            </article>
           </div>
         </div>
-        <MapaMA />
+        <div className="hero-map-panel">
+          <div className="hero-map-stage">
+            <MapaMA />
+            <span className="hero-map-caption">Passe o cursor ou toque para abrir cada região.</span>
+          </div>
+        </div>
       </div>
       <RegionList />
-      <div className="scroll-arrow">↓</div>
-    </div>
+      <a className="hero-scroll-arrow" href="#home-intro" aria-label="Ir para a apresentação da página inicial">
+        ↓
+      </a>
+    </section>
   );
 }

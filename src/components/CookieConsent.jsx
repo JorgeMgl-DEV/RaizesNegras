@@ -47,39 +47,16 @@ export default function CookieConsent() {
   if (!showBanner || accepted) return null;
 
   return (
-    <div
-      className="legal-page"
-      style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 9999,
-        background: "#fff",
-        boxShadow: "0 -2px 8px rgba(0,0,0,0.07)",
-        borderRadius: "8px 8px 0 0",
-        maxWidth: "700px",
-        margin: "0 auto",
-        padding: "1.2rem",
-      }}
-    >
-      <h2>Consentimento de Cookies</h2>
-      <p>
-        Utilizamos cookies para melhorar sua experiência, personalizar conteúdo e exibir anúncios do Google AdSense. Ao aceitar, você concorda com nossa{" "}
-        <a href="/privacidade">Política de Privacidade</a> e com o uso de cookies conforme a LGPD.
-      </p>
-      <button
-        style={{
-          marginTop: "1rem",
-          background: "#222",
-          color: "#fff",
-          border: "none",
-          borderRadius: "4px",
-          padding: "0.7rem 1.5rem",
-          cursor: "pointer",
-        }}
-        onClick={handleAccept}
-      >
+    <div className="cookie-consent" role="dialog" aria-live="polite" aria-label="Consentimento de cookies">
+      <div className="cookie-consent__body">
+        <span className="cookie-consent__eyebrow">Privacidade</span>
+        <h2>Consentimento de Cookies</h2>
+        <p>
+          Utilizamos cookies para melhorar sua experiência, personalizar conteúdo e exibir anúncios do Google AdSense. Ao aceitar, você concorda com nossa{" "}
+          <a href="/privacidade">Política de Privacidade</a> e com o uso de cookies conforme a LGPD.
+        </p>
+      </div>
+      <button className="cookie-consent__button" onClick={handleAccept} type="button">
         Aceitar e continuar
       </button>
     </div>

@@ -63,8 +63,8 @@ export default function RegionPage({ slug }) {
   const apiKey = env.googleApiKey;
 
   const isConfigured = Boolean(apiKey && region && foldersByRegion[region.code]);
-  const logoSrc = (logos[region?.code] || logos.default).src;
-  const mapSrc = (mapas[region?.code] || mapas.default).src;
+  const logoSrc = logos[region?.code] || logos.default;
+  const mapSrc = mapas[region?.code] || mapas.default;
 
   const fetchFiles = useCallback(
     async ({ q = query, sortKey = sort } = {}) => {
@@ -177,13 +177,17 @@ export default function RegionPage({ slug }) {
         <article className="region-article">
           <header className="region-page__header">
             <div className="region-page__info">
-              <Image
-                src={logoSrc}
-                alt={`Símbolo representativo da região ${region.name}`}
-                className="region-page__logo"
-                width={200}
-                height={150}
-              />
+              <span className="region-page__eyebrow">Região {region.code}</span>
+              <h1 className="region-page__title">{region.name}</h1>
+              <p className="region-page__lead">Acervo e narrativas associados aos contextos históricos e culturais deste território.</p>
+              <div className="region-page__logo-shell">
+                <Image
+                  src={logoSrc}
+                  alt={`Símbolo representativo da região ${region.name}`}
+                  className="region-page__logo"
+                  sizes="(max-width: 920px) 52vw, 240px"
+                />
+              </div>
 
               <div className="region-description">
                 <p>{regionDescription}</p>
@@ -192,13 +196,14 @@ export default function RegionPage({ slug }) {
             </div>
 
             <div className="region-page__map">
-              <Image
-                src={mapSrc}
-                alt={`Mapa ilustrativo da região ${region.name}`}
-                className="region-page__map-image"
-                width={600}
-                height={300}
-              />
+              <div className="region-page__map-shell">
+                <Image
+                  src={mapSrc}
+                  alt={`Mapa ilustrativo da região ${region.name}`}
+                  className="region-page__map-image"
+                  sizes="(max-width: 920px) 84vw, 34vw"
+                />
+              </div>
             </div>
           </header>
 

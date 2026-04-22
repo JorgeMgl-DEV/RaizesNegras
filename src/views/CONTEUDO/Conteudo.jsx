@@ -174,8 +174,22 @@ export default function Conteudo() {
     <>
       <Navbar />
       <main className="conteudo__main">
-        <h1 className="conteudo__title">Conteúdo</h1>
-        {!isConfigured && <p className="conteudo__text">Configuração do Google Drive ausente.</p>}
+        <section className="conteudo__hero">
+          <div className="conteudo__hero-copy">
+            <span className="conteudo__eyebrow">Arquivo e pesquisa</span>
+            <h1 className="conteudo__title">Conteúdo do acervo</h1>
+            <p className="conteudo__text">
+              Consulte materiais organizados por região e explore o acervo com filtros simples, leitura pública e navegação direta para cada documento.
+            </p>
+          </div>
+          <div className="conteudo__hero-card">
+            <span>Recorte ativo</span>
+            <strong>{regionLabelMap[region]}</strong>
+            <small>{files.length} resultado(s) visíveis</small>
+          </div>
+        </section>
+
+        {!isConfigured && <p className="conteudo__text conteudo__text--warning">Configuração do Google Drive ausente.</p>}
 
         {isConfigured && (
           <>
@@ -243,6 +257,9 @@ export default function Conteudo() {
             <div className="conteudo__grid">
               {files.map((file) => (
                 <Link key={file.id} href={`/artigo/${file.id}`} className="article-card">
+                  <div className="article-card__icon">
+                    <i className="fa-solid fa-file-pdf" aria-hidden="true" />
+                  </div>
                   <div className="article-card__content">
                     <h3 className="article-card__title">{file.name}</h3>
                     <p className="article-card__meta">

@@ -91,37 +91,36 @@ export default function Article({ id }) {
   const isPdf = meta?.mimeType === "application/pdf";
   const next = () => setPage((current) => Math.min(pages, current + 1));
   const prev = () => setPage((current) => Math.max(1, current - 1));
+  const articleTitle = meta?.name || "Carregando artigo";
 
   return (
     <>
       <Navbar />
       <main className="article-layout">
         <section className="article-viewer">
+          <div className="article-header">
+            <div className="article-header__copy">
+              <span className="article-eyebrow">Leitura do acervo</span>
+              <h1>{articleTitle}</h1>
+            </div>
+            {meta?.webViewLink && (
+              <a className="article-drive-link" href={meta.webViewLink} target="_blank" rel="noreferrer">
+                Abrir no Google Drive
+              </a>
+            )}
+          </div>
+
           {err && <div className="error">{err}</div>}
           {!err && loading && <div className="article-loading">Carregando artigo...</div>}
 
           {!err && !isPdf && meta && (
-            <>
-              <h2 style={{ margin: "4px 0 8px" }}>{meta.name || "Carregando..."}</h2>
-              <div
-                style={{
-                  padding: "12px",
-                  background: "#fffbe6",
-                  border: "1px solid #ffe58f",
-                  borderRadius: 8,
-                }}
-              >
-                Este arquivo não é PDF (<code>{meta.mimeType}</code>).
-                <a href={meta.webViewLink} target="_blank" rel="noreferrer" style={{ marginLeft: 8 }}>
-                  Abrir no Google Drive
-                </a>
-              </div>
-            </>
+            <div className="article-note">
+              Este arquivo não é PDF (<code>{meta.mimeType}</code>). Abra o material diretamente no Google Drive para visualizar o conteúdo completo.
+            </div>
           )}
 
           {!err && isPdf && !usePreview && (
             <>
-              <h2 style={{ margin: "4px 0 8px" }}>{meta?.name || "Carregando..."}</h2>
               <div className="article-controls">
                 <button onClick={prev} disabled={page <= 1}>
                   Anterior
@@ -130,26 +129,18 @@ export default function Article({ id }) {
                 <button onClick={next} disabled={page >= pages}>
                   Próxima
                 </button>
-                {meta?.webViewLink && (
-                  <a href={meta.webViewLink} target="_blank" rel="noreferrer" style={{ marginLeft: "auto" }}>
-                    Abrir no Google Drive
-                  </a>
-                )}
               </div>
               <canvas ref={canvasRef} className="article-canvas" />
             </>
           )}
 
           {!err && isPdf && usePreview && (
-            <>
-              <h2 style={{ margin: "4px 0 8px" }}>{meta?.name}</h2>
-              <iframe
-                title={meta?.name}
-                src={drivePreviewURL(meta.id)}
-                style={{ width: "100%", height: "80vh", border: 0, borderRadius: 8 }}
-                allow="autoplay"
-              />
-            </>
+            <iframe
+              title={meta?.name}
+              src={drivePreviewURL(meta.id)}
+              className="article-frame"
+              allow="autoplay"
+            />
           )}
         </section>
 

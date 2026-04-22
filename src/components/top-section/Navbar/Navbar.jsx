@@ -6,6 +6,16 @@ import { useCallback, useState } from "react";
 import logoRclaro from "../../../assets/logos/logoRclaro.png";
 import { env } from "@/src/utils/env";
 
+const navigationItems = [
+  { href: "/", label: "Início" },
+  { href: "/sobre", label: "Sobre" },
+  { href: "/conteudo", label: "Conteúdo" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/privacidade", label: "Privacidade" },
+  { href: "/termos", label: "Termos de Uso" },
+  { href: "/contato", label: "Contato" },
+];
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -84,34 +94,45 @@ export default function Navbar() {
     setSearchOpen(false);
   };
 
+  const resetSearch = () => {
+    setSearchOpen(false);
+    setSearchResults([]);
+    setSearchTerm("");
+    setIsSearching(false);
+  };
+
+  const closeNavigation = () => {
+    setMenuOpen(false);
+    resetSearch();
+  };
+
   const toggleSearch = () => {
     setSearchOpen((value) => !value);
     setMenuOpen(false);
 
-    if (!searchOpen) {
-      setSearchResults([]);
-      setSearchTerm("");
+    if (searchOpen) {
+      resetSearch();
     }
   };
 
   return (
     <nav className="navbar">
       <div className="navbar__logo">
-        <Link href="/">
-          <Image src={logoRclaro} alt="Logo Raízes Negras" width={100} height={84} />
+        <Link href="/" onClick={closeNavigation}>
+          <Image src={logoRclaro} alt="Logo Raízes Negras" sizes="(max-width: 640px) 92px, 112px" />
         </Link>
       </div>
 
       <div className="navbar__direita">
         <div id="menu-principal" className={`navbar__menu ${menuOpen ? "is-open" : ""}`} role="navigation">
           <ul>
-            <li><Link href="/">Início</Link></li>
-            <li><Link href="/sobre">Sobre</Link></li>
-            <li><Link href="/conteudo">Conteúdo</Link></li>
-            <li><Link href="/faq">FAQ</Link></li>
-            <li><Link href="/privacidade">Privacidade</Link></li>
-            <li><Link href="/termos">Termos de Uso</Link></li>
-            <li><Link href="/contato">Contato</Link></li>
+            {navigationItems.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} onClick={closeNavigation}>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -130,20 +151,24 @@ export default function Navbar() {
               value={searchTerm}
               onChange={handleSearch}
             />
-            {isSearching && <div className="navbar__search-loading">Buscando...</div>}
-            {searchResults.length > 0 && (
+            {searchOpen && isSearching && <div className="navbar__search-loading">Buscando...</div>}
+            {searchOpen && searchResults.length > 0 && (
               <div className="navbar__search-results">
                 {searchResults.map((result) => (
                   <Link
                     key={result.id}
                     href={`/artigo/${result.id}`}
                     className="navbar__search-result-item"
+                    onClick={closeNavigation}
                   >
                     <i className="fa-solid fa-file-pdf" />
                     {result.name}
                   </Link>
                 ))}
               </div>
+            )}
+            {searchOpen && !isSearching && searchTerm.length >= 3 && searchResults.length === 0 && (
+              <div className="navbar__search-empty">Nenhum PDF encontrado com esse termo.</div>
             )}
           </div>
         </div>

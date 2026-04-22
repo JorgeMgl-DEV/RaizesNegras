@@ -1,82 +1,171 @@
 .sobre__main {
-  padding: 2rem 1rem;
-  max-width: 960px;
+  width: var(--content-width);
   margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3.5rem) 0 4rem;
 }
 
-.sobre__section {
-  margin-bottom: 2rem;
+.sobre__hero,
+.sobre__intro-card,
+.sobre__tech,
+.sobre__card {
+  border-radius: var(--radius-lg);
+  background: rgba(255, 251, 245, 0.92);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(12px);
+}
+
+.sobre__hero {
+  display: grid;
+  gap: 0.9rem;
+  padding: clamp(1.75rem, 3vw, 2.4rem);
+  margin-bottom: 1.2rem;
+}
+
+.sobre__eyebrow,
+.sobre__tech-label {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 34px;
+  margin-bottom: 0.5rem;
+  padding: 0 0.95rem;
+  border-radius: 999px;
+  background: rgba(243, 156, 19, 0.16);
+  color: var(--bg-cor-id-1);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .sobre__title {
-  margin-bottom: 0.5rem;
+  color: var(--bg-cor-id-1);
+  font-size: clamp(2.4rem, 4vw, 4.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.sobre__text {
+  color: var(--text-secondary);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.sobre__section--mission {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sobre__intro-card,
+.sobre__tech {
+  padding: 1.55rem;
+}
+
+.sobre__subtitle,
+.sobre__name {
   color: var(--bg-cor-id-1);
 }
 
 .sobre__subtitle {
-  margin-bottom: 1rem;
-  color: var(--bg-cor-id-1);
-}
-
-.sobre__text {
-  line-height: 1.7;
-}
-
-.sobre__text--spaced {
-  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.7rem;
 }
 
 .sobre__list {
-  padding-left: 1.25rem;
-  line-height: 1.7;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.sobre__list li {
+  padding-left: 1.1rem;
+  position: relative;
+  color: var(--text-secondary);
+}
+
+.sobre__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.75rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--bg-cor-id-2);
+}
+
+.sobre__team {
+  margin-top: 1.5rem;
+}
+
+.sobre__team > .sobre__subtitle {
+  margin-bottom: 1rem;
+  font-size: clamp(1.9rem, 2.3vw, 2.6rem);
 }
 
 .sobre__card {
   display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  grid-template-columns: clamp(190px, 22vw, 230px) minmax(0, 1fr);
   align-items: start;
+  gap: 1.5rem;
+  padding: 1.5rem;
 }
 
-.sobre__card--last {
-  margin-bottom: 0.5rem;
+.sobre__card + .sobre__card {
+  margin-top: 1rem;
 }
 
 .sobre__photo {
-  width: 120px;
-  height: 120px;
-  background: var(--bg-cor-id-2);
-  border: 1px solid var(--bg-cor-id-1);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: 0.8rem;
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(243, 156, 19, 0.14), rgba(70, 14, 6, 0.08));
 }
 
 .sobre__img {
-  width: 110px;
-  height: 110px;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
   object-fit: cover;
-  border-radius: 6px;
 }
 
-.sobre__name {
-  margin: 0;
-  color: var(--bg-cor-id-1);
+.sobre__card-body {
+  display: grid;
+  gap: 0.6rem;
 }
 
 .sobre__role {
-  margin: 0.25rem 0 0.5rem;
-}
-
-.sobre__actions {
-  margin-top: 0.5rem;
+  color: var(--bg-cor-id-2);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.82rem;
 }
 
 .sobre__link {
-  color: var(--bg-cor-id-2);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1rem;
+  border-radius: 999px;
+  background: var(--bg-cor-id-1);
+  color: #fff1dc;
   font-weight: 700;
+  box-shadow: 0 12px 24px rgba(70, 14, 6, 0.12);
 }
 
+@media (max-width: 900px) {
+  .sobre__section--mission,
+  .sobre__card {
+    grid-template-columns: 1fr;
+  }
 
+  .sobre__photo {
+    width: min(100%, 320px);
+    justify-self: center;
+  }
+}

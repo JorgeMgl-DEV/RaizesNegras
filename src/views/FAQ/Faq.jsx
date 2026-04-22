@@ -6,11 +6,14 @@ export default function Faq() {
     <>
       <Navbar />
       <main className="faq__main">
-        <h1 className="faq__title">FAQ</h1>
-        <p className="faq__text">Aqui estão as formas oficiais de contato e quando usar cada uma.</p>
+        <section className="faq__hero">
+          <span className="faq__eyebrow">Contato e suporte</span>
+          <h1 className="faq__title">FAQ</h1>
+          <p className="faq__text">Aqui estão as formas oficiais de contato e quando usar cada uma.</p>
+        </section>
 
-        <section className="faq__section">
-          <h2 className="faq__subtitle">E-mail do Projeto</h2>
+        <section className="faq__section faq__section--email">
+          <h2 className="faq__subtitle">E-mail do projeto</h2>
           <p className="faq__text">
             Para dúvidas gerais, envio de sugestões ou relato de problemas, você pode escrever para
             <a className="faq__link" href="mailto:acervo.raizesnegras@gmail.com"> acervo.raizesnegras@gmail.com</a>.
@@ -18,7 +21,7 @@ export default function Faq() {
         </section>
 
         <section className="faq__section">
-          <h2 className="faq__subtitle">WhatsApp</h2>
+          <h2 className="faq__subtitle">Canais diretos</h2>
           <div className="faq__contacts">
             <article className="faq__card">
               <div className="faq__card-header">
@@ -43,7 +46,7 @@ export default function Faq() {
             <article className="faq__card">
               <div className="faq__card-header">
                 <h3 className="faq__name">Erick MacGregor</h3>
-                <span className="faq__role">Contato institucional/Orientação</span>
+                <span className="faq__role">Contato institucional e orientação</span>
               </div>
               <div className="faq__card-actions">
                 <a className="faq__btn" href="mailto:acervo.raizesnegras@gmail.com" target="_blank" rel="noreferrer">Enviar mensagem</a>
