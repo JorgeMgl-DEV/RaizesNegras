@@ -41,9 +41,18 @@ export default function MapaMASVG({
               fill={isHovered ? "#F8BB5C" : "#460E06"}
               stroke={isHovered ? "#460E06" : defaultStroke}
               strokeWidth={155}
+              role="link"
+              tabIndex={0}
+              aria-label={`Abrir regiao ${name}`}
               onMouseEnter={() => handleMouseEnter(name)}
               onMouseLeave={handleMouseLeave}
-              onClick={(event) => handleRegionClick(event, code)}
+              onClick={() => handleRegionClick(code)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  handleRegionClick(code);
+                }
+              }}
               style={{ transition: "fill 0.3s, stroke 0.3s" }}
             />
           );

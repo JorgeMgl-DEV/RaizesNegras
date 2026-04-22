@@ -45,7 +45,7 @@ export default function TopSection() {
         <div className="hero-map-panel">
           <div className="hero-map-stage">
             <MapaMA />
-            <span className="hero-map-caption">Passe o cursor ou toque para abrir cada região.</span>
+            <span className="hero-map-caption">Passe o cursor para destacar e clique para abrir cada região.</span>
           </div>
         </div>
       </div>
