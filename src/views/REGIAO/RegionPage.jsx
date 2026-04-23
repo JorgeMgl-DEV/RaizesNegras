@@ -178,8 +178,6 @@ export default function RegionPage({ slug }) {
           <header className="region-page__header">
             <div className="region-page__info">
               <span className="region-page__eyebrow">Região {region.code}</span>
-              <h1 className="region-page__title">{region.name}</h1>
-              <p className="region-page__lead">Acervo e narrativas associados aos contextos históricos e culturais deste território.</p>
               <div className="region-page__logo-shell">
                 <Image
                   src={logoSrc}
