@@ -45,11 +45,11 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.04fr) minmax(400px, 0.96fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
   align-items: stretch;
   gap: clamp(1.25rem, 2.6vw, 2.4rem);
-  width: min(1320px, calc(100vw - clamp(1rem, 3vw, 2.5rem)));
-  min-height: calc(100svh - var(--nav-h) - clamp(2rem, 5vh, 3.5rem));
+  width: var(--content-width-wide);
+  min-height: calc(100svh - var(--nav-h) - clamp(1.25rem, 4vh, 2.75rem));
   margin: 0 auto;
   padding: clamp(1.6rem, 3.2vw, 2.4rem) 0 0;
 }
@@ -99,15 +99,15 @@
 }
 
 .project-description h1 {
-  max-width: 11ch;
+  max-width: 10.5ch;
   color: var(--bg-cor-id-1);
-  font-size: clamp(2.35rem, 3.95vw, 4.45rem);
-  line-height: 0.92;
+  font-size: clamp(2.35rem, 4.1vw, 4.45rem);
+  line-height: 0.94;
   letter-spacing: -0.06em;
 }
 
 .project-description p {
-  max-width: 34rem;
+  max-width: 36rem;
   color: rgba(48, 17, 11, 0.82);
   font-size: clamp(1.02rem, 1.2vw, 1.16rem);
   line-height: 1.68;
@@ -150,7 +150,7 @@
 
 .hero-meta {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
   gap: 0.85rem;
   margin-top: 0.25rem;
 }
@@ -186,7 +186,7 @@
   grid-template-rows: 1fr;
   gap: 0;
   min-width: 0;
-  min-height: clamp(31rem, 64vh, 40rem);
+  min-height: clamp(29rem, 58vw, 40rem);
   padding: clamp(1.15rem, 2vw, 1.75rem);
   border-radius: var(--radius-xl);
   background: linear-gradient(160deg, rgba(77, 17, 9, 0.18), rgba(255, 248, 236, 0.16));
@@ -245,7 +245,7 @@
 
 .top-section #svg-map,
 .top-section .mapa-ma {
-  width: min(100%, 37rem);
+  width: min(100%, 35rem);
   height: auto;
   max-height: min(67vh, 42rem);
   filter: drop-shadow(0 22px 38px rgba(70, 14, 6, 0.22));
@@ -311,20 +311,20 @@
 
 @media (max-width: 1200px) {
   .content-section {
-    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.92fr);
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
   }
 
   .project-description h1 {
-    font-size: clamp(2.3rem, 4vw, 4rem);
+    font-size: clamp(2.2rem, 3.8vw, 3.8rem);
   }
 
   .hero-map-panel {
-    min-height: clamp(28rem, 60vh, 37rem);
+    min-height: clamp(27rem, 54vw, 36rem);
   }
 
   .top-section #svg-map,
   .top-section .mapa-ma {
-    width: min(100%, 33rem);
+    width: min(100%, 31rem);
   }
 }
 
@@ -341,12 +341,16 @@
     margin: 0 auto;
   }
 
+  .project-description h1,
+  .project-description p {
+    max-width: none;
+  }
+
   .hero-map-panel {
     width: min(100%, 56rem);
     margin: 0 auto;
     min-height: auto;
   }
-
 }
 
 @media (max-height: 900px) and (min-width: 1101px) {
@@ -402,7 +406,7 @@
   }
 
   .content-section {
-    width: min(100%, calc(100vw - 1.5rem));
+    width: var(--content-width);
     padding-top: 0.9rem;
   }
 
@@ -410,29 +414,31 @@
     padding: 1rem;
   }
 
+  .project-description h1 {
+    max-width: 10ch;
+    font-size: clamp(2.15rem, 9vw, 3.35rem);
+    line-height: 0.95;
+  }
+
+  .project-description p {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
   .hero-meta {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .project-description h1 {
-    max-width: 9.5ch;
-    font-size: clamp(2.45rem, 10vw, 3.8rem);
-  }
-
-  .hero-map-panel {
-    min-height: clamp(24rem, 56vh, 30rem);
   }
 
   .hero-scroll-arrow {
     display: none;
   }
+
+  .hero-map-panel {
+    display: none;
+  }
 }
 
 @media (max-width: 640px) {
-  .content-section {
-    width: min(100%, calc(100vw - 1.25rem));
-  }
-
   .hero-meta {
     grid-template-columns: 1fr;
   }
@@ -471,5 +477,33 @@
     padding: 0 0.8rem;
     font-size: 0.8rem;
     text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-section {
+    padding-bottom: 1.5rem;
+  }
+
+  .hero-kicker {
+    min-height: 32px;
+    padding: 0 0.85rem;
+    font-size: 0.74rem;
+  }
+
+  .hero-brand {
+    padding: 0.95rem;
+  }
+
+  .project-description {
+    gap: 0.85rem;
+  }
+
+  .project-description h1 {
+    font-size: clamp(2rem, 11vw, 2.8rem);
+  }
+
+  .hero-action {
+    min-height: 46px;
   }
 }

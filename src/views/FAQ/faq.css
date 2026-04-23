@@ -62,7 +62,7 @@
 
 .faq__contacts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
   gap: 1rem;
 }
 
@@ -70,6 +70,7 @@
   display: grid;
   gap: 1rem;
   padding: 1.25rem;
+  min-width: 0;
 }
 
 .faq__card-header {
@@ -105,4 +106,21 @@
 .faq__link {
   color: var(--bg-cor-id-1);
   text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .faq__hero,
+  .faq__section,
+  .faq__card {
+    padding: 1.2rem;
+  }
+
+  .faq__title {
+    font-size: clamp(2rem, 10vw, 2.8rem);
+  }
+
+  .faq__btn {
+    width: 100%;
+    justify-content: center;
+  }
 }

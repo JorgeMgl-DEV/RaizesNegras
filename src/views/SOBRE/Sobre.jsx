@@ -56,7 +56,7 @@ export default function Sobre() {
                 className="sobre__img"
                 width={320}
                 height={320}
-                sizes="(max-width: 900px) 80vw, 220px"
+                sizes="(max-width: 640px) min(78vw, 320px), (max-width: 900px) 320px, 220px"
               />
             </div>
             <div className="sobre__card-body">
@@ -84,7 +84,7 @@ export default function Sobre() {
                 className="sobre__img"
                 width={320}
                 height={320}
-                sizes="(max-width: 900px) 80vw, 220px"
+                sizes="(max-width: 640px) min(78vw, 320px), (max-width: 900px) 320px, 220px"
               />
             </div>
             <div className="sobre__card-body">
@@ -112,7 +112,7 @@ export default function Sobre() {
                 className="sobre__img"
                 width={320}
                 height={320}
-                sizes="(max-width: 900px) 80vw, 220px"
+                sizes="(max-width: 640px) min(78vw, 320px), (max-width: 900px) 320px, 220px"
               />
             </div>
             <div className="sobre__card-body">

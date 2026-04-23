@@ -162,9 +162,12 @@ export default function Conteudo() {
     fetchFiles({ q: queryRef.current, pageToken: "", regionKey: region, sortKey: sort });
   }, [fetchFiles, isConfigured, region, sort]);
 
-  useEffect(() => () => {
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    },
+    [],
+  );
 
   const onChangeQuery = (event) => {
     const value = event.target.value;
@@ -224,64 +227,73 @@ export default function Conteudo() {
         {isConfigured && (
           <>
             <div className="conteudo__controls">
-              <input
-                className="conteudo__search"
-                type="text"
-                placeholder="Buscar PDFs..."
-                value={query}
-                onChange={onChangeQuery}
-                aria-label="Buscar PDFs"
-              />
-              <label className="conteudo__label" htmlFor="conteudo-region">
-                Região
-              </label>
-              <select
-                id="conteudo-region"
-                className="conteudo__select"
-                value={region}
-                onChange={(event) => {
-                  if (debounceRef.current) clearTimeout(debounceRef.current);
-                  setPrevTokens([]);
-                  setCurrentPageToken("");
-                  setRegion(event.target.value);
-                }}
-                aria-label="Filtrar por região"
-              >
-                <option value="all">Todas as regiões</option>
-                <option value="geral">Geral/Sem região</option>
-                <option value="centro">Centro</option>
-                <option value="leste">Leste</option>
-                <option value="norte">Norte</option>
-                <option value="oeste">Oeste</option>
-                <option value="sul">Sul</option>
-              </select>
+              <div className="conteudo__field conteudo__field--search">
+                <label className="conteudo__label" htmlFor="conteudo-search">
+                  Busca
+                </label>
+                <input
+                  id="conteudo-search"
+                  className="conteudo__search"
+                  type="text"
+                  placeholder="Buscar PDFs..."
+                  value={query}
+                  onChange={onChangeQuery}
+                  aria-label="Buscar PDFs"
+                />
+              </div>
 
-              <label className="conteudo__label" htmlFor="conteudo-ordem">
-                Ordenar
-              </label>
-              <select
-                id="conteudo-ordem"
-                className="conteudo__select"
-                value={sort}
-                onChange={(event) => {
-                  if (debounceRef.current) clearTimeout(debounceRef.current);
-                  setPrevTokens([]);
-                  setCurrentPageToken("");
-                  setSort(event.target.value);
-                }}
-                aria-label="Ordenar resultados"
-              >
-                <option value="recent">Mais recente</option>
-                <option value="oldest">Mais antigo</option>
-              </select>
+              <div className="conteudo__field">
+                <label className="conteudo__label" htmlFor="conteudo-region">
+                  Região
+                </label>
+                <select
+                  id="conteudo-region"
+                  className="conteudo__select"
+                  value={region}
+                  onChange={(event) => {
+                    if (debounceRef.current) clearTimeout(debounceRef.current);
+                    setPrevTokens([]);
+                    setCurrentPageToken("");
+                    setRegion(event.target.value);
+                  }}
+                  aria-label="Filtrar por região"
+                >
+                  <option value="all">Todas as regiões</option>
+                  <option value="geral">Geral/Sem região</option>
+                  <option value="centro">Centro</option>
+                  <option value="leste">Leste</option>
+                  <option value="norte">Norte</option>
+                  <option value="oeste">Oeste</option>
+                  <option value="sul">Sul</option>
+                </select>
+              </div>
+
+              <div className="conteudo__field">
+                <label className="conteudo__label" htmlFor="conteudo-ordem">
+                  Ordenar
+                </label>
+                <select
+                  id="conteudo-ordem"
+                  className="conteudo__select"
+                  value={sort}
+                  onChange={(event) => {
+                    if (debounceRef.current) clearTimeout(debounceRef.current);
+                    setPrevTokens([]);
+                    setCurrentPageToken("");
+                    setSort(event.target.value);
+                  }}
+                  aria-label="Ordenar resultados"
+                >
+                  <option value="recent">Mais recente</option>
+                  <option value="oldest">Mais antigo</option>
+                </select>
+              </div>
             </div>
 
             {loading && <div className="conteudo__loading">Carregando...</div>}
             {error && <div className="conteudo__error">{error}</div>}
 
-            {!loading && !error && files.length === 0 && (
-              <div className="conteudo__empty">Nenhum arquivo encontrado.</div>
-            )}
+            {!loading && !error && files.length === 0 && <div className="conteudo__empty">Nenhum arquivo encontrado.</div>}
 
             <div className="conteudo__header">
               <div className="conteudo__badge">{regionLabelMap[region]}</div>
@@ -299,7 +311,12 @@ export default function Conteudo() {
                   <Link key={file.id} href={`/artigo/${file.id}`} className="article-card">
                     <div className="article-card__media" aria-hidden="true">
                       {thumbnail ? (
-                        <Image src={thumbnail} alt="" fill sizes="(max-width: 860px) 100vw, 33vw" />
+                        <Image
+                          src={thumbnail}
+                          alt=""
+                          fill
+                          sizes="(max-width: 640px) calc(100vw - 2.5rem), (max-width: 1024px) calc(50vw - 1.5rem), 360px"
+                        />
                       ) : (
                         <div className="article-card__media-fallback">
                           <i className="fa-solid fa-file-pdf" aria-hidden="true" />

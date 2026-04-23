@@ -54,7 +54,7 @@
 
 .sobre__section--mission {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 1rem;
   margin-bottom: 1rem;
 }
@@ -107,7 +107,7 @@
 
 .sobre__card {
   display: grid;
-  grid-template-columns: clamp(190px, 22vw, 230px) minmax(0, 1fr);
+  grid-template-columns: clamp(180px, 24vw, 230px) minmax(0, 1fr);
   align-items: start;
   gap: 1.5rem;
   padding: 1.5rem;
@@ -159,7 +159,6 @@
 }
 
 @media (max-width: 900px) {
-  .sobre__section--mission,
   .sobre__card {
     grid-template-columns: 1fr;
   }
@@ -167,5 +166,22 @@
   .sobre__photo {
     width: min(100%, 320px);
     justify-self: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .sobre__hero,
+  .sobre__intro-card,
+  .sobre__tech,
+  .sobre__card {
+    padding: 1.2rem;
+  }
+
+  .sobre__title {
+    font-size: clamp(2rem, 10vw, 2.9rem);
+  }
+
+  .sobre__subtitle {
+    font-size: 1.45rem;
   }
 }

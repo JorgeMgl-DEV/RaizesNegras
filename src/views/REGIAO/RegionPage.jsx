@@ -46,6 +46,13 @@ const foldersByRegion = {
   5: [env.googleDriveFolderCentro],
 };
 
+const formatDocumentTitle = (name = "") =>
+  name
+    .replace(/\.pdf$/i, "")
+    .replace(/_/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
 export default function RegionPage({ slug }) {
   const [query, setQuery] = useState("");
   const [files, setFiles] = useState([]);
@@ -134,6 +141,13 @@ export default function RegionPage({ slug }) {
     }
   }, [fetchFiles, region, sort, isConfigured]);
 
+  useEffect(
+    () => () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    },
+    [],
+  );
+
   const onChangeQuery = (event) => {
     const value = event.target.value;
     setQuery(value);
@@ -159,7 +173,9 @@ export default function RegionPage({ slug }) {
         <main className="region-page" id="conteudo" role="main">
           <div className="region-error">
             <h1>Região não encontrada</h1>
-            <p>Não encontramos a região <strong>{slug}</strong>.</p>
+            <p>
+              Não encontramos a região <strong>{slug}</strong>.
+            </p>
             <Link href="/" className="region-backlink">
               Voltar à página inicial
             </Link>
@@ -178,17 +194,19 @@ export default function RegionPage({ slug }) {
           <header className="region-page__header">
             <div className="region-page__info">
               <span className="region-page__eyebrow">Região {region.code}</span>
+              <h1 className="region-page__title">{region.name}</h1>
+
               <div className="region-page__logo-shell">
                 <Image
                   src={logoSrc}
                   alt={`Símbolo representativo da região ${region.name}`}
                   className="region-page__logo"
-                  sizes="(max-width: 920px) 52vw, 240px"
+                  sizes="(max-width: 640px) min(72vw, 280px), (max-width: 920px) 280px, 240px"
                 />
               </div>
 
               <div className="region-description">
-                <p>{regionDescription}</p>
+                {regionDescription && <p>{regionDescription}</p>}
                 <p>{region.descricao}</p>
               </div>
             </div>
@@ -199,7 +217,7 @@ export default function RegionPage({ slug }) {
                   src={mapSrc}
                   alt={`Mapa ilustrativo da região ${region.name}`}
                   className="region-page__map-image"
-                  sizes="(max-width: 920px) 84vw, 34vw"
+                  sizes="(max-width: 640px) calc(100vw - 3rem), (max-width: 920px) min(84vw, 420px), 420px"
                 />
               </div>
             </div>
@@ -214,28 +232,36 @@ export default function RegionPage({ slug }) {
               ) : (
                 <>
                   <div className="region-content__controls">
-                    <input
-                      className="region-content__search"
-                      type="text"
-                      placeholder="Buscar PDFs nesta região..."
-                      value={query}
-                      onChange={onChangeQuery}
-                      aria-label="Buscar PDFs"
-                    />
+                    <div className="region-content__field region-content__field--search">
+                      <label className="region-content__label" htmlFor="region-search">
+                        Busca
+                      </label>
+                      <input
+                        id="region-search"
+                        className="region-content__search"
+                        type="text"
+                        placeholder="Buscar PDFs nesta região..."
+                        value={query}
+                        onChange={onChangeQuery}
+                        aria-label="Buscar PDFs"
+                      />
+                    </div>
 
-                    <label className="region-content__label" htmlFor="region-ordem">
-                      Ordenar
-                    </label>
-                    <select
-                      id="region-ordem"
-                      className="region-content__select"
-                      value={sort}
-                      onChange={(event) => setSort(event.target.value)}
-                      aria-label="Ordenar resultados"
-                    >
-                      <option value="recent">Mais recente</option>
-                      <option value="oldest">Mais antigo</option>
-                    </select>
+                    <div className="region-content__field">
+                      <label className="region-content__label" htmlFor="region-ordem">
+                        Ordenar
+                      </label>
+                      <select
+                        id="region-ordem"
+                        className="region-content__select"
+                        value={sort}
+                        onChange={(event) => setSort(event.target.value)}
+                        aria-label="Ordenar resultados"
+                      >
+                        <option value="recent">Mais recente</option>
+                        <option value="oldest">Mais antigo</option>
+                      </select>
+                    </div>
                   </div>
 
                   {loading && <div className="region-content__loading">Carregando conteúdos da região...</div>}
@@ -262,7 +288,7 @@ export default function RegionPage({ slug }) {
                               <i className="fa-solid fa-file-pdf" aria-hidden="true" />
                             </div>
                             <div className="article-card__content">
-                              <h3 className="article-card__title">{file.name}</h3>
+                              <h3 className="article-card__title">{formatDocumentTitle(file.name)}</h3>
                               <p className="article-card__meta">
                                 <i className="fa-solid fa-calendar" aria-hidden="true" />
                                 {formatDate(file.modifiedTime)}

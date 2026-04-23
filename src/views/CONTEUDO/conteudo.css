@@ -6,7 +6,7 @@
 
 .conteudo__hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 280px);
   gap: 1.5rem;
   align-items: end;
   margin-bottom: 1.8rem;
@@ -80,12 +80,17 @@
 }
 
 .conteudo__controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.9rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) repeat(2, minmax(180px, 0.65fr));
+  gap: 1rem;
   padding: 1.15rem;
   margin-bottom: 1.5rem;
+}
+
+.conteudo__field {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
 }
 
 .conteudo__search,
@@ -99,7 +104,7 @@
 }
 
 .conteudo__search {
-  flex: 1 1 320px;
+  width: 100%;
 }
 
 .conteudo__label {
@@ -124,6 +129,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
   margin-bottom: 1.2rem;
 }
 
@@ -149,7 +155,7 @@
 
 .conteudo__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 1.25rem;
 }
 
@@ -171,6 +177,7 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.75);
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  min-width: 0;
 }
 
 .article-card:hover,
@@ -310,6 +317,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
   padding-top: 0.9rem;
   border-top: 1px solid rgba(70, 14, 6, 0.08);
 }
@@ -370,6 +378,16 @@
   cursor: not-allowed;
 }
 
+@media (max-width: 1024px) {
+  .conteudo__controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .conteudo__field--search {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (max-width: 860px) {
   .conteudo__hero {
     grid-template-columns: 1fr;
@@ -397,6 +415,10 @@
 }
 
 @media (max-width: 640px) {
+  .conteudo__controls {
+    grid-template-columns: 1fr;
+  }
+
   .article-card__meta,
   .article-card__footer {
     align-items: center;
@@ -404,5 +426,9 @@
 
   .article-card__cta {
     font-size: 0.95rem;
+  }
+
+  .conteudo__btn {
+    width: 100%;
   }
 }

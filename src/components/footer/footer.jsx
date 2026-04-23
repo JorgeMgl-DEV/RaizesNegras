@@ -37,7 +37,7 @@ export default function Footer() {
             alt="Governo do Maranhão"
             width={900}
             height={120}
-            sizes="(max-width: 768px) 90vw, 560px"
+            sizes="(max-width: 720px) calc(100vw - 3rem), (max-width: 1040px) min(82vw, 640px), 560px"
             className="footer__logo-strip"
           />
         </div>

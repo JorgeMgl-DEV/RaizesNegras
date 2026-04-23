@@ -17,7 +17,7 @@ html {
 
 body {
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
   font-family: var(--font-body);
   color: var(--text-primary);
   background:
@@ -81,6 +81,7 @@ button {
 :root {
   --font-body: "Instrument Sans", sans-serif;
   --font-display: "Syne", sans-serif;
+  --page-gutter: clamp(0.75rem, 2.5vw, 1.5rem);
   --bg-background-color: #f4ede5;
   --bg-cor-id-1: #460e06;
   --bg-cor-id-2: #f39c13;
@@ -100,23 +101,27 @@ button {
   --radius-lg: 30px;
   --radius-md: 20px;
   --radius-sm: 12px;
-  --content-width: min(1240px, calc(100vw - clamp(1rem, 3vw, 2.5rem)));
-  --section-space: clamp(3rem, 7vw, 5.5rem);
+  --content-width: min(1240px, calc(100% - (var(--page-gutter) * 2)));
+  --content-width-wide: min(1320px, calc(100% - (var(--page-gutter) * 2)));
+  --section-space: clamp(2.75rem, 7vw, 5.5rem);
 }
 
 main {
   position: relative;
   isolation: isolate;
+  min-width: 0;
 }
 
 .container {
   width: var(--content-width);
   margin: 0 auto;
+  min-width: 0;
 }
 
 .page-shell {
   width: var(--content-width);
   margin: 0 auto;
+  min-width: 0;
 }
 
 h1,
@@ -127,6 +132,14 @@ h5,
 h6 {
   font-family: var(--font-display);
   font-weight: 700;
+  text-wrap: balance;
+}
+
+p,
+li,
+figcaption {
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
 }
 
 :focus-visible {
@@ -149,7 +162,7 @@ h6 {
   align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
-  width: min(860px, calc(100vw - 2rem));
+  width: min(860px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 1rem;
   border-radius: 28px;
@@ -209,10 +222,22 @@ h6 {
 }
 
 @media (max-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+
+  :root {
+    --page-gutter: clamp(0.75rem, 4vw, 1rem);
+    --radius-xl: 28px;
+    --radius-lg: 24px;
+    --radius-md: 18px;
+    --section-space: clamp(2.5rem, 12vw, 3.5rem);
+  }
+
   .cookie-consent {
     flex-direction: column;
     align-items: stretch;
-    width: calc(100vw - 1rem);
+    width: calc(100% - 1rem);
     right: 0.5rem;
     bottom: 0.5rem;
     left: 0.5rem;

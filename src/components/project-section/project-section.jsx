@@ -31,7 +31,7 @@ export default function ProjectSection({
             alt={imageAlt}
             width={1170}
             height={700}
-            sizes="(max-width: 960px) 100vw, 46vw"
+            sizes="(max-width: 640px) calc(100vw - 2.5rem), (max-width: 1024px) calc(100vw - 3rem), 46vw"
           />
         </div>
         <figcaption className="subtitle">{subtitle}</figcaption>

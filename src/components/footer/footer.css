@@ -5,7 +5,7 @@
 
 .footer__content {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 0.95fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 0.9fr);
   gap: 1rem 1.2rem;
   width: var(--content-width);
   margin: 0 auto;
@@ -54,6 +54,7 @@
 .footer__contact a {
   width: fit-content;
   color: #4a2d1e;
+  overflow-wrap: anywhere;
 }
 
 .footer__copyright {
@@ -104,7 +105,7 @@
   filter: drop-shadow(0 6px 12px rgba(67, 29, 18, 0.05)) saturate(1.03) contrast(1.04);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1040px) {
   .footer__content {
     grid-template-columns: 1fr 1fr;
   }
@@ -114,7 +115,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 720px) {
   .footer {
     margin-top: 3rem;
   }

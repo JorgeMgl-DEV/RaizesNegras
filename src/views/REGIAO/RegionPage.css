@@ -9,9 +9,9 @@
 
 .region-page__header {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 1.5rem;
-  align-items: center;
+  align-items: stretch;
   margin-bottom: 1.5rem;
 }
 
@@ -117,14 +117,19 @@
 }
 
 .region-content__controls {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(220px, 0.55fr);
+  gap: 1rem;
   margin: 1.4rem 0 1.2rem;
   padding: 1rem;
   border-radius: 18px;
   background: var(--surface-soft);
+}
+
+.region-content__field {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
 }
 
 .region-content__search,
@@ -137,7 +142,7 @@
 }
 
 .region-content__search {
-  flex: 1 1 300px;
+  width: 100%;
 }
 
 .region-content__label {
@@ -176,8 +181,16 @@
 
 .region-content__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 1.2rem;
+}
+
+.region-content .article-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto;
+  align-items: center;
+  gap: 1rem;
 }
 
 .region-content .article-card__icon {
@@ -192,6 +205,18 @@
   box-shadow: 0 12px 24px rgba(70, 14, 6, 0.16);
   color: #ffd894;
   font-size: 1.12rem;
+}
+
+.region-content .article-card__content {
+  gap: 0.55rem;
+}
+
+.region-content .article-card__title {
+  -webkit-line-clamp: 3;
+}
+
+.region-content .article-card__arrow {
+  align-self: center;
 }
 
 .region-content__loading,
@@ -264,6 +289,10 @@
   .region-page__logo {
     object-position: center;
   }
+
+  .region-content__controls {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
@@ -285,17 +314,18 @@
     width: min(100%, 320px);
   }
 
-  .region-content__controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
   .region-content__search,
   .region-content__select {
     width: 100%;
   }
 
-  .region-content__grid {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  .region-content .article-card {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .region-content .article-card__arrow {
+    grid-column: 2;
+    justify-self: end;
   }
 }
