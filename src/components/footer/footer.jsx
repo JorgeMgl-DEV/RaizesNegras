@@ -32,14 +32,24 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer__logos" aria-label="Instituições apoiadoras">
-          <Image
-            src="https://iema.ma.gov.br/wp-content/uploads/2024/03/SEQUENCIA-LOGOS-GOV-SEDUC-IEMA-UNESCO.png"
-            alt="Governo do Maranhão"
-            width={900}
-            height={120}
-            sizes="(max-width: 720px) calc(100vw - 3rem), (max-width: 1040px) min(82vw, 640px), 560px"
-            className="footer__logo-strip"
-          />
+          <div className="footer__logos-grid">
+            <Image
+              src="https://iema.ma.gov.br/wp-content/uploads/2024/03/SEQUENCIA-LOGOS-GOV-SEDUC-IEMA-UNESCO.png"
+              alt="Governo do Maranhão"
+              width={900}
+              height={120}
+              sizes="(max-width: 720px) calc(100vw - 3rem), (max-width: 1040px) min(82vw, 640px), 560px"
+              className="footer__logo-strip"
+            />
+            <Image
+              src="/logo-fapema.png"
+              alt="FAPEMA"
+              width={1628}
+              height={602}
+              sizes="(max-width: 720px) 220px, 260px"
+              className="footer__logo-fapema"
+            />
+          </div>
         </div>
       </div>
     </footer>
