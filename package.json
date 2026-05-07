@@ -12,7 +12,12 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "@supabase/ssr": "^0.10.2",
+    "@supabase/supabase-js": "^2.105.1",
     "@vercel/analytics": "^1.5.0",
+    "dotenv": "^17.4.2",
     "next": "^15.3.1",
     "pdfjs-dist": "^4.5.136",
     "react": "^19.1.0",
@@ -25,6 +30,7 @@
     "eslint": "^9.29.0",
     "eslint-config-next": "^15.5.15",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "globals": "^16.2.0"
+    "globals": "^16.2.0",
+    "prisma": "^7.8.0"
   }
 }
