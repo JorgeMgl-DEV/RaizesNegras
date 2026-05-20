@@ -2,12 +2,12 @@
 
 import { useFormStatus } from "react-dom";
 
-export default function LoginSubmitButton() {
+export default function LoginSubmitButton({ label, pendingLabel, formAction, className = "login-form__submit" }) {
   const { pending } = useFormStatus();
 
   return (
-    <button className="login-form__submit" type="submit" disabled={pending}>
-      {pending ? "Entrando..." : "Entrar"}
+    <button className={className} type="submit" disabled={pending} formAction={formAction}>
+      {pending ? pendingLabel : label}
     </button>
   );
 }
