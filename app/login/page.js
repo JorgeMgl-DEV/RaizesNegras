@@ -17,10 +17,6 @@ function getFeedbackMessage(error) {
     return "Preencha email e senha para continuar.";
   }
 
-  if (error === "confirm") {
-    return "Nao foi possivel confirmar o email informado.";
-  }
-
   return error || "";
 }
 
@@ -31,8 +27,6 @@ export default async function LoginPage({ searchParams }) {
     typeof resolvedSearchParams.error === "string" ? resolvedSearchParams.error : "",
   );
   const success = resolvedSearchParams.success === "1";
-  const checkEmail = resolvedSearchParams["check-email"] === "1";
-  const confirmed = resolvedSearchParams.confirmed === "1";
 
   let user = null;
 
@@ -57,7 +51,7 @@ export default async function LoginPage({ searchParams }) {
             </p>
             <div className="login-panel__notes">
               <p>O cadastro cria a conta direto no Supabase Authentication.</p>
-              <p>Para confirmar cadastro por email, ajuste o template &quot;Confirm signup&quot; para usar `/auth/confirm`.</p>
+              <p>Sem confirmacao por email nesta etapa, para deixar o acesso inicial mais simples.</p>
             </div>
             <Link href="/" className="login-panel__back">
               Voltar para o site
@@ -76,20 +70,6 @@ export default async function LoginPage({ searchParams }) {
               <div className="login-alert login-alert--error">
                 <strong>Falha no acesso.</strong>
                 <p>{error}</p>
-              </div>
-            )}
-
-            {checkEmail && (
-              <div className="login-alert login-alert--success">
-                <strong>Cadastro iniciado.</strong>
-                <p>Verifique seu email para confirmar a conta antes de entrar.</p>
-              </div>
-            )}
-
-            {confirmed && (
-              <div className="login-alert login-alert--success">
-                <strong>Email confirmado.</strong>
-                <p>Sua conta foi ativada. Agora voce ja pode entrar.</p>
               </div>
             )}
 
@@ -140,7 +120,7 @@ export default async function LoginPage({ searchParams }) {
 
                 <div className="login-form__helper">
                   <span>Use o mesmo formulario para entrar ou criar sua conta.</span>
-                  <span>No primeiro cadastro por email, o Supabase pode pedir confirmacao por email.</span>
+                  <span>Ao criar a conta, o acesso ja fica disponivel com a senha cadastrada.</span>
                 </div>
 
                 <div className="login-form__actions">
