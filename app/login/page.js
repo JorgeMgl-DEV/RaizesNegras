@@ -2,7 +2,6 @@ import Link from "next/link";
 import { createClient } from "@/src/lib/supabase/server";
 import { hasSupabaseCredentials } from "@/src/lib/supabase/config";
 import { login, logout, signup } from "./actions";
-import GoogleAuthButton from "./google-auth-button";
 import LoginSubmitButton from "./login-submit-button";
 
 export const metadata = {
@@ -16,14 +15,6 @@ function getFeedbackMessage(error) {
 
   if (error === "missing") {
     return "Preencha email e senha para continuar.";
-  }
-
-  if (error === "oauth") {
-    return "Nao foi possivel iniciar o login com Google.";
-  }
-
-  if (error === "oauth_callback") {
-    return "O retorno do Google nao foi concluido corretamente.";
   }
 
   if (error === "confirm") {
@@ -62,11 +53,10 @@ export default async function LoginPage({ searchParams }) {
             <span className="login-panel__eyebrow">Supabase Auth</span>
             <h1>Acesso e cadastro</h1>
             <p>
-              O site agora aceita criacao de conta por email e senha e entrada social com Google, mantendo sessao
-              SSR com Supabase.
+              O site agora aceita criacao de conta e login por email e senha, mantendo sessao SSR com Supabase.
             </p>
             <div className="login-panel__notes">
-              <p>Para Google, habilite o provider no Supabase e registre `/auth/callback` na redirect allow list.</p>
+              <p>O cadastro cria a conta direto no Supabase Authentication.</p>
               <p>Para confirmar cadastro por email, ajuste o template &quot;Confirm signup&quot; para usar `/auth/confirm`.</p>
             </div>
             <Link href="/" className="login-panel__back">
@@ -122,62 +112,47 @@ export default async function LoginPage({ searchParams }) {
                 </form>
               </div>
             ) : (
-              <>
-                <form action={login} className="login-form">
-                  <div className="login-form__field">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      placeholder="voce@exemplo.com"
-                      required
-                    />
-                  </div>
-
-                  <div className="login-form__field">
-                    <label htmlFor="password">Senha</label>
-                    <input
-                      id="password"
-                      name="password"
-                      type="password"
-                      autoComplete="current-password"
-                      placeholder="Digite sua senha"
-                      minLength="6"
-                      required
-                    />
-                  </div>
-
-                  <div className="login-form__helper">
-                    <span>Use o mesmo formulario para entrar ou criar sua conta.</span>
-                    <span>No primeiro cadastro por email, o Supabase pode pedir confirmacao por email.</span>
-                  </div>
-
-                  <div className="login-form__actions">
-                    <LoginSubmitButton label="Entrar" pendingLabel="Entrando..." formAction={login} />
-                    <LoginSubmitButton
-                      label="Criar conta"
-                      pendingLabel="Criando conta..."
-                      formAction={signup}
-                      className="login-form__submit login-form__submit--secondary"
-                    />
-                  </div>
-                </form>
-
-                <div className="login-card__divider">
-                  <span>ou continue com</span>
+              <form action={login} className="login-form">
+                <div className="login-form__field">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="voce@exemplo.com"
+                    required
+                  />
                 </div>
 
-                <GoogleAuthButton disabled={!setupReady} />
-
-                <div className="login-card__footer">
-                  <p>
-                    Se o login com Google falhar, confira no Supabase: Authentication &gt; Sign In / Providers &gt;
-                    Google.
-                  </p>
+                <div className="login-form__field">
+                  <label htmlFor="password">Senha</label>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="current-password"
+                    placeholder="Digite sua senha"
+                    minLength="6"
+                    required
+                  />
                 </div>
-              </>
+
+                <div className="login-form__helper">
+                  <span>Use o mesmo formulario para entrar ou criar sua conta.</span>
+                  <span>No primeiro cadastro por email, o Supabase pode pedir confirmacao por email.</span>
+                </div>
+
+                <div className="login-form__actions">
+                  <LoginSubmitButton label="Entrar" pendingLabel="Entrando..." formAction={login} />
+                  <LoginSubmitButton
+                    label="Criar conta"
+                    pendingLabel="Criando conta..."
+                    formAction={signup}
+                    className="login-form__submit login-form__submit--secondary"
+                  />
+                </div>
+              </form>
             )}
           </div>
         </div>
