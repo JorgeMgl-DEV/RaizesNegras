@@ -73,6 +73,88 @@
   transform: translateY(-1px);
 }
 
+.navbar__auth {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.navbar__auth-link,
+.navbar__profile-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.navbar__auth-link {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffdeb0;
+}
+
+.navbar__auth-link--accent {
+  background: linear-gradient(135deg, #f0b449, #e49a17);
+  border-color: rgba(70, 14, 6, 0.18);
+  color: var(--bg-cor-id-1);
+  box-shadow: 0 14px 28px rgba(243, 156, 19, 0.18);
+}
+
+.navbar__auth-link:hover,
+.navbar__auth-link:focus-visible,
+.navbar__profile-link:hover,
+.navbar__profile-link:focus-visible {
+  transform: translateY(-1px);
+}
+
+.navbar__profile-link {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 14px 24px rgba(34, 7, 4, 0.12);
+}
+
+.navbar__profile-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f0b449, #e49a17);
+  color: var(--bg-cor-id-1);
+  font-size: 0.88rem;
+  font-weight: 900;
+}
+
+.navbar__profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navbar__auth-skeleton {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  animation: navbar-auth-pulse 1.3s ease-in-out infinite;
+}
+
+@keyframes navbar-auth-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
 .navbar__search {
   position: relative;
   display: flex;
@@ -251,6 +333,17 @@
     border-radius: 14px;
   }
 
+  .navbar__auth-link,
+  .navbar__profile-link {
+    width: 44px;
+    height: 44px;
+  }
+
+  .navbar__profile-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
   .navbar__search {
     background: rgba(243, 156, 19, 0.96);
   }
@@ -344,5 +437,9 @@
 
   .navbar__search-container {
     width: calc(100vw - 1rem);
+  }
+
+  .navbar__auth {
+    gap: 0.45rem;
   }
 }

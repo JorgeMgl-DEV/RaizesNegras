@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { getProfileFromFormData, toUserMetadata, validateProfile } from "@/src/lib/profile";
 import { hasSupabaseCredentials } from "@/src/lib/supabase/config";
 import { createClient } from "@/src/lib/supabase/server";
 
@@ -36,7 +37,7 @@ export async function login(formData) {
   const password = formData.get("password")?.toString() || "";
 
   if (!email || !password) {
-    redirect("/login?error=missing");
+    redirect("/login?mode=login&error=missing");
   }
 
   const supabase = await createClient();
@@ -46,11 +47,12 @@ export async function login(formData) {
   });
 
   if (error) {
-    redirect(`/login?error=${encodeURIComponent(buildAuthErrorMessage(error))}`);
+    redirect(`/login?mode=login&error=${encodeURIComponent(buildAuthErrorMessage(error))}`);
   }
 
   revalidatePath("/", "layout");
-  redirect("/login?success=1");
+  revalidatePath("/perfil");
+  redirect("/perfil?login=1");
 }
 
 export async function signup(formData) {
@@ -60,23 +62,43 @@ export async function signup(formData) {
 
   const email = formData.get("email")?.toString().trim().toLowerCase() || "";
   const password = formData.get("password")?.toString() || "";
+  const profile = getProfileFromFormData(formData);
 
   if (!email || !password) {
-    redirect("/login?error=missing");
+    redirect("/login?mode=signup&error=missing");
+  }
+
+  if (password.length < 6) {
+    redirect("/login?mode=signup&error=Escolha%20uma%20senha%20com%20pelo%20menos%206%20caracteres.");
+  }
+
+  const validationMessage = validateProfile(profile);
+
+  if (validationMessage) {
+    redirect(`/login?mode=signup&error=${encodeURIComponent(validationMessage)}`);
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: toUserMetadata(profile),
+    },
   });
 
   if (error) {
-    redirect(`/login?error=${encodeURIComponent(buildAuthErrorMessage(error, "signup"))}`);
+    redirect(`/login?mode=signup&error=${encodeURIComponent(buildAuthErrorMessage(error, "signup"))}`);
   }
 
   revalidatePath("/", "layout");
-  redirect("/login?success=1");
+  revalidatePath("/perfil");
+
+  if (data.session) {
+    redirect("/perfil?created=1");
+  }
+
+  redirect("/login?mode=login&success=created");
 }
 
 export async function logout() {

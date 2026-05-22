@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCallback, useState } from "react";
 import logoRclaro from "../../../assets/logos/logoRclaro.png";
 import { env } from "@/src/utils/env";
+import NavbarAuth from "./NavbarAuth";
 
 const navigationItems = [
   { href: "/", label: "Início" },
@@ -172,6 +173,8 @@ export default function Navbar() {
             )}
           </div>
         </div>
+
+        <NavbarAuth onNavigate={closeNavigation} />
 
         <button
           className="navbar__hamburger"
