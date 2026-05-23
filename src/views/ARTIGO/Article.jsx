@@ -6,6 +6,16 @@ import { getDocument, GlobalWorkerOptions, version as pdfjsVersion } from "pdfjs
 import Footer from "../../components/footer/footer";
 import Navbar from "../../components/top-section/Navbar/Navbar.jsx";
 import { driveFileBinaryURL, drivePreviewURL, getFileMetaURL, listInFolderURL, API_KEY } from "../../utils/drive";
+import {
+  enhanceDriveThumbnail,
+  formatDriveItemTitle,
+  getDriveMediaIconClass,
+  getDriveMediaKind,
+  getDriveMediaLabel,
+  isDriveImage,
+  isDrivePdf,
+  isDriveVideo,
+} from "@/src/utils/driveMedia";
 import { env } from "@/src/utils/env";
 
 GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.min.mjs`;
@@ -24,12 +34,26 @@ export default function Article({ id }) {
     const run = async () => {
       try {
         if (!API_KEY) throw new Error("API key ausente");
+
+        setErr("");
+        setMeta(null);
+        setPage(1);
+        setPages(1);
+        setUsePreview(false);
+        setLoading(true);
+
         const response = await fetch(getFileMetaURL(id));
-        if (!response.ok) throw new Error("Arquivo não encontrado ou privado");
+        if (!response.ok) throw new Error("Arquivo nao encontrado ou privado");
+
         const metadata = await response.json();
         setMeta(metadata);
+
+        if (!isDrivePdf(metadata.mimeType)) {
+          setLoading(false);
+        }
       } catch (error) {
         setErr(error.message || "Falha ao carregar metadados");
+        setLoading(false);
       }
     };
 
@@ -37,7 +61,7 @@ export default function Article({ id }) {
   }, [id]);
 
   useEffect(() => {
-    if (!meta || meta.mimeType !== "application/pdf" || usePreview) return;
+    if (!meta || !isDrivePdf(meta.mimeType) || usePreview) return;
 
     const render = async () => {
       try {
@@ -48,8 +72,12 @@ export default function Article({ id }) {
         const pageObject = await pdf.getPage(page);
         const viewport = pageObject.getViewport({ scale: 1.5 });
         const canvas = canvasRef.current;
-        const context = canvas.getContext("2d");
 
+        if (!canvas) {
+          return;
+        }
+
+        const context = canvas.getContext("2d");
         canvas.width = viewport.width;
         canvas.height = viewport.height;
 
@@ -88,10 +116,16 @@ export default function Article({ id }) {
     loadRecommendations();
   }, [meta]);
 
-  const isPdf = meta?.mimeType === "application/pdf";
+  const mediaKind = getDriveMediaKind(meta?.mimeType);
+  const isPdf = isDrivePdf(meta?.mimeType);
+  const isImage = isDriveImage(meta?.mimeType);
+  const isVideo = isDriveVideo(meta?.mimeType);
+  const articleTitle = meta?.name || "Carregando midia";
+  const formattedTitle = formatDriveItemTitle(meta?.name || "");
+  const mediaLabel = getDriveMediaLabel(meta?.mimeType);
+  const mediaThumbnail = enhanceDriveThumbnail(meta?.thumbnailLink);
   const next = () => setPage((current) => Math.min(pages, current + 1));
   const prev = () => setPage((current) => Math.max(1, current - 1));
-  const articleTitle = meta?.name || "Carregando artigo";
 
   return (
     <>
@@ -100,8 +134,9 @@ export default function Article({ id }) {
         <section className="article-viewer">
           <div className="article-header">
             <div className="article-header__copy">
-              <span className="article-eyebrow">Leitura do acervo</span>
+              <span className="article-eyebrow">Midia do acervo</span>
               <h1>{articleTitle}</h1>
+              {meta && <span className="article-type-badge">{mediaLabel}</span>}
             </div>
             {meta?.webViewLink && (
               <a className="article-drive-link" href={meta.webViewLink} target="_blank" rel="noreferrer">
@@ -111,11 +146,18 @@ export default function Article({ id }) {
           </div>
 
           {err && <div className="error">{err}</div>}
-          {!err && loading && <div className="article-loading">Carregando artigo...</div>}
+          {!err && loading && <div className="article-loading">Carregando midia...</div>}
 
-          {!err && !isPdf && meta && (
+          {!err && meta && mediaKind === "other" && (
             <div className="article-note">
-              Este arquivo não é PDF (<code>{meta.mimeType}</code>). Abra o material diretamente no Google Drive para visualizar o conteúdo completo.
+              Este tipo de arquivo ainda nao tem visualizacao direta no site. Abra o material no Google Drive para ver
+              o conteudo completo.
+            </div>
+          )}
+
+          {!err && meta && mediaKind !== "other" && (
+            <div className="article-note">
+              Tipo detectado: <code>{meta.mimeType}</code>.
             </div>
           )}
 
@@ -127,7 +169,7 @@ export default function Article({ id }) {
                 </button>
                 <span>{page} / {pages}</span>
                 <button onClick={next} disabled={page >= pages}>
-                  Próxima
+                  Proxima
                 </button>
               </div>
               <canvas ref={canvasRef} className="article-canvas" />
@@ -135,23 +177,69 @@ export default function Article({ id }) {
           )}
 
           {!err && isPdf && usePreview && (
-            <iframe
-              title={meta?.name}
-              src={drivePreviewURL(meta.id)}
-              className="article-frame"
-              allow="autoplay"
-            />
+            <iframe title={meta?.name} src={drivePreviewURL(meta.id)} className="article-frame" allow="autoplay" />
+          )}
+
+          {!err && isImage && meta && !usePreview && (
+            <figure className="article-rich-media">
+              <div className="article-image-shell">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={driveFileBinaryURL(meta.id)}
+                  alt={formattedTitle || meta.name}
+                  className="article-image"
+                  onError={() => setUsePreview(true)}
+                />
+              </div>
+              <figcaption className="article-media-caption">{formattedTitle || meta.name}</figcaption>
+            </figure>
+          )}
+
+          {!err && isVideo && meta && !usePreview && (
+            <figure className="article-rich-media">
+              <video
+                className="article-video"
+                controls
+                playsInline
+                preload="metadata"
+                poster={mediaThumbnail || undefined}
+                onError={() => setUsePreview(true)}
+              >
+                <source src={driveFileBinaryURL(meta.id)} type={meta.mimeType} />
+              </video>
+              <figcaption className="article-media-caption">{formattedTitle || meta.name}</figcaption>
+            </figure>
+          )}
+
+          {!err && meta && !isPdf && usePreview && (
+            <iframe title={meta?.name} src={drivePreviewURL(meta.id)} className="article-frame" allow="autoplay" />
           )}
         </section>
 
         <aside className="sidebar">
-          <h3>Artigos relacionados</h3>
-          {recs.length === 0 && <div>Nenhuma recomendação.</div>}
+          <h3>Midias relacionadas</h3>
+          {recs.length === 0 && <div>Nenhuma recomendacao.</div>}
           {recs.map((recommendation) => (
             <Link className="reco-item" key={recommendation.id} href={`/artigo/${recommendation.id}`}>
-              <div className="reco-name">{recommendation.name}</div>
-              <div className="reco-meta">
-                {new Date(recommendation.modifiedTime || Date.now()).toLocaleDateString("pt-BR")}
+              <div className="reco-media" aria-hidden="true">
+                {recommendation.thumbnailLink ? (
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={enhanceDriveThumbnail(recommendation.thumbnailLink)} alt="" loading="lazy" />
+                  </>
+                ) : (
+                  <div className="reco-media__fallback">
+                    <i className={getDriveMediaIconClass(recommendation.mimeType)} aria-hidden="true" />
+                    <span>{getDriveMediaLabel(recommendation.mimeType)}</span>
+                  </div>
+                )}
+              </div>
+              <div className="reco-body">
+                <div className="reco-type">{getDriveMediaLabel(recommendation.mimeType)}</div>
+                <div className="reco-name">{formatDriveItemTitle(recommendation.name)}</div>
+                <div className="reco-meta">
+                  {new Date(recommendation.modifiedTime || Date.now()).toLocaleDateString("pt-BR")}
+                </div>
               </div>
             </Link>
           ))}

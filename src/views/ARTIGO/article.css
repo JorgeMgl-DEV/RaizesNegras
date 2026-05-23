@@ -35,6 +35,21 @@
   gap: 0.55rem;
 }
 
+.article-type-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 34px;
+  padding: 0 0.9rem;
+  border-radius: 999px;
+  background: rgba(70, 14, 6, 0.08);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .article-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -136,6 +151,40 @@
   box-shadow: 0 12px 28px rgba(70, 14, 6, 0.1);
 }
 
+.article-rich-media {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.article-image-shell {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(70, 14, 6, 0.1);
+}
+
+.article-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.article-video {
+  width: 100%;
+  min-height: clamp(280px, 56vw, 760px);
+  border-radius: 24px;
+  background: #110805;
+  box-shadow: 0 12px 28px rgba(70, 14, 6, 0.1);
+}
+
+.article-media-caption {
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
 .article-frame,
 .article-viewer iframe {
   width: 100%;
@@ -163,8 +212,9 @@
 }
 
 .reco-item {
-  display: block;
-  padding: 1rem;
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.8rem;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.85);
   border: 1px solid var(--border-soft);
@@ -178,6 +228,54 @@
 .reco-item:hover {
   transform: translateX(4px);
   border-color: rgba(243, 156, 19, 0.4);
+}
+
+.reco-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  border: 1px solid rgba(70, 14, 6, 0.08);
+  background: rgba(255, 250, 244, 0.95);
+}
+
+.reco-media img,
+.reco-media__fallback {
+  width: 100%;
+  height: 100%;
+}
+
+.reco-media img {
+  object-fit: cover;
+}
+
+.reco-media__fallback {
+  display: grid;
+  place-items: center;
+  gap: 0.4rem;
+  padding: 0.8rem;
+  background:
+    radial-gradient(circle at top left, rgba(243, 156, 19, 0.16), transparent 42%),
+    linear-gradient(180deg, rgba(255, 250, 243, 1), rgba(249, 241, 230, 1));
+}
+
+.reco-media__fallback i {
+  color: var(--bg-cor-id-2);
+  font-size: 1.2rem;
+}
+
+.reco-media__fallback span,
+.reco-type {
+  color: var(--bg-cor-id-1);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.reco-body {
+  display: grid;
+  gap: 0.25rem;
 }
 
 .reco-name {

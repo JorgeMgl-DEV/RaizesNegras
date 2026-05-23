@@ -5,6 +5,13 @@ import Link from "next/link";
 import { useCallback, useState } from "react";
 import logoRclaro from "../../../assets/logos/logoRclaro.png";
 import { env } from "@/src/utils/env";
+import {
+  buildDriveMediaQuery,
+  enhanceDriveThumbnail,
+  formatDriveItemTitle,
+  getDriveMediaIconClass,
+  getDriveMediaLabel,
+} from "@/src/utils/driveMedia";
 import NavbarAuth from "./NavbarAuth";
 
 const navigationItems = [
@@ -41,9 +48,9 @@ export default function Navbar() {
     try {
       const requests = folders.map(async (folder) => {
         const params = new URLSearchParams({
-          q: `mimeType='application/pdf' and ('${folder}' in parents) and name contains '${query.replace(/'/g, "\\'")}'`,
+          q: buildDriveMediaQuery({ folderIds: [folder], searchTerm: query }),
           key: apiKey,
-          fields: "files(id,name,mimeType,webViewLink)",
+          fields: "files(id,name,mimeType,thumbnailLink,webViewLink)",
           orderBy: "name",
           pageSize: "10",
           supportsAllDrives: "true",
@@ -147,7 +154,7 @@ export default function Navbar() {
           <div className="navbar__search-container">
             <input
               type="text"
-              placeholder="Buscar artigos..."
+              placeholder="Buscar PDFs, imagens e videos..."
               aria-label="Campo de busca"
               value={searchTerm}
               onChange={handleSearch}
@@ -156,20 +163,30 @@ export default function Navbar() {
             {searchOpen && searchResults.length > 0 && (
               <div className="navbar__search-results">
                 {searchResults.map((result) => (
-                  <Link
-                    key={result.id}
-                    href={`/artigo/${result.id}`}
-                    className="navbar__search-result-item"
-                    onClick={closeNavigation}
-                  >
-                    <i className="fa-solid fa-file-pdf" />
-                    {result.name}
+                  <Link key={result.id} href={`/artigo/${result.id}`} className="navbar__search-result-item" onClick={closeNavigation}>
+                    <div className="navbar__search-result-media" aria-hidden="true">
+                      {result.thumbnailLink ? (
+                        <>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={enhanceDriveThumbnail(result.thumbnailLink)} alt="" loading="lazy" />
+                        </>
+                      ) : (
+                        <div className="navbar__search-result-fallback">
+                          <i className={getDriveMediaIconClass(result.mimeType)} />
+                          <span>{getDriveMediaLabel(result.mimeType)}</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="navbar__search-result-copy">
+                      <span className="navbar__search-result-type">{getDriveMediaLabel(result.mimeType)}</span>
+                      <span className="navbar__search-result-name">{formatDriveItemTitle(result.name)}</span>
+                    </div>
                   </Link>
                 ))}
               </div>
             )}
             {searchOpen && !isSearching && searchTerm.length >= 3 && searchResults.length === 0 && (
-              <div className="navbar__search-empty">Nenhum PDF encontrado com esse termo.</div>
+              <div className="navbar__search-empty">Nenhuma midia encontrada com esse termo.</div>
             )}
           </div>
         </div>

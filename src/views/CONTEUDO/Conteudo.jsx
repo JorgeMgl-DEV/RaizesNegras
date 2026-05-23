@@ -6,6 +6,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Footer from "../../components/footer/footer";
 import Navbar from "../../components/top-section/Navbar/Navbar.jsx";
 import { env } from "@/src/utils/env";
+import {
+  buildDriveMediaQuery,
+  enhanceDriveThumbnail,
+  formatDriveItemTitle,
+  getDriveMediaIconClass,
+  getDriveMediaLabel,
+} from "@/src/utils/driveMedia";
 
 const regionLabelMap = {
   all: "Todas as regiões",
@@ -37,18 +44,6 @@ const foldersByRegion = {
   geral: folderEntries.filter(({ regionKey }) => regionKey === "geral").map(({ id }) => id),
 };
 
-const formatDocumentTitle = (name = "") =>
-  name
-    .replace(/\.pdf$/i, "")
-    .replace(/_/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-
-const enhanceThumbnail = (thumbnailLink = "") => {
-  if (!thumbnailLink) return "";
-  return thumbnailLink.replace(/=s\d+/, "=s1200");
-};
-
 export default function Conteudo() {
   const [query, setQuery] = useState("");
   const [files, setFiles] = useState([]);
@@ -66,10 +61,10 @@ export default function Conteudo() {
   const isConfigured = Boolean(apiKey && folderEntries.length > 0);
 
   const buildQuery = (value, regionKey) => {
-    const contains = value ? ` and name contains '${value.replace(/'/g, "\\'")}'` : "";
-    const folders = (foldersByRegion[regionKey] || []).filter(Boolean);
-    const parents = folders.length > 0 ? `(${folders.map((id) => `('${id}' in parents)`).join(" or ")})` : "";
-    return `mimeType='application/pdf' and trashed=false${parents ? ` and ${parents}` : ""}${contains}`;
+    return buildDriveMediaQuery({
+      folderIds: foldersByRegion[regionKey] || [],
+      searchTerm: value,
+    });
   };
 
   const fetchFiles = useCallback(
@@ -83,7 +78,7 @@ export default function Conteudo() {
         if (regionKey === "all") {
           const requests = folderEntries.map(async ({ id: folderId, regionKey: folderRegionKey }) => {
             const params = new URLSearchParams({
-              q: `mimeType='application/pdf' and trashed=false and ('${folderId}' in parents)${q ? ` and name contains '${q.replace(/'/g, "\\'")}'` : ""}`,
+              q: buildDriveMediaQuery({ folderIds: [folderId], searchTerm: q }),
               key: apiKey,
               fields: "nextPageToken, files(id,name,mimeType,modifiedTime,webViewLink,thumbnailLink)",
               orderBy: sortKey === "recent" ? "modifiedTime desc" : sortKey === "oldest" ? "modifiedTime" : "name",
@@ -212,7 +207,7 @@ export default function Conteudo() {
             <span className="conteudo__eyebrow">Arquivo e pesquisa</span>
             <h1 className="conteudo__title">Conteúdo do acervo</h1>
             <p className="conteudo__text">
-              Consulte materiais organizados por região e explore o acervo com filtros simples, leitura pública e navegação direta para cada documento.
+              Consulte materiais organizados por região e explore o acervo com filtros simples, leitura pública e navegação direta para cada midia.
             </p>
           </div>
           <div className="conteudo__hero-card">
@@ -235,10 +230,10 @@ export default function Conteudo() {
                   id="conteudo-search"
                   className="conteudo__search"
                   type="text"
-                  placeholder="Buscar PDFs..."
+                  placeholder="Buscar PDFs, imagens e videos..."
                   value={query}
                   onChange={onChangeQuery}
-                  aria-label="Buscar PDFs"
+                  aria-label="Buscar midias"
                 />
               </div>
 
@@ -302,10 +297,11 @@ export default function Conteudo() {
 
             <div className="conteudo__grid">
               {files.map((file) => {
-                const title = formatDocumentTitle(file.name);
+                const title = formatDriveItemTitle(file.name);
                 const regionLabel = regionLabelMap[file.regionKey] || regionLabelMap[region] || "Acervo";
-                const thumbnail = enhanceThumbnail(file.thumbnailLink);
+                const thumbnail = enhanceDriveThumbnail(file.thumbnailLink);
                 const modifiedAt = formatDate(file.modifiedTime);
+                const mediaLabel = getDriveMediaLabel(file.mimeType);
 
                 return (
                   <Link key={file.id} href={`/artigo/${file.id}`} className="article-card">
@@ -319,15 +315,15 @@ export default function Conteudo() {
                         />
                       ) : (
                         <div className="article-card__media-fallback">
-                          <i className="fa-solid fa-file-pdf" aria-hidden="true" />
-                          <span>PDF</span>
+                          <i className={getDriveMediaIconClass(file.mimeType)} aria-hidden="true" />
+                          <span>{mediaLabel}</span>
                         </div>
                       )}
                     </div>
                     <div className="article-card__content">
                       <div className="article-card__tags">
                         <span className="article-card__badge">{regionLabel}</span>
-                        <span className="article-card__filetype">PDF</span>
+                        <span className="article-card__filetype">{mediaLabel}</span>
                       </div>
                       <h3 className="article-card__title">{title}</h3>
                       <p className="article-card__meta">
@@ -336,7 +332,7 @@ export default function Conteudo() {
                       </p>
                     </div>
                     <div className="article-card__footer">
-                      <span className="article-card__cta">Abrir documento</span>
+                      <span className="article-card__cta">Abrir material</span>
                       <span className="article-card__arrow">
                         <i className="fa-solid fa-arrow-right" aria-hidden="true" />
                       </span>

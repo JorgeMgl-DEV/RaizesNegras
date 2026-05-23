@@ -1,4 +1,5 @@
 import { env } from "@/src/utils/env";
+import { buildDriveMediaQuery, DRIVE_MEDIA_FIELDS } from "@/src/utils/driveMedia";
 
 export const API_KEY = env.googleApiKey;
 
@@ -11,7 +12,7 @@ export const driveFileBinaryURL = (id) =>
 export const getFileMetaURL = (id) => {
   const params = new URLSearchParams({
     key: API_KEY,
-    fields: "id,name,mimeType,modifiedTime,parents,thumbnailLink,webViewLink",
+    fields: DRIVE_MEDIA_FIELDS,
   });
 
   if (USE_SHARED_DRIVE) {
@@ -24,9 +25,9 @@ export const getFileMetaURL = (id) => {
 
 export const listInFolderURL = (folderId, opts = {}) => {
   const params = new URLSearchParams({
-    q: `mimeType='application/pdf' and '${folderId}' in parents and trashed=false`,
+    q: buildDriveMediaQuery({ folderIds: [folderId], searchTerm: opts.searchTerm || "" }),
     key: API_KEY,
-    fields: "files(id,name,mimeType,modifiedTime,thumbnailLink,webViewLink)",
+    fields: `files(${DRIVE_MEDIA_FIELDS})`,
     orderBy: opts.orderBy || "modifiedTime desc",
     pageSize: String(opts.pageSize || 12),
   });

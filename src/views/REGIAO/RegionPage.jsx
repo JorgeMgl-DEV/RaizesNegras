@@ -18,6 +18,13 @@ import mapaOeste from "../../assets/logos/maps/oeste.png";
 import mapaSul from "../../assets/logos/maps/Sul.png";
 import { regionDescriptions } from "@/src/data/regions";
 import { env } from "@/src/utils/env";
+import {
+  buildDriveMediaQuery,
+  enhanceDriveThumbnail,
+  formatDriveItemTitle,
+  getDriveMediaIconClass,
+  getDriveMediaLabel,
+} from "@/src/utils/driveMedia";
 import slugify from "@/src/utils/slugify";
 
 const logos = {
@@ -45,13 +52,6 @@ const foldersByRegion = {
   4: [env.googleDriveFolderOeste],
   5: [env.googleDriveFolderCentro],
 };
-
-const formatDocumentTitle = (name = "") =>
-  name
-    .replace(/\.pdf$/i, "")
-    .replace(/_/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
 
 export default function RegionPage({ slug }) {
   const [query, setQuery] = useState("");
@@ -90,7 +90,7 @@ export default function RegionPage({ slug }) {
 
         const requests = folders.map(async (folder) => {
           const params = new URLSearchParams({
-            q: `mimeType='application/pdf' and ('${folder}' in parents)${q ? ` and name contains '${q.replace(/'/g, "\\'")}'` : ""}`,
+            q: buildDriveMediaQuery({ folderIds: [folder], searchTerm: q }),
             key: apiKey,
             fields: "files(id,name,mimeType,modifiedTime,webViewLink,thumbnailLink)",
             orderBy: sortKey === "recent" ? "modifiedTime desc" : sortKey === "oldest" ? "modifiedTime" : "name",
@@ -240,10 +240,10 @@ export default function RegionPage({ slug }) {
                         id="region-search"
                         className="region-content__search"
                         type="text"
-                        placeholder="Buscar PDFs nesta região..."
+                        placeholder="Buscar PDFs, imagens e videos nesta regiao..."
                         value={query}
                         onChange={onChangeQuery}
-                        aria-label="Buscar PDFs"
+                        aria-label="Buscar midias"
                       />
                     </div>
 
@@ -277,28 +277,52 @@ export default function RegionPage({ slug }) {
                     <>
                       <div className="region-content__header">
                         <div className="region-content__count">
-                          {files.length} arquivo{files.length !== 1 ? "s" : ""} encontrado{files.length !== 1 ? "s" : ""}
+                          {files.length} midia{files.length !== 1 ? "s" : ""} encontrada{files.length !== 1 ? "s" : ""}
                         </div>
                       </div>
 
                       <div className="region-content__grid">
-                        {files.map((file) => (
-                          <Link key={file.id} href={`/artigo/${file.id}`} className="article-card">
-                            <div className="article-card__icon">
-                              <i className="fa-solid fa-file-pdf" aria-hidden="true" />
-                            </div>
-                            <div className="article-card__content">
-                              <h3 className="article-card__title">{formatDocumentTitle(file.name)}</h3>
-                              <p className="article-card__meta">
-                                <i className="fa-solid fa-calendar" aria-hidden="true" />
-                                {formatDate(file.modifiedTime)}
-                              </p>
-                            </div>
-                            <div className="article-card__arrow">
-                              <i className="fa-solid fa-arrow-right" aria-hidden="true" />
-                            </div>
-                          </Link>
-                        ))}
+                        {files.map((file) => {
+                          const thumbnail = enhanceDriveThumbnail(file.thumbnailLink);
+                          const mediaLabel = getDriveMediaLabel(file.mimeType);
+
+                          return (
+                            <Link key={file.id} href={`/artigo/${file.id}`} className="article-card">
+                              <div className="article-card__media" aria-hidden="true">
+                                {thumbnail ? (
+                                  <Image
+                                    src={thumbnail}
+                                    alt=""
+                                    fill
+                                    sizes="(max-width: 640px) calc(100vw - 2.5rem), (max-width: 1024px) calc(50vw - 1.5rem), 360px"
+                                  />
+                                ) : (
+                                  <div className="article-card__media-fallback">
+                                    <i className={getDriveMediaIconClass(file.mimeType)} aria-hidden="true" />
+                                    <span>{mediaLabel}</span>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="article-card__content">
+                                <div className="article-card__tags">
+                                  <span className="article-card__badge">{region.name}</span>
+                                  <span className="article-card__filetype">{mediaLabel}</span>
+                                </div>
+                                <h3 className="article-card__title">{formatDriveItemTitle(file.name)}</h3>
+                                <p className="article-card__meta">
+                                  <i className="fa-solid fa-calendar" aria-hidden="true" />
+                                  {formatDate(file.modifiedTime)}
+                                </p>
+                              </div>
+                              <div className="article-card__footer">
+                                <span className="article-card__cta">Abrir material</span>
+                                <span className="article-card__arrow">
+                                  <i className="fa-solid fa-arrow-right" aria-hidden="true" />
+                                </span>
+                              </div>
+                            </Link>
+                          );
+                        })}
                       </div>
                     </>
                   )}
