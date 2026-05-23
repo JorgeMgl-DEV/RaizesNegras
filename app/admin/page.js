@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { hasAdminWhitelist, isAdminUser, isTemporaryAdminUser } from "@/src/lib/admin";
+import { hasAdminWhitelist, isAdminUser } from "@/src/lib/admin";
 import {
   PERSON_TYPE_OPTIONS,
   getOptionLabel,
@@ -39,7 +39,6 @@ export default async function AdminPage() {
   const initials = getUserInitials(user);
   const personTypeLabel = getOptionLabel(PERSON_TYPE_OPTIONS, profile.personType, "Perfil em configuracao");
   const whitelistMode = hasAdminWhitelist();
-  const temporaryMode = !whitelistMode && isTemporaryAdminUser(user);
 
   return (
     <main className="login-page profile-page admin-page">
@@ -73,16 +72,8 @@ export default async function AdminPage() {
 
             <div className="login-panel__notes">
               <p>Tipo de perfil: {personTypeLabel}.</p>
-              <p>
-                Modo de acesso atual:{" "}
-                {whitelistMode ? "whitelist fixa por email em ADMIN_EMAILS." : "fallback temporario por nome/email."}
-              </p>
-              {temporaryMode && (
-                <p>
-                  Seu acesso esta liberado pelo modo temporario. Antes de producao, troque isso por emails exatos na
-                  env.
-                </p>
-              )}
+              <p>Modo de acesso atual: whitelist fixa por email em `ADMIN_EMAILS`.</p>
+              {!whitelistMode && <p>Sem `ADMIN_EMAILS` definido, ninguem deve ser tratado como admin.</p>}
             </div>
 
             <div className="profile-admin-badge">Administrador autorizado</div>
@@ -121,12 +112,8 @@ export default async function AdminPage() {
 
               <article className="admin-panel">
                 <span className="admin-panel__label">Modo de acesso</span>
-                <strong>{whitelistMode ? "Whitelist por env" : "Fallback temporario"}</strong>
-                <p>
-                  {whitelistMode
-                    ? "A regra usa os emails definidos em ADMIN_EMAILS."
-                    : "A regra usa nome completo e prefixo do email para Jorge, Erick e Murilo."}
-                </p>
+                <strong>Whitelist por env</strong>
+                <p>A regra usa somente os emails definidos em `ADMIN_EMAILS`.</p>
               </article>
 
               <article className="admin-panel">

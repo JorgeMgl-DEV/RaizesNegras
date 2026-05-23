@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import AvatarUploader from "@/src/components/auth/AvatarUploader";
 import {
   PERSON_TYPE_OPTIONS,
   QUILOMBOLA_REGION_OPTIONS,
@@ -11,20 +12,17 @@ import {
   isStudentType,
 } from "@/src/lib/profile";
 
-export default function ProfileFields({ initialProfile = {}, idPrefix = "profile" }) {
+export default function ProfileFields({
+  initialProfile = {},
+  idPrefix = "profile",
+  allowAvatarUpload = false,
+  userId = "",
+}) {
   const [personType, setPersonType] = useState(initialProfile.personType || "");
-  const [avatarUrl, setAvatarUrl] = useState(initialProfile.avatarUrl || "");
-  const [avatarBroken, setAvatarBroken] = useState(false);
 
   const showInstitution = isInstitutionLinkedType(personType);
   const showStudentLevel = isStudentType(personType);
   const showQuilombolaFields = isQuilombolaType(personType);
-  const hasAvatarPreview = avatarUrl.trim().length > 0;
-
-  const handleAvatarChange = (event) => {
-    setAvatarUrl(event.target.value);
-    setAvatarBroken(false);
-  };
 
   return (
     <>
@@ -169,45 +167,17 @@ export default function ProfileFields({ initialProfile = {}, idPrefix = "profile
           />
           <span className="login-form__hint">Campo opcional, util para contextualizar o perfil.</span>
         </div>
-
-        <div className="login-form__field login-form__field--wide">
-          <label htmlFor={`${idPrefix}-avatarUrl`}>Foto de perfil (URL opcional)</label>
-          <input
-            id={`${idPrefix}-avatarUrl`}
-            name="avatarUrl"
-            type="url"
-            value={avatarUrl}
-            onChange={handleAvatarChange}
-            placeholder="https://exemplo.com/minha-foto.jpg"
-            inputMode="url"
-          />
-          <span className="login-form__hint">
-            Nesta etapa a foto funciona por URL publica. Upload de arquivo pode entrar depois com Storage.
-          </span>
-        </div>
       </div>
 
-      {hasAvatarPreview && (
-        <div className="profile-avatar-preview">
-          <div className="profile-avatar-preview__media">
-            {avatarBroken ? (
-              <span className="profile-avatar-preview__placeholder">URL sem visualizacao</span>
-            ) : (
-              <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={avatarUrl}
-                  alt="Previa da foto de perfil"
-                  onError={() => setAvatarBroken(true)}
-                  loading="lazy"
-                />
-              </>
-            )}
-          </div>
-          <div className="profile-avatar-preview__copy">
-            <strong>Previa da foto</strong>
-            <span>Se a imagem nao abrir aqui, ajuste a URL antes de salvar.</span>
-          </div>
+      {allowAvatarUpload && userId ? (
+        <AvatarUploader
+          userId={userId}
+          initialAvatarUrl={initialProfile.avatarUrl || ""}
+          initialAvatarPath={initialProfile.avatarPath || ""}
+        />
+      ) : (
+        <div className="login-form__hint login-form__hint--panel">
+          A foto de perfil pode ser enviada depois do primeiro login, dentro da pagina de perfil.
         </div>
       )}
     </>

@@ -101,6 +101,7 @@ export function getProfileFromMetadata(metadata = {}) {
     quilombolaCommunity: cleanText(metadata.quilombola_community),
     culturalConnection: cleanMultiline(metadata.cultural_connection),
     phone: cleanText(metadata.phone),
+    avatarPath: cleanText(metadata.avatar_path),
     avatarUrl: cleanText(metadata.avatar_url),
   };
 
@@ -131,6 +132,7 @@ export function getProfileFromFormData(formData) {
     quilombola_community: formData.get("quilombolaCommunity"),
     cultural_connection: formData.get("culturalConnection"),
     phone: formData.get("phone"),
+    avatar_path: formData.get("avatarPath"),
     avatar_url: formData.get("avatarUrl"),
   });
 }
@@ -169,7 +171,7 @@ export function validateProfile(profile) {
   }
 
   if (!isValidHttpUrl(profile.avatarUrl)) {
-    return "Use uma URL publica valida para a foto de perfil.";
+    return "A foto de perfil enviada ficou com um endereco invalido. Tente enviar novamente.";
   }
 
   return "";
@@ -186,6 +188,7 @@ export function toUserMetadata(profile) {
     quilombola_community: isQuilombolaType(profile.personType) ? profile.quilombolaCommunity || null : null,
     cultural_connection: profile.culturalConnection || null,
     phone: profile.phone || null,
+    avatar_path: profile.avatarPath || null,
     avatar_url: profile.avatarUrl || null,
   };
 }

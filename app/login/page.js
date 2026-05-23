@@ -65,7 +65,7 @@ export default async function LoginPage({ searchParams }) {
             <div className="login-panel__notes">
               <p>O cadastro salva os dados principais diretamente em `user_metadata` do Supabase Auth.</p>
               <p>Aluno e professor informam instituicao. Quilombola informa regiao e comunidade de origem.</p>
-              <p>A foto de perfil e opcional e funciona por URL publica nesta primeira versao.</p>
+              <p>A foto de perfil e opcional e pode ser enviada depois do primeiro login, na pagina de perfil.</p>
             </div>
             <Link href="/" className="login-panel__back">
               Voltar para o site

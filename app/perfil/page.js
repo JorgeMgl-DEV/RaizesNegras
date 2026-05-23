@@ -96,12 +96,9 @@ export default async function ProfilePage({ searchParams }) {
 
             <div className="login-panel__notes">
               <p>Os dados abaixo sao salvos no Supabase Auth como metadados do usuario.</p>
-              <p>A foto de perfil continua opcional e, por enquanto, usa uma URL publica.</p>
+              <p>A foto de perfil continua opcional, mas agora pode ser enviada como arquivo para o Storage.</p>
               {!adminWhitelistReady && (
-                <p>
-                  Modo temporario ativo: `jorge`, `erick` e `murilo` sao reconhecidos por nome ou prefixo do email
-                  ate voce preencher `ADMIN_EMAILS`.
-                </p>
+                <p>Defina `ADMIN_EMAILS` na env para liberar acesso administrativo aos usuarios corretos.</p>
               )}
             </div>
 
@@ -170,7 +167,7 @@ export default async function ProfilePage({ searchParams }) {
             </div>
 
             <form action={updateProfile} className="login-form">
-              <ProfileFields initialProfile={profile} idPrefix="profile" />
+              <ProfileFields initialProfile={profile} idPrefix="profile" allowAvatarUpload userId={user.id} />
 
               <div className="login-form__actions profile-actions">
                 <LoginSubmitButton label="Salvar perfil" pendingLabel="Salvando..." formAction={updateProfile} />
