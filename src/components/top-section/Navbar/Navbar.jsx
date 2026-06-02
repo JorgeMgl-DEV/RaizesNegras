@@ -18,6 +18,7 @@ const navigationItems = [
   { href: "/", label: "Início" },
   { href: "/sobre", label: "Sobre" },
   { href: "/conteudo", label: "Conteúdo" },
+  { href: "/submeter", label: "Submeter" },
   { href: "/faq", label: "FAQ" },
   { href: "/privacidade", label: "Privacidade" },
   { href: "/termos", label: "Termos de Uso" },

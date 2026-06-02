@@ -5,3 +5,41 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum SubmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CHANGES_REQUESTED
+}
+
+model PublicationSubmission {
+  id                    String           @id @default(cuid())
+  title                 String
+  authors               String
+  institution           String?
+  knowledgeArea         String?
+  researchArea          String?
+  submissionType        String?
+  abstract              String           @db.Text
+  keywords              String?
+  driveLink             String
+  contactEmail          String
+  contactPhone          String?
+  submitterId           String?
+  submitterEmail        String
+  status                SubmissionStatus @default(PENDING)
+  adminNote             String?          @db.Text
+  approvedDriveFileId   String?
+  approvedDriveFileName String?
+  approvedDriveLink     String?
+  reviewedByEmail       String?
+  reviewedAt            DateTime?
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+
+  @@index([status, createdAt])
+  @@index([submitterId])
+  @@index([submitterEmail])
+  @@index([approvedDriveFileId])
+}
