@@ -24,6 +24,7 @@
   display: grid;
   align-content: start;
   gap: 0.35rem;
+  min-width: 0;
 }
 
 .footer__eyebrow {
@@ -141,5 +142,15 @@
   .footer__logos {
     margin-top: 0;
     border-radius: 18px;
+  }
+
+  .footer__legal-links {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .footer__legal-links a,
+  .footer__contact a {
+    white-space: normal;
   }
 }

@@ -2,6 +2,7 @@
   width: var(--content-width);
   margin: 0 auto;
   padding: clamp(2rem, 5vw, 3.5rem) 0 4rem;
+  min-width: 0;
 }
 
 .submission-hero {
@@ -68,6 +69,7 @@
 
 .submission-form,
 .submission-aside {
+  min-width: 0;
   border-radius: var(--radius-lg);
   background: rgba(255, 251, 245, 0.94);
   border: 1px solid var(--border-soft);
@@ -266,6 +268,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .admin-empty {
@@ -312,6 +315,7 @@
   color: var(--text-secondary);
   font-size: 0.82rem;
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
 .admin-submission__links a {
@@ -354,6 +358,7 @@
 .admin-review-form {
   display: grid;
   gap: 0.75rem;
+  min-width: 0;
 }
 
 .admin-review-form label {
@@ -387,5 +392,51 @@
   .submission-hero__link,
   .submission-history__link {
     width: 100%;
+  }
+
+  .admin-submissions__header .profile-link-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .submission-page {
+    padding-top: 1.25rem;
+  }
+
+  .submission-hero,
+  .submission-form,
+  .submission-aside,
+  .admin-submission {
+    border-radius: 22px;
+  }
+
+  .submission-hero {
+    padding: 1.1rem;
+  }
+
+  .submission-hero h1 {
+    font-size: clamp(2rem, 12vw, 2.7rem);
+    letter-spacing: 0;
+  }
+
+  .submission-status {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .admin-submission__meta,
+  .admin-submission__links {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .admin-submission__meta span,
+  .admin-submission__links a {
+    justify-content: center;
+    text-align: center;
+    border-radius: 14px;
   }
 }

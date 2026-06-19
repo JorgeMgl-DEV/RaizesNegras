@@ -18,6 +18,7 @@
 .region-page__info,
 .region-page__map,
 .region-content {
+  min-width: 0;
   border-radius: var(--radius-lg);
   background: rgba(255, 251, 245, 0.92);
   border: 1px solid var(--border-soft);
@@ -288,6 +289,16 @@
   .region-content,
   .region-error {
     padding: 1.2rem;
+    border-radius: 22px;
+  }
+
+  .region-page__map {
+    border-radius: 22px;
+  }
+
+  .region-page__title,
+  .region-content__title {
+    letter-spacing: 0;
   }
 
   .region-page__map-shell {
@@ -301,5 +312,12 @@
   .region-content__search,
   .region-content__select {
     width: 100%;
+  }
+
+  .region-content__count,
+  .region-backlink {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
   }
 }

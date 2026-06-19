@@ -7,6 +7,7 @@
 .faq__hero,
 .faq__section,
 .faq__card {
+  min-width: 0;
   border-radius: var(--radius-lg);
   background: rgba(255, 251, 245, 0.92);
   border: 1px solid var(--border-soft);
@@ -106,6 +107,7 @@
 .faq__link {
   color: var(--bg-cor-id-1);
   text-decoration: underline;
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 640px) {
@@ -113,14 +115,18 @@
   .faq__section,
   .faq__card {
     padding: 1.2rem;
+    border-radius: 22px;
   }
 
   .faq__title {
     font-size: clamp(2rem, 10vw, 2.8rem);
+    letter-spacing: 0;
   }
 
-  .faq__btn {
+  .faq__btn,
+  .faq__link {
     width: 100%;
     justify-content: center;
+    text-align: center;
   }
 }

@@ -17,6 +17,7 @@
 .conteudo__controls,
 .conteudo__empty,
 .conteudo__error {
+  min-width: 0;
   border-radius: var(--radius-lg);
   background: rgba(255, 251, 245, 0.9);
   border: 1px solid var(--border-soft);
@@ -415,13 +416,36 @@
 }
 
 @media (max-width: 640px) {
+  .conteudo__main {
+    padding-top: 1.5rem;
+  }
+
+  .conteudo__hero-copy,
+  .conteudo__hero-card,
+  .conteudo__controls,
+  .conteudo__empty,
+  .conteudo__error {
+    border-radius: 22px;
+  }
+
+  .conteudo__hero-copy,
+  .conteudo__hero-card {
+    padding: 1.2rem;
+  }
+
+  .conteudo__title {
+    font-size: clamp(2rem, 11vw, 2.85rem);
+    letter-spacing: 0;
+  }
+
   .conteudo__controls {
     grid-template-columns: 1fr;
   }
 
   .article-card__meta,
   .article-card__footer {
-    align-items: center;
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .article-card__cta {

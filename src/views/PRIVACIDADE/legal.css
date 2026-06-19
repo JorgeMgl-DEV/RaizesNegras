@@ -7,6 +7,7 @@
 .legal-page__hero,
 .legal-page,
 .legal-aside {
+  min-width: 0;
   border-radius: var(--radius-lg);
   background: rgba(255, 251, 245, 0.92);
   border: 1px solid var(--border-soft);
@@ -120,6 +121,7 @@
 
 .legal-aside__card a {
   width: fit-content;
+  overflow-wrap: anywhere;
 }
 
 .legal-aside__link {
@@ -200,6 +202,13 @@
   .legal-page,
   .legal-aside {
     padding: 1.2rem;
+    border-radius: 22px;
+  }
+
+  .legal-page__hero h1,
+  .legal-page h1 {
+    font-size: clamp(2rem, 10vw, 2.8rem);
+    letter-spacing: 0;
   }
 
   .contato-form {
@@ -209,6 +218,10 @@
 
   .contato-form button,
   .legal-aside__link {
+    width: 100%;
+  }
+
+  .legal-aside__card a {
     width: 100%;
   }
 }

@@ -5,6 +5,7 @@
 .login-shell {
   width: var(--content-width);
   margin: 0 auto;
+  min-width: 0;
 }
 
 .login-panel {
@@ -16,6 +17,7 @@
 
 .login-panel__intro,
 .login-card {
+  min-width: 0;
   border: 1px solid rgba(70, 14, 6, 0.12);
   border-radius: 32px;
   box-shadow: var(--shadow-strong);
@@ -348,6 +350,7 @@
 .profile-summary__meta {
   display: grid;
   gap: 0.2rem;
+  min-width: 0;
 }
 
 .profile-summary__meta strong {
@@ -356,6 +359,7 @@
 
 .profile-summary__meta span {
   color: rgba(255, 240, 220, 0.78);
+  overflow-wrap: anywhere;
 }
 
 .profile-admin-badge {
@@ -382,6 +386,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .profile-header h2 {
@@ -438,6 +443,7 @@
 .profile-avatar-preview__copy {
   display: grid;
   gap: 0.2rem;
+  min-width: 0;
 }
 
 .profile-avatar-preview__copy strong {
@@ -619,5 +625,33 @@
   .profile-summary,
   .profile-avatar-preview {
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 420px) {
+  .login-panel__intro h1 {
+    font-size: clamp(2rem, 12vw, 2.55rem);
+    letter-spacing: 0;
+  }
+
+  .login-switcher {
+    grid-template-columns: 1fr;
+    border-radius: 22px;
+  }
+
+  .login-switcher__link {
+    border-radius: 16px;
+  }
+
+  .profile-summary,
+  .profile-avatar-preview {
+    flex-direction: column;
+  }
+
+  .profile-summary__avatar,
+  .profile-avatar-preview__media {
+    width: 64px;
+    height: 64px;
+    flex-basis: 64px;
   }
 }

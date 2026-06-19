@@ -7,6 +7,7 @@
 }
 
 html {
+  width: 100%;
   font-size: 16px;
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
@@ -16,6 +17,7 @@ html {
 }
 
 body {
+  width: 100%;
   min-height: 100vh;
   overflow-x: clip;
   font-family: var(--font-body);
@@ -42,6 +44,7 @@ button,
 input,
 textarea,
 select {
+  min-width: 0;
   font: inherit;
   font-family: inherit;
   background: none;
@@ -110,6 +113,23 @@ main {
   position: relative;
   isolation: isolate;
   min-width: 0;
+}
+
+main,
+section,
+article,
+aside,
+nav,
+footer,
+form,
+label,
+div {
+  min-width: 0;
+}
+
+a,
+button {
+  overflow-wrap: anywhere;
 }
 
 .container {
@@ -248,6 +268,14 @@ figcaption {
   .cookie-consent__button {
     width: 100%;
     min-width: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  h1,
+  h2,
+  h3 {
+    letter-spacing: 0;
   }
 }
 

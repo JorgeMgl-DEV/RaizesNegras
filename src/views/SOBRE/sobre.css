@@ -8,6 +8,7 @@
 .sobre__intro-card,
 .sobre__tech,
 .sobre__card {
+  min-width: 0;
   border-radius: var(--radius-lg);
   background: rgba(255, 251, 245, 0.92);
   border: 1px solid var(--border-soft);
@@ -136,6 +137,7 @@
 .sobre__card-body {
   display: grid;
   gap: 0.6rem;
+  min-width: 0;
 }
 
 .sobre__role {
@@ -175,13 +177,21 @@
   .sobre__tech,
   .sobre__card {
     padding: 1.2rem;
+    border-radius: 22px;
   }
 
   .sobre__title {
     font-size: clamp(2rem, 10vw, 2.9rem);
+    letter-spacing: 0;
   }
 
   .sobre__subtitle {
     font-size: 1.45rem;
+  }
+
+  .sobre__link {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
   }
 }

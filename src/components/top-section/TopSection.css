@@ -89,6 +89,7 @@
   background: linear-gradient(145deg, rgba(255, 248, 236, 0.3), rgba(255, 248, 236, 0.1));
   border: 1px solid rgba(70, 14, 6, 0.08);
   box-shadow: 0 20px 46px rgba(97, 43, 8, 0.08);
+  min-width: 0;
 }
 
 .project-description {
@@ -128,6 +129,7 @@
   padding: 0 1.2rem;
   border-radius: 999px;
   font-weight: 700;
+  text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
@@ -501,6 +503,7 @@
 
   .project-description h1 {
     font-size: clamp(2rem, 11vw, 2.8rem);
+    letter-spacing: 0;
   }
 
   .hero-action {
