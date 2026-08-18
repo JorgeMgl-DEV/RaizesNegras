@@ -1,11 +1,15 @@
 import Article from "@/src/views/ARTIGO/Article";
 
 export async function generateMetadata({ params }) {
+  const { id } = await params;
+
   return {
-    title: `Artigo ${params.id} | Raízes Negras`,
+    title: `Artigo ${id} | Raízes Negras`,
   };
 }
 
-export default function Page({ params }) {
-  return <Article id={params.id} />;
+export default async function Page({ params }) {
+  const { id } = await params;
+
+  return <Article id={id} />;
 }
