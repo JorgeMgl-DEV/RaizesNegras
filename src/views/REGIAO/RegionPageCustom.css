@@ -1,6 +1,0 @@
-.region-page__info,
-.region-page__map,
-.region-content,
-.region-error {
-  backdrop-filter: blur(12px);
-}

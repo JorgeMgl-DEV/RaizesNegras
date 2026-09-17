@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { siteContact, siteContactLinks, siteTeam } from "@/src/data/site";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -15,15 +16,15 @@ export default function Footer() {
         </div>
         <div className="institutional">
           <strong>Equipe</strong>
-          <p>Realização: Jorge Miguel Viana Torres e Murilo Gabriel Mourão.</p>
-          <p>Orientação: Erick MacGregor.</p>
+          <p>Realização: {siteTeam.slice(0, 2).map(({ name }) => name).join(" e ")}.</p>
+          <p>Orientação: {siteTeam[2].name}.</p>
           <span className="footer__copyright">© {currentYear} Raízes Negras. Todos os direitos reservados.</span>
         </div>
         <div className="footer__contact">
           <strong>Contato</strong>
-          <a href="mailto:acervo.raizesnegras@gmail.com">acervo.raizesnegras@gmail.com</a>
-          <a href="https://wa.me/5598986249925" target="_blank" rel="noreferrer">
-            (98) 98624-9925
+          <a href={siteContactLinks.email}>{siteContact.email}</a>
+          <a href={siteContactLinks.whatsapp} target="_blank" rel="noreferrer">
+            {siteContact.whatsappLabel}
           </a>
           <div className="footer__legal-links">
             <Link href="/privacidade">Privacidade</Link>

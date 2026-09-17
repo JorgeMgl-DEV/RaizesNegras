@@ -29,6 +29,32 @@ export function buildDriveMediaQuery({ folderIds = [], searchTerm = "" } = {}) {
   return `(mimeType='application/pdf' or mimeType contains 'image/' or mimeType contains 'video/') and trashed=false${parentsQuery}${searchQuery}`;
 }
 
+export function createDriveListParams({
+  apiKey,
+  folderIds = [],
+  searchTerm = "",
+  fields = `files(${DRIVE_MEDIA_FIELDS})`,
+  orderBy = "modifiedTime desc",
+  pageSize = 12,
+  pageToken = "",
+} = {}) {
+  const params = new URLSearchParams({
+    q: buildDriveMediaQuery({ folderIds, searchTerm }),
+    key: apiKey,
+    fields,
+    orderBy,
+    pageSize: String(pageSize),
+    supportsAllDrives: "true",
+    includeItemsFromAllDrives: "true",
+  });
+
+  if (pageToken) {
+    params.set("pageToken", pageToken);
+  }
+
+  return params;
+}
+
 export function getDriveMediaKind(mimeType = "") {
   if (mimeType === "application/pdf") {
     return "pdf";

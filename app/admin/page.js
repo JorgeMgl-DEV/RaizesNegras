@@ -2,8 +2,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { hasAdminWhitelist, isAdminUser } from "@/src/lib/admin";
 import { prisma } from "@/src/lib/prisma";
-import { buildDriveMediaQuery, formatDriveItemTitle } from "@/src/utils/driveMedia";
+import { createDriveListParams, formatDriveItemTitle } from "@/src/utils/driveMedia";
 import { env } from "@/src/utils/env";
+import { driveFolderIds } from "@/src/utils/driveFolders";
 import {
   PERSON_TYPE_OPTIONS,
   getOptionLabel,
@@ -40,16 +41,6 @@ function getAdminMessage(error) {
   return error || "";
 }
 
-const driveFolders = [
-  env.googleDriveFolderGeneral,
-  env.googleDriveSubfolderId,
-  env.googleDriveFolderCentro,
-  env.googleDriveFolderLeste,
-  env.googleDriveFolderNorte,
-  env.googleDriveFolderOeste,
-  env.googleDriveFolderSul,
-].filter(Boolean);
-
 function getDriveSearchTerm(title = "") {
   return title
     .replace(/[^\p{L}\p{N}\s-]/gu, " ")
@@ -61,7 +52,7 @@ function getDriveSearchTerm(title = "") {
 }
 
 async function findDriveSuggestion(submission) {
-  if (!env.googleApiKey || driveFolders.length === 0 || submission.status === SUBMISSION_STATUS.APPROVED) {
+  if (!env.googleApiKey || driveFolderIds.length === 0 || submission.status === SUBMISSION_STATUS.APPROVED) {
     return null;
   }
 
@@ -72,14 +63,13 @@ async function findDriveSuggestion(submission) {
   }
 
   try {
-    const params = new URLSearchParams({
-      q: buildDriveMediaQuery({ folderIds: driveFolders, searchTerm }),
-      key: env.googleApiKey,
+    const params = createDriveListParams({
+      apiKey: env.googleApiKey,
+      folderIds: driveFolderIds,
+      searchTerm,
       fields: "files(id,name,mimeType,modifiedTime,webViewLink)",
       orderBy: "modifiedTime desc",
-      pageSize: "1",
-      supportsAllDrives: "true",
-      includeItemsFromAllDrives: "true",
+      pageSize: 1,
     });
 
     const response = await fetch(`https://www.googleapis.com/drive/v3/files?${params.toString()}`, {
@@ -249,7 +239,7 @@ export default async function AdminPage({ searchParams }) {
                   <h3>Submissoes recentes</h3>
                 </div>
                 <Link href="/submeter" className="login-form__submit login-form__submit--secondary profile-link-button">
-                  Abrir submissao
+                  Nova submissao
                 </Link>
               </div>
 

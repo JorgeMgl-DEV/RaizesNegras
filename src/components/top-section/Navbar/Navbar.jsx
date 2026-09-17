@@ -5,8 +5,9 @@ import Link from "next/link";
 import { useCallback, useState } from "react";
 import logoRclaro from "../../../assets/logos/logoRclaro.png";
 import { env } from "@/src/utils/env";
+import { driveFolderIds } from "@/src/utils/driveFolders";
 import {
-  buildDriveMediaQuery,
+  createDriveListParams,
   enhanceDriveThumbnail,
   formatDriveItemTitle,
   getDriveMediaIconClass,
@@ -19,9 +20,6 @@ const navigationItems = [
   { href: "/sobre", label: "Sobre" },
   { href: "/conteudo", label: "Conteúdo" },
   { href: "/submeter", label: "Submeter" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/privacidade", label: "Privacidade" },
-  { href: "/termos", label: "Termos de Uso" },
   { href: "/contato", label: "Contato" },
 ];
 
@@ -34,28 +32,19 @@ export default function Navbar() {
 
   const searchFiles = useCallback(async (query) => {
     const apiKey = env.googleApiKey;
-    const folders = [
-      env.googleDriveFolderGeneral,
-      env.googleDriveFolderCentro,
-      env.googleDriveFolderLeste,
-      env.googleDriveFolderNorte,
-      env.googleDriveFolderOeste,
-      env.googleDriveFolderSul,
-      env.googleDriveSubfolderId,
-    ].filter(Boolean);
+    const folders = driveFolderIds;
 
     if (!apiKey || folders.length === 0) return [];
 
     try {
       const requests = folders.map(async (folder) => {
-        const params = new URLSearchParams({
-          q: buildDriveMediaQuery({ folderIds: [folder], searchTerm: query }),
-          key: apiKey,
+        const params = createDriveListParams({
+          apiKey,
+          folderIds: [folder],
+          searchTerm: query,
           fields: "files(id,name,mimeType,thumbnailLink,webViewLink)",
           orderBy: "name",
-          pageSize: "10",
-          supportsAllDrives: "true",
-          includeItemsFromAllDrives: "true",
+          pageSize: 10,
         });
 
         const response = await fetch(`https://www.googleapis.com/drive/v3/files?${params.toString()}`);

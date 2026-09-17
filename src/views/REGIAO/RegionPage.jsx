@@ -3,8 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Footer from "../../components/footer/footer";
-import Navbar from "../../components/top-section/Navbar/Navbar.jsx";
 import regioes from "../../components/top-section/Mapa/regioes.json";
 import logoCentro from "../../assets/logos/centro.png";
 import logoLeste from "../../assets/logos/leste.png";
@@ -16,10 +14,10 @@ import mapaLeste from "../../assets/logos/maps/leste.png";
 import mapaNorte from "../../assets/logos/maps/norte.png";
 import mapaOeste from "../../assets/logos/maps/oeste.png";
 import mapaSul from "../../assets/logos/maps/Sul.png";
-import { regionDescriptions } from "@/src/data/regions";
 import { env } from "@/src/utils/env";
+import { driveFoldersByRegionCode } from "@/src/utils/driveFolders";
 import {
-  buildDriveMediaQuery,
+  createDriveListParams,
   enhanceDriveThumbnail,
   formatDriveItemTitle,
   getDriveMediaIconClass,
@@ -45,14 +43,6 @@ const mapas = {
   default: mapaNorte,
 };
 
-const foldersByRegion = {
-  1: [env.googleDriveFolderNorte],
-  2: [env.googleDriveFolderSul],
-  3: [env.googleDriveFolderLeste],
-  4: [env.googleDriveFolderOeste],
-  5: [env.googleDriveFolderCentro],
-};
-
 export default function RegionPage({ slug }) {
   const [query, setQuery] = useState("");
   const [files, setFiles] = useState([]);
@@ -66,10 +56,10 @@ export default function RegionPage({ slug }) {
     [slug],
   );
 
-  const regionDescription = region ? regionDescriptions[slugify(region.name)] || "" : "";
+  const regionDescription = region?.descricao || "";
   const apiKey = env.googleApiKey;
 
-  const isConfigured = Boolean(apiKey && region && foldersByRegion[region.code]);
+  const isConfigured = Boolean(apiKey && region && driveFoldersByRegionCode[region.code]?.length);
   const logoSrc = logos[region?.code] || logos.default;
   const mapSrc = mapas[region?.code] || mapas.default;
 
@@ -81,7 +71,7 @@ export default function RegionPage({ slug }) {
       setError("");
 
       try {
-        const folders = (foldersByRegion[region.code] || []).filter(Boolean);
+        const folders = driveFoldersByRegionCode[region.code] || [];
 
         if (folders.length === 0) {
           setFiles([]);
@@ -89,14 +79,13 @@ export default function RegionPage({ slug }) {
         }
 
         const requests = folders.map(async (folder) => {
-          const params = new URLSearchParams({
-            q: buildDriveMediaQuery({ folderIds: [folder], searchTerm: q }),
-            key: apiKey,
+          const params = createDriveListParams({
+            apiKey,
+            folderIds: [folder],
+            searchTerm: q,
             fields: "files(id,name,mimeType,modifiedTime,webViewLink,thumbnailLink)",
             orderBy: sortKey === "recent" ? "modifiedTime desc" : sortKey === "oldest" ? "modifiedTime" : "name",
-            pageSize: "12",
-            supportsAllDrives: "true",
-            includeItemsFromAllDrives: "true",
+            pageSize: 12,
           });
 
           const response = await fetch(`https://www.googleapis.com/drive/v3/files?${params.toString()}`);
@@ -169,7 +158,6 @@ export default function RegionPage({ slug }) {
   if (!region) {
     return (
       <>
-        <Navbar />
         <main className="region-page" id="conteudo" role="main">
           <div className="region-error">
             <h1>Região não encontrada</h1>
@@ -181,14 +169,12 @@ export default function RegionPage({ slug }) {
             </Link>
           </div>
         </main>
-        <Footer />
       </>
     );
   }
 
   return (
     <>
-      <Navbar />
       <main className="region-page" id="conteudo" role="main">
         <article className="region-article">
           <header className="region-page__header">
@@ -332,7 +318,6 @@ export default function RegionPage({ slug }) {
           </section>
         </article>
       </main>
-      <Footer />
     </>
   );
 }

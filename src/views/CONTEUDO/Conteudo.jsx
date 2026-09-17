@@ -3,11 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Footer from "../../components/footer/footer";
-import Navbar from "../../components/top-section/Navbar/Navbar.jsx";
 import { env } from "@/src/utils/env";
+import { driveFolderEntries, driveFoldersByRegion } from "@/src/utils/driveFolders";
 import {
-  buildDriveMediaQuery,
+  createDriveListParams,
   enhanceDriveThumbnail,
   formatDriveItemTitle,
   getDriveMediaIconClass,
@@ -24,25 +23,9 @@ const regionLabelMap = {
   sul: "Sul",
 };
 
-const folderEntries = [
-  { id: env.googleDriveFolderGeneral, regionKey: "geral" },
-  { id: env.googleDriveSubfolderId, regionKey: "geral" },
-  { id: env.googleDriveFolderCentro, regionKey: "centro" },
-  { id: env.googleDriveFolderLeste, regionKey: "leste" },
-  { id: env.googleDriveFolderNorte, regionKey: "norte" },
-  { id: env.googleDriveFolderOeste, regionKey: "oeste" },
-  { id: env.googleDriveFolderSul, regionKey: "sul" },
-].filter(({ id }) => Boolean(id));
-
-const foldersByRegion = {
-  all: folderEntries.map(({ id }) => id),
-  centro: folderEntries.filter(({ regionKey }) => regionKey === "centro").map(({ id }) => id),
-  leste: folderEntries.filter(({ regionKey }) => regionKey === "leste").map(({ id }) => id),
-  norte: folderEntries.filter(({ regionKey }) => regionKey === "norte").map(({ id }) => id),
-  oeste: folderEntries.filter(({ regionKey }) => regionKey === "oeste").map(({ id }) => id),
-  sul: folderEntries.filter(({ regionKey }) => regionKey === "sul").map(({ id }) => id),
-  geral: folderEntries.filter(({ regionKey }) => regionKey === "geral").map(({ id }) => id),
-};
+const regionByFolderId = Object.fromEntries(
+  driveFolderEntries.map(({ id, regionKey }) => [id, regionKey]),
+);
 
 export default function Conteudo() {
   const [query, setQuery] = useState("");
@@ -58,14 +41,7 @@ export default function Conteudo() {
   const queryRef = useRef("");
 
   const apiKey = env.googleApiKey;
-  const isConfigured = Boolean(apiKey && folderEntries.length > 0);
-
-  const buildQuery = (value, regionKey) => {
-    return buildDriveMediaQuery({
-      folderIds: foldersByRegion[regionKey] || [],
-      searchTerm: value,
-    });
-  };
+  const isConfigured = Boolean(apiKey && driveFolderEntries.length > 0);
 
   const fetchFiles = useCallback(
     async ({ q = "", pageToken = "", regionKey = "all", sortKey = "recent" } = {}) => {
@@ -75,68 +51,28 @@ export default function Conteudo() {
       setError("");
 
       try {
-        if (regionKey === "all") {
-          const requests = folderEntries.map(async ({ id: folderId, regionKey: folderRegionKey }) => {
-            const params = new URLSearchParams({
-              q: buildDriveMediaQuery({ folderIds: [folderId], searchTerm: q }),
-              key: apiKey,
-              fields: "nextPageToken, files(id,name,mimeType,modifiedTime,webViewLink,thumbnailLink)",
-              orderBy: sortKey === "recent" ? "modifiedTime desc" : sortKey === "oldest" ? "modifiedTime" : "name",
-              pageSize: "12",
-              supportsAllDrives: "true",
-              includeItemsFromAllDrives: "true",
-            });
+        const params = createDriveListParams({
+          apiKey,
+          folderIds: driveFoldersByRegion[regionKey] || [],
+          searchTerm: q,
+          fields: "nextPageToken, files(id,name,mimeType,modifiedTime,parents,webViewLink,thumbnailLink)",
+          orderBy: sortKey === "recent" ? "modifiedTime desc" : sortKey === "oldest" ? "modifiedTime" : "name",
+          pageSize: 12,
+          pageToken,
+        });
 
-            const response = await fetch(`https://www.googleapis.com/drive/v3/files?${params.toString()}`);
-            if (!response.ok) return { files: [], regionKey: folderRegionKey };
-            const data = await response.json();
-            return { ...data, regionKey: folderRegionKey };
-          });
+        const response = await fetch(`https://www.googleapis.com/drive/v3/files?${params.toString()}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-          const results = await Promise.all(requests);
-          const merged = [];
-          const seen = new Set();
-
-          results.forEach((result) => {
-            (result.files || []).forEach((file) => {
-              if (seen.has(file.id)) return;
-              seen.add(file.id);
-              merged.push({ ...file, regionKey: result.regionKey });
-            });
-          });
-
-          if (sortKey === "recent") {
-            merged.sort((a, b) => new Date(b.modifiedTime || 0) - new Date(a.modifiedTime || 0));
-          } else if (sortKey === "oldest") {
-            merged.sort((a, b) => new Date(a.modifiedTime || 0) - new Date(b.modifiedTime || 0));
-          } else {
-            merged.sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
-          }
-
-          setFiles(merged);
-          setCurrentPageToken("");
-          setNextPageToken("");
-        } else {
-          const params = new URLSearchParams({
-            q: buildQuery(q, regionKey),
-            key: apiKey,
-            fields: "nextPageToken, files(id,name,mimeType,modifiedTime,webViewLink,thumbnailLink)",
-            orderBy: sortKey === "recent" ? "modifiedTime desc" : sortKey === "oldest" ? "modifiedTime" : "name",
-            pageSize: "12",
-            supportsAllDrives: "true",
-            includeItemsFromAllDrives: "true",
-          });
-
-          if (pageToken) params.set("pageToken", pageToken);
-
-          const response = await fetch(`https://www.googleapis.com/drive/v3/files?${params.toString()}`);
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-          const data = await response.json();
-          setFiles((data.files || []).map((file) => ({ ...file, regionKey })));
-          setCurrentPageToken(pageToken);
-          setNextPageToken(data.nextPageToken || "");
-        }
+        const data = await response.json();
+        setFiles(
+          (data.files || []).map((file) => ({
+            ...file,
+            regionKey: regionByFolderId[file.parents?.[0]] || regionKey,
+          })),
+        );
+        setCurrentPageToken(pageToken);
+        setNextPageToken(data.nextPageToken || "");
       } catch {
         setError("Falha ao carregar conteúdos. Tente novamente.");
       } finally {
@@ -200,7 +136,6 @@ export default function Conteudo() {
 
   return (
     <>
-      <Navbar />
       <main className="conteudo__main">
         <section className="conteudo__hero">
           <div className="conteudo__hero-copy">
@@ -342,7 +277,7 @@ export default function Conteudo() {
               })}
             </div>
 
-            {region !== "all" && (
+            {(prevTokens.length > 0 || nextPageToken) && (
               <div className="conteudo__pager">
                 <button className="conteudo__btn" type="button" onClick={onPrev} disabled={prevTokens.length === 0 || loading}>
                   Anterior
@@ -355,7 +290,6 @@ export default function Conteudo() {
           </>
         )}
       </main>
-      <Footer />
     </>
   );
 }

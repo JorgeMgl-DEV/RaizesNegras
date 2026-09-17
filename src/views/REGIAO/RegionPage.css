@@ -23,6 +23,7 @@
   background: rgba(255, 251, 245, 0.92);
   border: 1px solid var(--border-soft);
   box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(12px);
 }
 
 .region-page__info {
@@ -238,6 +239,7 @@
   border: 1px solid var(--border-soft);
   box-shadow: var(--shadow-soft);
   text-align: center;
+  backdrop-filter: blur(12px);
 }
 
 .region-error h1 {

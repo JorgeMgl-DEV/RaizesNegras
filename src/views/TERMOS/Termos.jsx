@@ -1,10 +1,7 @@
-import Footer from "../../components/footer/footer";
-import Navbar from "../../components/top-section/Navbar/Navbar.jsx";
 
 export default function Termos() {
   return (
     <>
-      <Navbar />
       <main className="legal-shell">
         <section className="legal-page__hero">
           <span className="legal-page__eyebrow">Informações legais</span>
@@ -48,7 +45,6 @@ export default function Termos() {
           </aside>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

@@ -1,4 +1,3 @@
-import { Analytics } from "@vercel/analytics/react";
 import CookieConsent from "@/src/components/CookieConsent";
 import "./globals.css";
 
@@ -48,7 +47,6 @@ export default function RootLayout({ children }) {
       <body>
         <CookieConsent />
         {children}
-        <Analytics />
       </body>
     </html>
   );

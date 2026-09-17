@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Footer from "../../components/footer/footer";
-import Navbar from "../../components/top-section/Navbar/Navbar.jsx";
 import fotoErick from "./FotoErick.jpeg";
 import fotoJorge from "./FotoJorge.jpeg";
 import fotoMurilo from "./foto murilo.png";
@@ -8,7 +6,6 @@ import fotoMurilo from "./foto murilo.png";
 export default function Sobre() {
   return (
     <>
-      <Navbar />
       <main className="sobre__main">
         <section className="sobre__hero">
           <span className="sobre__eyebrow">Institucional</span>
@@ -133,7 +130,6 @@ export default function Sobre() {
           </article>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

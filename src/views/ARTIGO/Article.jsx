@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getDocument, GlobalWorkerOptions, version as pdfjsVersion } from "pdfjs-dist/legacy/build/pdf.mjs";
-import Footer from "../../components/footer/footer";
-import Navbar from "../../components/top-section/Navbar/Navbar.jsx";
 import { driveFileBinaryURL, drivePreviewURL, getFileMetaURL, listInFolderURL, API_KEY } from "../../utils/drive";
 import {
   enhanceDriveThumbnail,
@@ -129,7 +127,6 @@ export default function Article({ id }) {
 
   return (
     <>
-      <Navbar />
       <main className="article-layout">
         <section className="article-viewer">
           <div className="article-header">
@@ -152,12 +149,6 @@ export default function Article({ id }) {
             <div className="article-note">
               Este tipo de arquivo ainda nao tem visualizacao direta no site. Abra o material no Google Drive para ver
               o conteudo completo.
-            </div>
-          )}
-
-          {!err && meta && mediaKind !== "other" && (
-            <div className="article-note">
-              Tipo detectado: <code>{meta.mimeType}</code>.
             </div>
           )}
 
@@ -245,7 +236,6 @@ export default function Article({ id }) {
           ))}
         </aside>
       </main>
-      <Footer />
     </>
   );
 }

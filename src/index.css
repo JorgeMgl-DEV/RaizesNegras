@@ -241,6 +241,19 @@ figcaption {
   cursor: pointer;
 }
 
+.cookie-consent__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.cookie-consent__button--secondary {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--bg-cor-id-1);
+}
+
 @media (max-width: 640px) {
   html {
     font-size: 15px;
@@ -265,6 +278,7 @@ figcaption {
     border-radius: 22px;
   }
 
+  .cookie-consent__actions,
   .cookie-consent__button {
     width: 100%;
     min-width: 0;

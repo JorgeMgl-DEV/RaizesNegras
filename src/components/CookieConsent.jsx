@@ -1,64 +1,47 @@
 "use client";
 
+import { Analytics } from "@vercel/analytics/react";
 import { useEffect, useState } from "react";
 
-const ADSENSE_SCRIPT = {
-  src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js",
-  async: true,
-  "data-ad-client": "ca-pub-9866884710668386",
-};
-
-function injectAdSenseScript() {
-  if (document.getElementById("adsense-script")) return;
-
-  const script = document.createElement("script");
-  script.id = "adsense-script";
-
-  Object.entries(ADSENSE_SCRIPT).forEach(([key, value]) => {
-    script.setAttribute(key, value);
-  });
-
-  document.body.appendChild(script);
-}
+const CONSENT_KEY = "analyticsConsent";
 
 export default function CookieConsent() {
-  const [showBanner, setShowBanner] = useState(false);
-  const [accepted, setAccepted] = useState(false);
+  const [consent, setConsent] = useState(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem("cookieConsent");
-
-    if (consent === "true") {
-      setAccepted(true);
-      injectAdSenseScript();
-      return;
-    }
-
-    setShowBanner(true);
+    setConsent(localStorage.getItem(CONSENT_KEY));
+    setReady(true);
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem("cookieConsent", "true");
-    setAccepted(true);
-    setShowBanner(false);
-    injectAdSenseScript();
+  const saveConsent = (value) => {
+    localStorage.setItem(CONSENT_KEY, value);
+    setConsent(value);
   };
 
-  if (!showBanner || accepted) return null;
-
   return (
-    <div className="cookie-consent" role="dialog" aria-live="polite" aria-label="Consentimento de cookies">
-      <div className="cookie-consent__body">
-        <span className="cookie-consent__eyebrow">Privacidade</span>
-        <h2>Consentimento de Cookies</h2>
-        <p>
-          Utilizamos cookies para melhorar sua experiência, personalizar conteúdo e exibir anúncios do Google AdSense. Ao aceitar, você concorda com nossa{" "}
-          <a href="/privacidade">Política de Privacidade</a> e com o uso de cookies conforme a LGPD.
-        </p>
-      </div>
-      <button className="cookie-consent__button" onClick={handleAccept} type="button">
-        Aceitar e continuar
-      </button>
-    </div>
+    <>
+      {consent === "accepted" && <Analytics />}
+      {ready && consent === null && (
+        <div className="cookie-consent" role="dialog" aria-live="polite" aria-label="Consentimento de métricas">
+          <div className="cookie-consent__body">
+            <span className="cookie-consent__eyebrow">Privacidade</span>
+            <h2>Métricas de navegação</h2>
+            <p>
+              Podemos coletar métricas anônimas para entender o uso do portal. Você pode aceitar ou continuar sem a coleta. Consulte nossa{" "}
+              <a href="/privacidade">Política de Privacidade</a>.
+            </p>
+          </div>
+          <div className="cookie-consent__actions">
+            <button className="cookie-consent__button cookie-consent__button--secondary" onClick={() => saveConsent("rejected")} type="button">
+              Continuar sem métricas
+            </button>
+            <button className="cookie-consent__button" onClick={() => saveConsent("accepted")} type="button">
+              Aceitar métricas
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

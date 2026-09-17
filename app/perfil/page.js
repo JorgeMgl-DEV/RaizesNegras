@@ -171,9 +171,6 @@ export default async function ProfilePage({ searchParams }) {
 
               <div className="login-form__actions profile-actions">
                 <LoginSubmitButton label="Salvar perfil" pendingLabel="Salvando..." formAction={updateProfile} />
-                <Link href="/" className="login-form__submit login-form__submit--secondary profile-link-button">
-                  Continuar navegando
-                </Link>
               </div>
             </form>
           </div>

@@ -71,6 +71,13 @@
   font-size: 1.35rem;
 }
 
+.legal-page h3 {
+  margin-top: 1.35rem;
+  margin-bottom: 0.4rem;
+  color: var(--bg-cor-id-1);
+  font-size: 1.05rem;
+}
+
 .legal-page p {
   line-height: 1.8;
 }
@@ -137,50 +144,17 @@
   font-weight: 700;
 }
 
-.contato-form {
-  display: grid;
-  gap: 1rem;
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin-top: 1.5rem;
-  padding: 1.15rem;
-  border-radius: 22px;
-  background: var(--surface-soft);
 }
 
-.contato-form label {
-  display: grid;
-  gap: 0.5rem;
+.legal-aside__link--secondary {
+  background: transparent;
+  border: 1px solid var(--border-strong);
   color: var(--bg-cor-id-1);
-  font-weight: 700;
-}
-
-.contato-form input,
-.contato-form textarea {
-  width: 100%;
-  padding: 0.9rem 1rem;
-  border-radius: 14px;
-  border: 1px solid var(--border-soft);
-  background: var(--surface-strong);
-  color: var(--text-primary);
-}
-
-.contato-form button {
-  width: fit-content;
-  min-height: 46px;
-  padding: 0 1.25rem;
-  border-radius: 999px;
-  background: var(--bg-cor-id-1);
-  color: #fff1dc;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.enviado-msg {
-  margin-top: 1rem;
-  padding: 0.95rem 1rem;
-  border-radius: 16px;
-  background: rgba(35, 97, 61, 0.08);
-  color: #23613d;
-  font-weight: 700;
 }
 
 @media (max-width: 900px) {
@@ -211,12 +185,8 @@
     letter-spacing: 0;
   }
 
-  .contato-form {
-    padding: 0;
-    background: transparent;
-  }
-
-  .contato-form button,
+  .contact-actions,
+  .contact-actions .legal-aside__link,
   .legal-aside__link {
     width: 100%;
   }
