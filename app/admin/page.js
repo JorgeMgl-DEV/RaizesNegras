@@ -91,6 +91,7 @@ export default async function AdminPage({ searchParams }) {
   const resolvedSearchParams = (await searchParams) || {};
   const error = getAdminMessage(typeof resolvedSearchParams.error === "string" ? resolvedSearchParams.error : "");
   const reviewed = resolvedSearchParams.reviewed === "1";
+  const emailStatus = typeof resolvedSearchParams.email === "string" ? resolvedSearchParams.email : "";
 
   if (!hasSupabaseCredentials()) {
     redirect("/login?error=config");
@@ -228,7 +229,13 @@ export default async function AdminPage({ searchParams }) {
             {reviewed && (
               <div className="login-alert login-alert--success">
                 <strong>Revisao salva.</strong>
-                <p>A decisao administrativa foi registrada.</p>
+                <p>
+                  {emailStatus === "sent" && "A decisao foi registrada e o autor recebeu a notificacao por email."}
+                  {emailStatus === "unchanged" && "A decisao foi registrada. Como o status nao mudou, nenhum email foi enviado."}
+                  {emailStatus === "unconfigured" && "A decisao foi registrada, mas as variaveis do servico de email ainda nao estao configuradas."}
+                  {emailStatus === "failed" && "A decisao foi registrada, mas o envio do email falhou e o erro foi encaminhado ao monitoramento."}
+                  {!emailStatus && "A decisao administrativa foi registrada."}
+                </p>
               </div>
             )}
 

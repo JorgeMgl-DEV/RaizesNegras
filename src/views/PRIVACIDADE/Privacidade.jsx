@@ -23,6 +23,10 @@ export default function Privacidade() {
           <p>
             O acervo público consulta arquivos armazenados no Google Drive. Autenticação, perfis e registros de submissão são processados por meio do Supabase e do banco de dados associado ao projeto.
           </p>
+          <h2>Erros e notificações</h2>
+          <p>
+            O portal utiliza o Sentry para registrar falhas técnicas sem envio intencional de informações pessoais por padrão. Quando o status de uma submissão muda, o endereço informado pelo autor pode ser processado pela Resend exclusivamente para entregar a notificação transacional.
+          </p>
           <h2>Seus direitos</h2>
           <p>
             Conforme a LGPD, você pode solicitar acesso, correção ou exclusão dos seus dados pessoais. Para exercer esses direitos, entre em contato com a equipe do projeto.
@@ -39,6 +43,10 @@ export default function Privacidade() {
             <div className="legal-aside__card">
               <span>Dados de conta</span>
               <p>São utilizados para autenticação, perfil, submissões e administração do acervo.</p>
+            </div>
+            <div className="legal-aside__card">
+              <span>Operação do portal</span>
+              <p>Falhas técnicas são monitoradas e e-mails transacionais informam mudanças nas submissões.</p>
             </div>
           </div>
           <a className="legal-aside__link" href={siteContactLinks.email}>Solicitar informações</a>

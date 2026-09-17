@@ -241,6 +241,54 @@ figcaption {
   cursor: pointer;
 }
 
+.error-fallback {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: var(--page-gutter);
+}
+
+.error-fallback section {
+  display: grid;
+  gap: 1rem;
+  width: min(560px, 100%);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  background: var(--surface-strong);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-strong);
+  text-align: center;
+}
+
+.error-fallback span {
+  color: var(--text-tertiary);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.error-fallback h1 {
+  color: var(--bg-cor-id-1);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1;
+}
+
+.error-fallback p {
+  color: var(--text-secondary);
+}
+
+.error-fallback button {
+  justify-self: center;
+  min-height: 46px;
+  padding: 0 1.25rem;
+  border-radius: 999px;
+  background: var(--bg-cor-id-1);
+  color: #fff1dc;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .cookie-consent__actions {
   display: flex;
   flex-wrap: wrap;

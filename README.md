@@ -26,6 +26,8 @@ RaizesNegras/
 - CSS puro
 - Google Drive API
 - Vercel
+- Sentry (monitoramento de erros)
+- Resend (notificacoes transacionais)
 
 ## Desenvolvimento
 
@@ -49,6 +51,21 @@ NEXT_PUBLIC_GOOGLE_DRIVE_FOLDER_OESTE= ID_PASTA_OESTE
 NEXT_PUBLIC_GOOGLE_DRIVE_FOLDER_SUL= ID_PASTA_SUL
 NEXT_PUBLIC_GOOGLE_DRIVE_SUBFOLDER_ID= ID_SUBPASTA_OPCIONAL
 ```
+
+Para ativar monitoramento e notificacoes, configure tambem:
+
+```env
+NEXT_PUBLIC_SENTRY_DSN= DSN_PUBLICO_DO_SENTRY
+SENTRY_DSN= DSN_DO_SENTRY
+SENTRY_ORG= SLUG_DA_ORGANIZACAO
+SENTRY_PROJECT= SLUG_DO_PROJETO
+SENTRY_AUTH_TOKEN= TOKEN_PARA_SOURCE_MAPS
+RESEND_API_KEY= CHAVE_DA_RESEND
+NOTIFICATION_FROM_EMAIL= "Raizes Negras <notificacoes@raizesnegrasma.com.br>"
+NEXT_PUBLIC_SITE_URL= https://raizesnegrasma.com.br
+```
+
+O Sentry permanece desativado quando o DSN nao esta configurado. O status da submissao continua sendo salvo mesmo se o envio de email falhar; nesse caso, a falha e registrada no Sentry e informada no painel administrativo. A Resend exige que o dominio usado em `NOTIFICATION_FROM_EMAIL` esteja verificado.
 
 ### 3. Rodar em desenvolvimento
 

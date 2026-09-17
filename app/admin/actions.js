@@ -1,9 +1,11 @@
 "use server";
 
+import * as Sentry from "@sentry/nextjs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { isAdminUser } from "@/src/lib/admin";
 import { prisma } from "@/src/lib/prisma";
+import { sendSubmissionStatusNotification } from "@/src/lib/email";
 import {
   SUBMISSION_STATUS,
   buildDriveFileViewLink,
@@ -56,7 +58,15 @@ export async function reviewSubmission(formData) {
     redirect(`/admin?error=${encodeURIComponent("Informe o ID ou link do arquivo final no Drive antes de aprovar.")}`);
   }
 
-  await prisma.publicationSubmission.update({
+  const currentSubmission = await prisma.publicationSubmission.findUnique({
+    where: { id: submissionId },
+  });
+
+  if (!currentSubmission) {
+    redirect("/admin?error=submission");
+  }
+
+  const updatedSubmission = await prisma.publicationSubmission.update({
     where: { id: submissionId },
     data: {
       status,
@@ -69,7 +79,29 @@ export async function reviewSubmission(formData) {
     },
   });
 
+  let emailStatus = "unchanged";
+
+  if (currentSubmission.status !== updatedSubmission.status) {
+    try {
+      const notification = await sendSubmissionStatusNotification(updatedSubmission);
+      emailStatus = notification.status;
+    } catch (error) {
+      emailStatus = "failed";
+      Sentry.withScope((scope) => {
+        scope.setTag("feature", "submission-status-email");
+        scope.setTag("submission.status", updatedSubmission.status);
+        scope.setContext("submission", {
+          id: updatedSubmission.id,
+          previousStatus: currentSubmission.status,
+          currentStatus: updatedSubmission.status,
+        });
+        Sentry.captureException(error);
+      });
+      await Sentry.flush(2000);
+    }
+  }
+
   revalidatePath("/admin");
   revalidatePath("/submeter");
-  redirect("/admin?reviewed=1");
+  redirect(`/admin?reviewed=1&email=${emailStatus}`);
 }
