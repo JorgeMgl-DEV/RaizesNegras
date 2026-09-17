@@ -33,3 +33,9 @@ client_secret_1039942613737-o4fv9v85ct3v8v1rbkevjqhnbshd55ii.apps.googleusercont
 .vercel
 
 /src/generated/prisma
+
+# Local AI/editor tooling
+.agents/
+.claude/
+.windsurf/
+skills-lock.json

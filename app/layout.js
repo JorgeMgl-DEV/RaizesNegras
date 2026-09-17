@@ -3,7 +3,7 @@ import CookieConsent from "@/src/components/CookieConsent";
 import "./globals.css";
 
 export const metadata = {
-  metadataBase: new URL("https://raizesnegras.vercel.app"),
+  metadataBase: new URL("https://raizesnegrasma.com.br"),
   title: "Raízes Negras - Portal da Cultura Afro-Maranhense | História e Identidade",
   description:
     "Explore a rica herança cultural afro-brasileira do Maranhão através de documentos históricos, manifestações culturais e pesquisas.",
@@ -25,9 +25,8 @@ export const metadata = {
     title: "Raízes Negras - Portal da Cultura Afro-Maranhense",
     description:
       "Explore a rica herança cultural afro-brasileira do Maranhão através de documentos históricos, manifestações culturais e pesquisas.",
-    url: "https://raizesnegras.vercel.app",
+    url: "https://raizesnegrasma.com.br",
     siteName: "Raízes Negras",
-    images: ["/social-share.png"],
     locale: "pt_BR",
     type: "website",
   },
@@ -36,7 +35,6 @@ export const metadata = {
     title: "Raízes Negras - Portal da Cultura Afro-Maranhense",
     description:
       "Explore a rica herança cultural afro-brasileira do Maranhão através de documentos históricos, manifestações culturais e pesquisas.",
-    images: ["/social-share.png"],
   },
   robots: {
     index: true,
