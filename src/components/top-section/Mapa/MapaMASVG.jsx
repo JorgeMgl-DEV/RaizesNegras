@@ -13,6 +13,7 @@ const defaultStroke = "#F8BB5C";
 export default function MapaMASVG({
   hoveredRegion,
   handleRegionEnter,
+  handleRegionMove,
   handleRegionLeave,
   handleRegionClick,
 }) {
@@ -44,9 +45,10 @@ export default function MapaMASVG({
               role="link"
               tabIndex={0}
               aria-label={`Abrir regiao ${name}`}
-              onMouseEnter={() => handleRegionEnter(name, code)}
+              onMouseEnter={(event) => handleRegionEnter(name, code, event)}
+              onMouseMove={handleRegionMove}
               onMouseLeave={handleRegionLeave}
-              onFocus={() => handleRegionEnter(name, code)}
+              onFocus={(event) => handleRegionEnter(name, code, event)}
               onBlur={handleRegionLeave}
               onClick={() => handleRegionClick(code)}
               onKeyDown={(event) => {
