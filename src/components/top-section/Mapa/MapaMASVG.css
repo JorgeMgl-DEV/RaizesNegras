@@ -16,6 +16,7 @@
   top: 50%;
   right: clamp(0rem, 1.5vw, 1rem);
   z-index: 5;
+  pointer-events: none;
   transform: translateY(-50%);
   animation: popup-enter 0.18s ease-out both;
 }

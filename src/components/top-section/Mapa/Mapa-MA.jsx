@@ -49,10 +49,11 @@ export default function MapaMA() {
       <MapaMASVG
         hoveredRegion={hoveredRegion}
         handleRegionEnter={showRegionPopup}
+        handleRegionLeave={hideRegionPopup}
         handleRegionClick={handleRegionClick}
       />
       {hoveredRegionCode && (
-        <div className="popup-wrapper" role="status" aria-live="polite">
+        <div className="popup-wrapper" role="tooltip">
           <Popup codigo={hoveredRegionCode} />
         </div>
       )}
